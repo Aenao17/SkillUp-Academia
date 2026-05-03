@@ -34,6 +34,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 import './theme/variables.css';
 import ProtectedRoute from "./auth/ProtectedRoute";
 import Login from "./pages/login/Login";
+import Signup from "./pages/signup/Signup";
 
 setupIonicReact();
 
@@ -43,9 +44,13 @@ const App: React.FC = () => (
       <IonRouterOutlet>
        <ProtectedRoute exact path="/home" component={Home} />
 
-        <Route exact path="/login">
-          <Login />
-        </Route>
+          <Route exact path="/login">
+              <Login />
+          </Route>
+
+          <Route exact path="/signup">
+              <Signup />
+          </Route>
 
         <Route exact path="/">
           <Redirect to="/login" />
