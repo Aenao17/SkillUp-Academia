@@ -1,4 +1,4 @@
-# TherAppy
+# SkillUp Academia
 
 ## ▶ How to run
 
