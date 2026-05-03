@@ -6,7 +6,7 @@
 2. Install Docker Desktop (https://docs.docker.com/get-started/get-docker)
 3. Run the following command in Backend folder to build and start the app:
     ```bash
-    docker-compose up -d
+    docker-compose up
     ```
 
 4. Run the following command in Backend folder to build and start the application:

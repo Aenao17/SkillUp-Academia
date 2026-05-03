@@ -1,1 +1,27 @@
-services: { }
+services:
+  postgres:
+    image: postgres:16
+    container_name: skillup-academia-database
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: skillup-academia
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: skillup-academia-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/skillup-academia
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+
+volumes:
+  postgres_data:
