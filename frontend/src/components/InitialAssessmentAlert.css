@@ -1,0 +1,176 @@
+ion-alert.custom-alert {
+    --background: #ffffff;
+    --color: #1f1f1f;
+    --ion-background-color: #ffffff;
+    --ion-text-color: #1f1f1f;
+    color-scheme: light;
+}
+
+/* overlay */
+ion-alert.custom-alert::part(backdrop) {
+    background: rgba(0, 0, 0, 0.38);
+}
+
+/* wrapper */
+ion-alert.custom-alert::part(alert-wrapper),
+ion-alert.custom-alert .alert-wrapper {
+    width: 92%;
+    max-width: 520px;
+    border-radius: 30px !important;
+    overflow: hidden !important;
+    background: #ffffff !important;
+    color: #1f1f1f !important;
+    border: none !important;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+}
+
+/* header */
+ion-alert.custom-alert::part(header),
+ion-alert.custom-alert .alert-head {
+    background: linear-gradient(180deg, #6c5cff 0%, #2f4be8 100%) !important;
+    padding: 24px 28px 20px !important;
+}
+
+ion-alert.custom-alert .alert-title {
+    color: #ffffff !important;
+    font-size: 22px !important;
+    font-weight: 750 !important;
+    text-align: left !important;
+}
+
+/* message */
+ion-alert.custom-alert::part(message),
+ion-alert.custom-alert .alert-message {
+    background: #ffffff !important;
+    color: #555 !important;
+    font-size: 16px !important;
+    line-height: 1.25 !important;
+    text-align: left !important;
+    padding: 18px 28px 24px !important;
+}
+
+/* checkbox section */
+ion-alert.custom-alert .alert-checkbox-group {
+    background: #ffffff !important;
+    border-top: 1px solid #ececf5 !important;
+    border-bottom: 1px solid #ececf5 !important;
+    padding: 10px 0 !important;
+}
+
+ion-alert.custom-alert .alert-checkbox-button {
+    height: 58px !important;
+    padding-inline-start: 28px !important;
+    padding-inline-end: 28px !important;
+}
+
+ion-alert.custom-alert .alert-checkbox-label {
+    color: #444 !important;
+    font-size: 15px !important;
+}
+
+ion-alert.custom-alert .alert-checkbox-icon {
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 7px !important;
+    border: 2px solid #6c5cff !important;
+}
+
+ion-alert.custom-alert .alert-checkbox-inner {
+    border-color: #ffffff !important;
+}
+
+ion-alert.custom-alert .alert-checkbox-icon[aria-checked="true"],
+ion-alert.custom-alert .alert-checkbox-button[aria-checked="true"] .alert-checkbox-icon {
+    background: #6c5cff !important;
+    border-color: #6c5cff !important;
+}
+
+/* buttons area */
+ion-alert.custom-alert::part(button-group),
+ion-alert.custom-alert .alert-button-group {
+    background: #ffffff !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 14px !important;
+    padding: 18px 24px 24px !important;
+    border: none !important;
+}
+
+/* base buttons */
+ion-alert.custom-alert .alert-button {
+    flex: 0 0 150px !important;
+    height: 46px !important;
+    margin: 0 !important;
+    border-radius: 18px !important;
+    text-transform: none !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+}
+
+ion-alert.custom-alert .alert-button-inner {
+    justify-content: center !important;
+}
+
+/* secondary */
+ion-alert.custom-alert .alert-button.role-cancel {
+    background: #f4f6ff !important;
+    color: #6c5cff !important;
+}
+
+/* primary */
+ion-alert.custom-alert .alert-button.role-confirm {
+    background: #ffc400 !important;
+    color: #1f1f1f !important;
+    box-shadow: 0 8px 18px rgba(255, 196, 0, 0.28);
+}
+
+/* mobile */
+@media (max-width: 768px) {
+    ion-alert.custom-alert::part(alert-wrapper),
+    ion-alert.custom-alert .alert-wrapper {
+        width: 92%;
+        max-width: 340px;
+        border-radius: 24px !important;
+    }
+
+    ion-alert.custom-alert::part(header),
+    ion-alert.custom-alert .alert-head {
+        padding: 18px 20px 14px !important;
+    }
+
+    ion-alert.custom-alert .alert-title {
+        font-size: 18px !important;
+        text-align: center !important;
+    }
+
+    ion-alert.custom-alert::part(message),
+    ion-alert.custom-alert .alert-message {
+        font-size: 13px !important;
+        text-align: center !important;
+        padding: 14px 20px 18px !important;
+    }
+
+    ion-alert.custom-alert .alert-checkbox-button {
+        height: 50px !important;
+        padding-inline-start: 22px !important;
+        padding-inline-end: 22px !important;
+    }
+
+    ion-alert.custom-alert .alert-checkbox-label {
+        font-size: 13px !important;
+    }
+
+    ion-alert.custom-alert::part(button-group),
+    ion-alert.custom-alert .alert-button-group {
+        gap: 10px !important;
+        padding: 14px 16px 18px !important;
+    }
+
+    ion-alert.custom-alert .alert-button {
+        flex: 1 1 0 !important;
+        min-width: 0 !important;
+        height: 42px !important;
+        font-size: 14px !important;
+    }
+}
