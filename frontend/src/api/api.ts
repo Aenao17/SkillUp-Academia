@@ -15,6 +15,7 @@ export type ApiError = {
 };
 
 import { getAccessToken } from "../auth/authStorage";
+import {LearningModuleDto} from "../types/module";
 
 export async function getJsonAuth<TResponse>(path: string): Promise<TResponse> {
     const token = getAccessToken();
@@ -94,6 +95,10 @@ export async function deleteAuth(path: string): Promise<void> {
         throw new Error(msg);
     }
 }
+
+export const getModules = async (): Promise<LearningModuleDto[]> => {
+    return getJsonAuth<LearningModuleDto[]>("/api/modules");
+};
 
 export async function postJson<TResponse>(
     path: string,

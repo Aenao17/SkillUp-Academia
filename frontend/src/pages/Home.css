@@ -197,6 +197,20 @@
         --background: rgba(108, 92, 255, 0.12);
         border-radius: 20px;
     }
+
+}
+.modules-list {
+    margin-top: 24px;
+    display: grid;
+    gap: 16px;
+    max-width: 760px;
+}
+
+@media (max-width: 768px) {
+    .modules-list {
+        margin: 18px;
+        margin-top: 18px;
+    }
 }
 
 /* ================= ALERT CUSTOM ================= */
