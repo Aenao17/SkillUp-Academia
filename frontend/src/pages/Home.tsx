@@ -1,18 +1,23 @@
 import { IonContent, IonPage } from "@ionic/react";
 import { useEffect, useState } from "react";
 import "./Home.css";
-
-import InitialAssessmentAlert from "../components/InitialAssessmentAlert";
-import SidebarNav from "../components/SidebarNav";
-import MobileTabBar from "../components/MobileTabBar";
+import InitialAssessmentAlert from "../components/InitialAssessmentAlert/InitialAssessmentAlert";
+import MobileTabBar from "../components/MobileTabBar/MobileTabBar";
+import InitialAssessmentCard from "../components/InitialAssessmentCard/InitialAssessmentCard";
+import SidebarNav from "../components/SidebarNav/SidebarNav";
 
 const Home: React.FC = () => {
     const [showAssessmentPopup, setShowAssessmentPopup] = useState(false);
+    const [hasCompletedInitialAssessment, setHasCompletedInitialAssessment] =
+        useState(false);
 
     useEffect(() => {
-        const hidden = localStorage.getItem("hideInitialAssessmentPopup");
+        const hidePopup = localStorage.getItem("hideInitialAssessmentPopup");
+        const completed = localStorage.getItem("hasCompletedInitialAssessment");
 
-        if (hidden !== "true") {
+        setHasCompletedInitialAssessment(completed === "true");
+
+        if (hidePopup !== "true" && completed !== "true") {
             setShowAssessmentPopup(true);
         }
     }, []);
@@ -33,12 +38,11 @@ const Home: React.FC = () => {
                             <div className="mobile-mascot">😊</div>
                         </div>
 
-                        <div className="desktop-title">
-                            <h1>Home</h1>
-                            <p>Aici vin modulele tale</p>
-                        </div>
 
-                        <p className="mobile-subtitle">Aici vin modulele tale</p>
+
+                        <InitialAssessmentCard
+                            show={!hasCompletedInitialAssessment}
+                        />
                     </div>
                 </div>
 
