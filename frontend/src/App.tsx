@@ -3,6 +3,10 @@ import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Profile from "./pages/Profile/Profile";
 import Home from './pages/Home';
+import ModuleDetails from "./pages/module/ModuleDetails";
+import Lesson from "./pages/lesson/Lesson";
+import Modules from "./pages/modules/Modules";
+import LessonTest from "./pages/test/LessonTest";
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -56,6 +60,11 @@ const App: React.FC = () => (
           <Redirect to="/login" />
         </Route>
           <ProtectedRoute exact path="/profile" component={Profile} />
+          <ProtectedRoute exact path="/modules/:id" component={ModuleDetails} />
+          <ProtectedRoute exact path="/lessons/:id/test" component={LessonTest} />
+          <ProtectedRoute exact path="/lessons/:id" component={Lesson} />
+          <ProtectedRoute exact path="/modules" component={Modules} />
+
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

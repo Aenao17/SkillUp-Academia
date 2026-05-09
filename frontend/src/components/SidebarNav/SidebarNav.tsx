@@ -12,7 +12,8 @@ const SidebarNav: React.FC = () => {
     const router = useIonRouter();
     const location = useLocation();
 
-    const isActive = (path: string) => location.pathname === path;
+    const isActive = (path: string) =>
+        location.pathname === path || location.pathname.startsWith(`${path}/`);
 
     return (
         <div className="sidebar">

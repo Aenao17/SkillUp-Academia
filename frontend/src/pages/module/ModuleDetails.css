@@ -1,0 +1,441 @@
+.module-page {
+    --background: var(--bg-soft);
+}
+
+.module-layout {
+    min-height: 100vh;
+    background: var(--bg-soft);
+}
+
+.module-content {
+    margin-left: 310px;
+    width: calc(100% - 310px);
+    height: 100vh;
+    padding: 0;
+    background: #f3f1ff;
+    overflow: hidden;
+}
+
+.module-phone {
+    width: 100%;
+    max-width: none;
+    height: 100vh;
+    min-height: 0;
+    background: #f3f1ff;
+    box-shadow: none;
+    overflow: hidden;
+}
+
+.module-top {
+    height: 250px;
+    padding: 24px 64px 28px;
+    background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+    color: white;
+}
+
+.module-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 26px;
+}
+
+.module-nav button {
+    border: none;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    padding: 10px 14px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.module-nav ion-icon {
+    font-size: 22px;
+}
+
+.module-points {
+    display: flex;
+    gap: 14px;
+    color: var(--accent);
+    font-weight: 800;
+}
+
+.module-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.module-header-text {
+    min-width: 280px;
+    max-width: 520px;
+}
+
+.module-bubble {
+    width: 78px;
+    height: 78px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    flex-shrink: 0;
+}
+
+.module-unit {
+    display: inline-block;
+    padding: 7px 13px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #151515;
+    font-weight: 900;
+    font-size: 13px;
+}
+
+.module-top h1 {
+    margin: 10px 0 6px;
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.module-top p {
+    margin: 0;
+    max-width: 420px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 16px;
+    line-height: 1.35;
+}
+
+.module-progress {
+    margin-top: 16px;
+    max-width: 420px;
+}
+
+.module-progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.module-progress-track {
+    width: 100%;
+    height: 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.22);
+    overflow: hidden;
+}
+
+.module-progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.lesson-path-map {
+    height: calc(100vh - 250px);
+    padding: 30px 80px 36px;
+    display: grid;
+    align-content: center;
+    gap: 0;
+    overflow: hidden;
+}
+
+.path-step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 76px;
+}
+
+.path-step:last-child {
+    padding-bottom: 0;
+}
+
+.path-step.left {
+    transform: translateX(-150px);
+}
+
+.path-step.right {
+    transform: translateX(150px);
+}
+
+.path-circle {
+    position: relative;
+    z-index: 2;
+    width: 76px;
+    height: 76px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+    color: white;
+    font-size: 34px;
+    box-shadow: 0 18px 32px rgba(47, 75, 232, 0.32);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.path-circle:hover {
+    transform: translateY(-3px) scale(1.03);
+}
+
+.path-circle.locked {
+    background: #f4f4f6;
+    color: #888;
+    border: 1px dashed #c8c8d6;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.path-label {
+    position: relative;
+    z-index: 2;
+    margin-top: 8px;
+    border: 2px solid #12b886;
+    background: white;
+    color: var(--text-dark);
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(17, 24, 39, 0.08);
+}
+
+.path-label ion-icon {
+    color: #12b886;
+    font-size: 18px;
+}
+
+.path-label.locked {
+    border-color: #b8becf;
+    color: #596070;
+    cursor: not-allowed;
+}
+
+.path-label.locked ion-icon {
+    color: #596070;
+}
+
+.path-connector {
+    position: absolute;
+    top: 96px;
+    width: 320px;
+    height: 80px;
+    pointer-events: none;
+    z-index: 1;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.path-connector.to-right {
+    left: 50%;
+    transform: translateX(10px);
+    background-image: url("data:image/svg+xml,%3Csvg width='320' height='80' viewBox='0 0 320 80' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 8 C90 68 220 12 312 72' stroke='%23cfc6ff' stroke-width='9' stroke-linecap='round' stroke-dasharray='1 18'/%3E%3C/svg%3E");
+}
+
+.path-connector.to-left {
+    right: 50%;
+    transform: translateX(-10px);
+    background-image: url("data:image/svg+xml,%3Csvg width='320' height='80' viewBox='0 0 320 80' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M312 8 C230 68 100 12 8 72' stroke='%23cfc6ff' stroke-width='9' stroke-linecap='round' stroke-dasharray='1 18'/%3E%3C/svg%3E");
+}
+
+.path-dots {
+    display: none;
+}
+
+.module-loading {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* laptop / tablet */
+@media (max-width: 1200px) {
+    .path-step.left {
+        transform: translateX(-110px);
+    }
+
+    .path-step.right {
+        transform: translateX(110px);
+    }
+
+    .path-connector {
+        width: 260px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .module-top {
+        padding: 24px 42px 28px;
+    }
+
+    .path-step.left {
+        transform: translateX(-85px);
+    }
+
+    .path-step.right {
+        transform: translateX(85px);
+    }
+
+    .path-connector {
+        width: 220px;
+    }
+}
+
+/* mobile */
+@media (max-width: 768px) {
+    .module-content {
+        margin-left: 0;
+        width: 100%;
+        height: 100vh;
+    }
+
+    .module-phone {
+        height: 100vh;
+    }
+
+    .module-top {
+        height: 270px;
+        padding: 26px 24px 34px;
+    }
+
+    .module-nav {
+        margin-bottom: 24px;
+    }
+
+    .module-header-content {
+        gap: 18px;
+        justify-content: flex-start;
+    }
+
+    .module-header-text {
+        min-width: 0;
+        max-width: none;
+        flex: 1;
+    }
+
+    .module-bubble {
+        width: 68px;
+        height: 68px;
+        font-size: 32px;
+    }
+
+    .module-top h1 {
+        font-size: 28px;
+    }
+
+    .module-top p {
+        font-size: 15px;
+    }
+
+    .module-progress {
+        max-width: none;
+    }
+
+    .lesson-path-map {
+        height: calc(100vh - 270px);
+        padding: 30px 24px 96px;
+    }
+
+    .path-step {
+        padding-bottom: 74px;
+    }
+
+    .path-step.left {
+        transform: translateX(-48px);
+    }
+
+    .path-step.right {
+        transform: translateX(48px);
+    }
+
+    .path-circle {
+        width: 76px;
+        height: 76px;
+        font-size: 34px;
+    }
+
+    .path-connector {
+        top: 96px;
+        width: 178px;
+        height: 78px;
+    }
+}
+
+/* small phones */
+@media (max-width: 420px) {
+    .module-points {
+        font-size: 13px;
+        gap: 8px;
+    }
+
+    .module-header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .module-top {
+        height: 330px;
+    }
+
+    .module-top p {
+        margin-inline: auto;
+    }
+
+    .module-progress {
+        margin-inline: auto;
+        width: 100%;
+    }
+
+    .lesson-path-map {
+        height: calc(100vh - 330px);
+        padding-inline: 18px;
+    }
+
+    .path-step {
+        padding-bottom: 68px;
+    }
+
+    .path-step.left {
+        transform: translateX(-34px);
+    }
+
+    .path-step.right {
+        transform: translateX(34px);
+    }
+
+    .path-circle {
+        width: 68px;
+        height: 68px;
+        font-size: 30px;
+    }
+
+    .path-label {
+        max-width: 230px;
+        text-align: center;
+        justify-content: center;
+        font-size: 12px;
+    }
+
+    .path-connector {
+        top: 90px;
+        width: 145px;
+        height: 70px;
+    }
+}
