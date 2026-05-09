@@ -1,6 +1,6 @@
 package com.stucanii.backend.service;
 
-import com.stucanii.backend.dto.UserRegistrationDTO;
+import com.stucanii.backend.dto.dtos.UserRegistrationDTO;
 import com.stucanii.backend.model.Role;
 import com.stucanii.backend.model.User;
 import com.stucanii.backend.repository.UserRepository;

@@ -1,5 +1,6 @@
-package com.stucanii.backend.dto;
+package com.stucanii.backend.dto.mappers;
 
+import com.stucanii.backend.dto.dtos.UserDTO;
 import com.stucanii.backend.model.User;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +11,7 @@ public class UserMapper {
 
     public static UserDTO mapUserToUserDTO(User user){
         return UserDTO.builder().
-                userId(user.getUserId()).
+                userId(user.getId()).
                 username(user.getUsername()).
                 password(user.getPassword()).
                 role(user.getRole()).

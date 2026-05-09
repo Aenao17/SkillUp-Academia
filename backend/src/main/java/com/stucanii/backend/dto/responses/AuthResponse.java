@@ -1,4 +1,4 @@
-package com.stucanii.backend.dto;
+package com.stucanii.backend.dto.responses;
 
 public record AuthResponse(
         String accessToken,

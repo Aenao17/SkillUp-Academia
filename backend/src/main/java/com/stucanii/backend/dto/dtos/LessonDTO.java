@@ -1,4 +1,4 @@
-package com.stucanii.backend.dto;
+package com.stucanii.backend.dto.dtos;
 
 public record LessonDTO (
     Long id,

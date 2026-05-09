@@ -1,8 +1,8 @@
 package com.stucanii.backend.controller;
 
-import com.stucanii.backend.dto.AuthRequest;
-import com.stucanii.backend.dto.AuthResponse;
-import com.stucanii.backend.dto.UserDTO;
+import com.stucanii.backend.dto.requests.AuthRequest;
+import com.stucanii.backend.dto.responses.AuthResponse;
+import com.stucanii.backend.dto.dtos.UserDTO;
 import com.stucanii.backend.service.JwtService;
 import com.stucanii.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,14 +23,14 @@ public class AuthController {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    @PostMapping("register")
+    @PostMapping("/register")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO){
         Long id = userService.save(userDTO);
         UserDTO newUser = userService.getUserById(id);
         return ResponseEntity.ok(newUser);
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public AuthResponse authenticateAndGenerateToken(@RequestBody AuthRequest authRequest){
 
         Authentication authentication= authenticationManager.authenticate(

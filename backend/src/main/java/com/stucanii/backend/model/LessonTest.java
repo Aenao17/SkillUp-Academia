@@ -1,22 +1,28 @@
 package com.stucanii.backend.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@Getter @Setter
 @Table(name = "lesson_tests")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class LessonTest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String title;
 
+    @Builder.Default
     private int passingScore = 75;
 
-    @OneToOne(mappedBy = "test")
+    @OneToOne
+    @JoinColumn(name = "lesson_id", nullable = false, unique = true)
     private Lesson lesson;
 }

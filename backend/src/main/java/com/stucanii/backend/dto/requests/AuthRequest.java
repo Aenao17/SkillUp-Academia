@@ -1,4 +1,4 @@
-package com.stucanii.backend.dto;
+package com.stucanii.backend.dto.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
