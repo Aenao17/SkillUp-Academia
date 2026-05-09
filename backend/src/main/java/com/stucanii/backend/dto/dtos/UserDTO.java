@@ -1,4 +1,4 @@
-package com.stucanii.backend.dto;
+package com.stucanii.backend.dto.dtos;
 
 import com.stucanii.backend.model.Role;
 import lombok.Builder;

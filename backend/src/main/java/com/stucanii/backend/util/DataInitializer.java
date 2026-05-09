@@ -1,9 +1,7 @@
 package com.stucanii.backend.util;
 
 import com.stucanii.backend.model.*;
-import com.stucanii.backend.repository.LearningModuleRepository;
-import com.stucanii.backend.repository.LessonRepository;
-import com.stucanii.backend.repository.UserRepository;
+import com.stucanii.backend.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.boot.CommandLineRunner;
@@ -11,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -22,66 +19,117 @@ public class DataInitializer implements CommandLineRunner {
 
     private final LearningModuleRepository moduleRepository;
     private final LessonRepository lessonRepository;
+    private final LessonProgressRepository progressRepository;
 
     @Override
     public void run(String @NonNull ... args) {
-        createAdmin();
-        createSampleModule();
+        User admin = createAdmin();
+        User student = createStudent();
+
+        createCompleteSampleModule(student);
     }
 
-    // ================= ADMIN =================
-    private void createAdmin() {
-        if (userRepository.findByUsername("admin").isEmpty()) {
-            User user = new User();
-            user.setUsername("admin");
-            user.setPassword(Objects.requireNonNull(passwordEncoder.encode("admin")));
-            user.setRole(Role.ADMIN);
+    private User createAdmin() {
+        return userRepository.findByUsername("admin")
+                .orElseGet(() -> {
+                    User user = User.builder()
+                            .username("admin")
+                            .password(passwordEncoder.encode("admin"))
+                            .role(Role.ADMIN)
+                            .build();
 
-            userRepository.save(user);
-            System.out.println("✔ Admin created");
+                    System.out.println("✔ Admin created");
+                    return userRepository.save(user);
+                });
+    }
+
+    private User createStudent() {
+        return userRepository.findByUsername("student")
+                .orElseGet(() -> {
+                    User user = User.builder()
+                            .username("student")
+                            .password(passwordEncoder.encode("student"))
+                            .role(Role.USER)
+                            .build();
+
+                    System.out.println("✔ Student created");
+                    return userRepository.save(user);
+                });
+    }
+
+    private void createCompleteSampleModule(User student) {
+        if (moduleRepository.count() > 0) {
+            return;
         }
-    }
 
-    // ================= MODULE DATA =================
-    private void createSampleModule() {
+        Lesson lesson1 = createLesson(
+                "Communication Basics",
+                "Learn how to communicate effectively.",
+                "Communication is the process of exchanging information between people.",
+                "Communication Test"
+        );
 
-        if (moduleRepository.count() > 0) return;
+        Lesson lesson2 = createLesson(
+                "Active Listening",
+                "Improve your listening skills.",
+                "Active listening means fully concentrating, understanding and responding.",
+                "Listening Test"
+        );
 
-        // ===== LESSON 1 =====
-        Lesson lesson1 = new Lesson();
-        lesson1.setTitle("Communication Basics");
-        lesson1.setDescription("Learn how to communicate effectively.");
-        lesson1.setContent("Communication is the process of exchanging information...");
+        Lesson lesson3 = createLesson(
+                "Giving Feedback",
+                "Learn how to give constructive feedback.",
+                "Constructive feedback helps people improve without discouraging them.",
+                "Feedback Test"
+        );
 
-        LessonTest test1 = new LessonTest();
-        test1.setTitle("Communication Test");
-        test1.setPassingScore(75);
+        lessonRepository.saveAll(List.of(lesson1, lesson2, lesson3));
 
-        lesson1.setTest(test1);
-
-        // ===== LESSON 2 =====
-        Lesson lesson2 = new Lesson();
-        lesson2.setTitle("Active Listening");
-        lesson2.setDescription("Improve your listening skills.");
-        lesson2.setContent("Active listening means fully concentrating...");
-
-        LessonTest test2 = new LessonTest();
-        test2.setTitle("Listening Test");
-        test2.setPassingScore(75);
-
-        lesson2.setTest(test2);
-
-        lessonRepository.saveAll(List.of(lesson1, lesson2));
-
-        // ===== MODULE =====
-        LearningModule module = new LearningModule();
-        module.setTitle("Communication Skills");
-        module.setDescription("Master essential communication skills.");
-
-        module.setLessons(List.of(lesson1, lesson2));
+        LearningModule module = LearningModule.builder()
+                .title("Communication Skills")
+                .description("Master essential communication skills.")
+                .lessons(List.of(lesson1, lesson2, lesson3))
+                .build();
 
         moduleRepository.save(module);
 
-        System.out.println("✔ Sample module created");
+        createCompletedProgress(student, lesson1, 90);
+        createCompletedProgress(student, lesson2, 85);
+        createCompletedProgress(student, lesson3, 95);
+
+        System.out.println("✔ Complete sample module created");
+    }
+
+    private Lesson createLesson(
+            String title,
+            String description,
+            String content,
+            String testTitle
+    ) {
+        Lesson lesson = Lesson.builder()
+                .title(title)
+                .description(description)
+                .content(content)
+                .build();
+
+        LessonTest test = LessonTest.builder()
+                .title(testTitle)
+                .passingScore(75)
+                .build();
+
+        lesson.setTest(test);
+
+        return lesson;
+    }
+
+    private void createCompletedProgress(User user, Lesson lesson, int score) {
+        LessonProgress progress = LessonProgress.builder()
+                .user(user)
+                .lesson(lesson)
+                .score(score)
+                .completed(score >= lesson.getTest().getPassingScore())
+                .build();
+
+        progressRepository.save(progress);
     }
 }

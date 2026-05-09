@@ -1,25 +1,43 @@
 package com.stucanii.backend.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
-@Getter @Setter
-@Table(name = "lesson_progress")
+@Table(
+        name = "lesson_progress",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"user_id", "lesson_id"})
+        }
+)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class LessonProgress {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
 
     private int score;
 
     private boolean completed;
+
+    public void updateScore(int score) {
+        this.score = score;
+
+        if (lesson != null && lesson.getTest() != null) {
+            this.completed = score >= lesson.getTest().getPassingScore();
+        }
+    }
 }
