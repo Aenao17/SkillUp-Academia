@@ -1,0 +1,249 @@
+.profile-page {
+    --background: var(--bg-soft);
+}
+
+.profile-layout {
+    min-height: 100vh;
+    background: var(--bg-soft);
+}
+
+.profile-content {
+    margin-left: 310px;
+    width: calc(100% - 310px);
+    min-height: 100vh;
+    padding: 42px 32px 40px;
+    background: var(--bg-soft);
+
+    display: flex;
+    justify-content: center;
+}
+
+.profile-container {
+    width: 100%;
+    max-width: 1180px;
+}
+
+.profile-hero {
+    margin-bottom: 28px;
+}
+
+.profile-eyebrow {
+    margin-bottom: 8px;
+    color: var(--primary);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.profile-hero h1 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+.profile-subtitle {
+    margin-top: 8px;
+    color: var(--text-light);
+    font-size: 16px;
+}
+
+.profile-loading {
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-user-card,
+.profile-stat-card,
+.profile-progress-card {
+    border-radius: 22px;
+    background: white;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.profile-user-info {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.profile-avatar {
+    width: 76px;
+    height: 76px;
+    min-width: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eef2ff;
+}
+
+.profile-avatar ion-icon {
+    font-size: 58px;
+    color: var(--primary);
+}
+
+.profile-user-info h2,
+.profile-progress-card h3 {
+    margin: 0;
+    color: var(--text-dark);
+}
+
+.profile-user-info h2 {
+    font-size: 26px;
+}
+
+.profile-user-info p,
+.profile-stat-card p,
+.profile-progress-card p,
+.profile-empty {
+    color: var(--text-light);
+}
+
+.profile-user-info p,
+.profile-progress-card p {
+    margin: 6px 0 0;
+}
+
+.profile-user-info p {
+    font-weight: 700;
+}
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin: 24px 0;
+}
+
+.profile-stat-card ion-card-content {
+    text-align: center;
+}
+
+.profile-stat-card ion-icon {
+    font-size: 34px;
+    color: var(--primary);
+}
+
+.profile-stat-card h3 {
+    margin: 10px 0 4px;
+    font-size: 30px;
+    color: var(--text-dark);
+}
+
+.profile-stat-card p {
+    margin: 0;
+}
+
+.profile-progress-section h2 {
+    margin: 10px 0 16px;
+    color: var(--text-dark);
+}
+
+.profile-progress-list {
+    display: grid;
+    gap: 10px;
+}
+
+.profile-progress-card ion-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.profile-score {
+    flex-shrink: 0;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: var(--primary);
+    font-weight: 800;
+}
+
+/* tablet */
+@media (max-width: 768px) {
+    .profile-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 28px 16px 96px;
+    }
+
+    .profile-container {
+        max-width: 100%;
+    }
+
+    .profile-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+
+/* mobile */
+@media (max-width: 768px) {
+    .profile-layout {
+        display: block;
+    }
+
+    .profile-content {
+        padding: 28px 16px 96px;
+    }
+
+    .profile-container {
+        max-width: 100%;
+    }
+
+    .profile-hero h1 {
+        font-size: 30px;
+    }
+
+    .profile-subtitle {
+        font-size: 14px;
+    }
+
+    .profile-user-info {
+        gap: 14px;
+    }
+
+    .profile-avatar {
+        width: 62px;
+        height: 62px;
+        min-width: 62px;
+    }
+
+    .profile-avatar ion-icon {
+        font-size: 48px;
+    }
+
+    .profile-user-info h2 {
+        font-size: 22px;
+    }
+
+    .profile-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .profile-progress-card ion-card-content {
+        align-items: flex-start;
+    }
+}
+
+/* very small phones */
+@media (max-width: 420px) {
+    .profile-content {
+        padding: 22px 12px 92px;
+    }
+
+    .profile-progress-card ion-card-content {
+        flex-direction: column;
+    }
+
+    .profile-score {
+        align-self: flex-start;
+    }
+}

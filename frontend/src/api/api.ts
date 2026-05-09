@@ -62,7 +62,7 @@ export async function patchJsonAuth<TResponse>(
         let payload: ApiError | null = null;
         try {
             payload = await res.json();
-        } catch {}
+        } catch { /* empty */ }
         const msg = payload?.error || `Request failed (${res.status})`;
         throw new Error(msg);
     }
@@ -90,7 +90,7 @@ export async function deleteAuth(path: string): Promise<void> {
         let payload: ApiError | null = null;
         try {
             payload = await res.json();
-        } catch {}
+        } catch { /* empty */ }
         const msg = payload?.error || `Request failed (${res.status})`;
         throw new Error(msg);
     }
@@ -129,6 +129,9 @@ export async function postJsonAuth<TResponse>(
     body: unknown
 ): Promise<TResponse> {
     const token = getAccessToken();
+
+    console.log("TOKEN TRIMIS:", token);
+    console.log("URL:", `${BASE_URL}${path}`);
     if (!token) throw new Error("Not authenticated");
 
     const res = await fetch(`${BASE_URL}${path}`, {
@@ -144,7 +147,7 @@ export async function postJsonAuth<TResponse>(
         let payload: ApiError | null = null;
         try {
             payload = await res.json();
-        } catch {}
+        } catch { /* empty */ }
         const msg = payload?.error || `Request failed (${res.status})`;
         throw new Error(msg);
     }
@@ -154,4 +157,25 @@ export async function postJsonAuth<TResponse>(
         return (await res.json()) as TResponse;
     }
     return undefined as TResponse;
+}
+
+export type CurrentUserDto ={
+    id:number;
+    username: string;
+    role: string;
+};
+
+export type UserProgressDto = {
+    lessonId: number;
+    lessonTitle: string;
+    score: number;
+    completed: boolean;
+};
+
+export const getCurrentUser = async(): Promise<CurrentUserDto> =>{
+    return getJsonAuth("/api/user/me");
+};
+
+export const getUserProgress = async(): Promise<UserProgressDto[]>=>{
+    return getJsonAuth("/api/user/progress");
 }

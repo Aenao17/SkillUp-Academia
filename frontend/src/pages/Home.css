@@ -8,67 +8,13 @@
 }
 
 .layout {
-    display: flex;
-    height: 100%;
-}
-
-.sidebar {
-    width: 310px;
-    background: linear-gradient(180deg, var(--primary), var(--primary-dark));
-    padding: 22px 18px;
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar-logo {
-    width: 86px;
-    height: 68px;
-    background: var(--accent);
-    border-radius: 34px;
-    margin: 0 auto 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
-
-.side-link {
-    height: 62px;
-    border-radius: 18px;
-    border: none;
-    background: transparent;
-    color: rgba(255, 255, 255, 0.9);
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 0 22px;
-    font-size: 20px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.side-link ion-icon {
-    font-size: 25px;
-}
-
-.side-link:hover {
-    background: rgba(255, 255, 255, 0.14);
-}
-
-.side-link.active {
-    background: var(--accent);
-    color: var(--text-dark);
-    box-shadow: 0 12px 26px rgba(255, 196, 0, 0.28);
-}
-
-.side-link-bottom {
-    margin-top: auto;
+    min-height: 100vh;
+    background: var(--bg-soft);
 }
 
 .main-content {
-    flex: 1;
+    margin-left: 310px;
+    min-height: 100vh;
     padding: 64px 48px;
     background: var(--bg-soft);
 }
@@ -86,48 +32,23 @@
     font-size: 20px;
 }
 
+.modules-list {
+    max-width: 760px;
+    margin-top: 24px;
+    display: grid;
+    gap: 16px;
+}
+
 .mobile-home-header,
 .mobile-subtitle {
     display: none;
 }
 
-.mobile-tabbar-wrapper {
-    position: fixed;
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-    z-index: 1000;
-}
-
-.mobile-tabbar {
-    height: 64px;
-    border-radius: 24px;
-    overflow: hidden;
-    --background: white;
-    --color: #888;
-    --color-selected: var(--primary);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-}
-
-@media (min-width: 769px) {
-    .mobile-tabbar-wrapper {
-        display: none;
-    }
-}
-
 @media (max-width: 768px) {
-    .layout {
-        height: 100%;
-    }
-
-    .sidebar {
-        display: none;
-    }
-
     .main-content {
-        padding: 0;
-        padding-bottom: 110px;
-        min-height: 100%;
+        margin-left: 0;
+        min-height: 100vh;
+        padding: 0 0 110px;
         background: linear-gradient(
                 180deg,
                 var(--primary) 0%,
@@ -166,8 +87,8 @@
     .mobile-mascot {
         width: 64px;
         height: 54px;
-        background: var(--accent);
         border-radius: 30px;
+        background: var(--accent);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -177,108 +98,16 @@
 
     .mobile-subtitle {
         display: block;
-        background: white;
         margin: 0 18px;
         padding: 20px;
         border-radius: 22px;
+        background: white;
         color: #555;
         font-size: 15px;
         box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
     }
 
-    .mobile-tabbar {
-        --background: linear-gradient(180deg, #ffffff 0%, #f8f7ff 100%);
-        --color: #8a8a9e;
-        --color-selected: var(--primary);
-        border: 1px solid rgba(108, 92, 255, 0.18);
-    }
-
-    .mobile-tabbar ion-tab-button.tab-selected {
-        --background: rgba(108, 92, 255, 0.12);
-        border-radius: 20px;
-    }
-
-}
-.modules-list {
-    margin-top: 24px;
-    display: grid;
-    gap: 16px;
-    max-width: 760px;
-}
-
-@media (max-width: 768px) {
     .modules-list {
         margin: 18px;
-        margin-top: 18px;
     }
-}
-
-/* ================= ALERT CUSTOM ================= */
-
-/* fundal overlay */
-ion-alert.custom-alert::part(backdrop) {
-    background: #fff;
-}
-
-/* container */
-ion-alert.custom-alert::part(alert-wrapper) {
-    border-radius: 22px;
-    overflow: hidden;
-    background: #fff;
-}
-
-/* header */
-ion-alert.custom-alert::part(header) {
-    background: linear-gradient(180deg, #6c5cff, #2f4be8);
-    color: white;
-    font-size: 18px;
-    font-weight: 700;
-    padding: 20px;
-    text-align: center;
-}
-
-/* message */
-ion-alert.custom-alert::part(message) {
-    padding: 18px 22px;
-    font-size: 14px;
-    color: #555;
-    text-align: center;
-}
-
-/* checkbox */
-ion-alert.custom-alert .alert-checkbox-label {
-    font-size: 13px;
-    color: #666;
-}
-
-/* checkbox checked */
-ion-alert.custom-alert .alert-checkbox-icon {
-    border-color: #6c5cff;
-}
-
-ion-alert.custom-alert .alert-checkbox-icon.sc-ion-alert-md[aria-checked="true"] {
-    background: #6c5cff;
-    border-color: #6c5cff;
-}
-
-/* buttons container */
-ion-alert.custom-alert::part(button-group) {
-    padding: 10px 16px 16px;
-}
-
-/* buttons */
-ion-alert.custom-alert .alert-button {
-    border-radius: 14px;
-    font-weight: 600;
-}
-
-/* cancel */
-ion-alert.custom-alert .alert-button.role-cancel {
-    color: #666;
-}
-
-/* confirm button */
-ion-alert.custom-alert .alert-button.role-confirm {
-    background: #ffc400;
-    color: #1f1f1f;
 }

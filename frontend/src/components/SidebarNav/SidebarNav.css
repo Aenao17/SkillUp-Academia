@@ -14,10 +14,15 @@
 
 .sidebar {
     width: 310px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
     background: linear-gradient(180deg, var(--primary), var(--primary-dark));
     padding: 22px 18px;
     display: flex;
     flex-direction: column;
+    z-index: 100;
 }
 
 .sidebar-logo {
@@ -107,12 +112,6 @@
     --color: #888;
     --color-selected: var(--primary);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-}
-
-@media (min-width: 769px) {
-    .mobile-tabbar-wrapper {
-        display: none;
-    }
 }
 
 @media (max-width: 768px) {

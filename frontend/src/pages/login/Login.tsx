@@ -1,22 +1,20 @@
 import {
-    IonButton, IonCard,
+    IonButton,
     IonContent,
-    IonHeader,
     IonInput,
     IonItem,
     IonLabel,
     IonLoading,
     IonPage,
-    IonTitle,
     IonToast,
-    IonToolbar,
 } from "@ionic/react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { postJson } from "../../api/api";
 import { setTokens } from "../../auth/authStorage";
 import { useIonRouter } from "@ionic/react";
 
 import "./Login.css"
+import Signup from "../signup/Signup";
 
 type AuthResponse = {
     accessToken: string;
@@ -76,7 +74,7 @@ const Login: React.FC = () => {
                     <div className="auth-orb auth-orb--a" />
                     <div className="auth-orb auth-orb--b" />
 
-                    <div className="auth-card auth-card--premium">
+                    <div className="auth-card">
                         <div className="auth-hero">
                             <div className="auth-badge">SkillUp Academia</div>
                             <h2 className="auth-title">Welcome back</h2>
@@ -84,7 +82,7 @@ const Login: React.FC = () => {
                         </div>
 
                         <div className="form-group">
-                            <IonItem lines="none" className="form-item form-item--premium">
+                            <IonItem lines="none" className="form-item">
                                 <IonInput
                                     value={username}
                                     placeholder="Enter your username"
@@ -94,7 +92,7 @@ const Login: React.FC = () => {
                                 />
                             </IonItem>
 
-                            <IonItem lines="none" className="form-item form-item--premium">
+                            <IonItem lines="none" className="form-item">
                                 <IonInput
                                     value={password}
                                     type="password"
@@ -109,7 +107,7 @@ const Login: React.FC = () => {
                         <div className="auth-actions">
                             <IonButton
                                 expand="block"
-                                className="primary-button primary-button--lavender"
+                                className="primary-button"
                                 onClick={onSubmit}
                                 disabled={isLoading}
                             >
@@ -118,12 +116,13 @@ const Login: React.FC = () => {
                             <div className="register-text">
                                 <IonLabel>
                                     Don’t have an account?{" "}
-                                    <span
-                                        className="register-link"
+                                    <button
+                                        type="button"
+                                        className="register-link-button"
                                         onClick={() => router.push("/signup")}
                                     >
-                    Register here
-                     </span>
+                                        Register here
+                                    </button>
                                 </IonLabel>
                             </div>
                         </div>
