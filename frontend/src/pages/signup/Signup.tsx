@@ -9,7 +9,7 @@ import {
     IonToast,
     useIonRouter,
 } from "@ionic/react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { postJson } from "../../api/api";
 import "./Signup.css";
 
@@ -21,7 +21,6 @@ type SignupRequest = {
 
 const Signup: React.FC = () => {
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const [isLoading, setIsLoading] = useState(false);
@@ -77,7 +76,7 @@ const Signup: React.FC = () => {
                     <div className="auth-orb auth-orb--a" />
                     <div className="auth-orb auth-orb--b" />
 
-                    <div className="auth-card auth-card--premium">
+                    <div className="auth-card">
                         <div className="auth-hero">
                             <div className="auth-badge">SkillUp Academia</div>
                             <h2 className="auth-title">Create account</h2>
@@ -85,7 +84,7 @@ const Signup: React.FC = () => {
                         </div>
 
                         <div className="form-group">
-                            <IonItem lines="none" className="form-item form-item--premium">
+                            <IonItem lines="none" className="form-item">
                                 <IonLabel position="stacked" className="form-label">
                                     Username
                                 </IonLabel>
@@ -98,7 +97,7 @@ const Signup: React.FC = () => {
                                 />
                             </IonItem>
 
-                            <IonItem lines="none" className="form-item form-item--premium">
+                            <IonItem lines="none" className="form-item">
                                 <IonLabel position="stacked" className="form-label">
                                     Password
                                 </IonLabel>
@@ -116,7 +115,7 @@ const Signup: React.FC = () => {
                         <div className="auth-actions">
                             <IonButton
                                 expand="block"
-                                className="primary-button primary-button--lavender"
+                                className="primary-button"
                                 onClick={onSubmit}
                                 disabled={isLoading}
                             >
@@ -127,12 +126,13 @@ const Signup: React.FC = () => {
                         <div className="register-text">
                             <IonLabel>
                                 Already have an account?{" "}
-                                <span
-                                    className="register-link"
+                                <button
+                                    type="button"
+                                    className="register-link-button"
                                     onClick={() => router.push("/login")}
                                 >
-                  Log in here
-                </span>
+                                    Log in here
+                                </button>
                             </IonLabel>
                         </div>
                     </div>

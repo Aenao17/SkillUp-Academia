@@ -49,10 +49,6 @@
     transition: 0.2s ease;
 }
 
-.side-link ion-icon {
-    font-size: 25px;
-}
-
 .side-link:hover {
     background: rgba(255, 255, 255, 0.14);
 }
