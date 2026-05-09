@@ -21,7 +21,8 @@ public class CorsConfig {
 
         config.setAllowedOrigins(List.of(
                 "http://localhost:8100",
-                "http://127.0.0.1:8100"
+                "http://127.0.0.1:8100",
+                "https://skill-up-academia.vercel.com"
         ));
 
         config.setAllowedMethods(List.of(

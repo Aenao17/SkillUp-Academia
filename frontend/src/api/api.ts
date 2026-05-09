@@ -6,7 +6,7 @@ const getBaseUrl = () => {
         // 10.0.2.2 este adresa specială prin care Emulatorul Android vede localhost-ul PC-ului
         return "http://10.0.2.2:8080";
     }
-    return "http://localhost:8080";
+    return import.meta.env.VITE_API_URL;
 };
 export const BASE_URL = getBaseUrl();
 // const BASE_URL = "http://10.0.2.2:8080";
