@@ -1,0 +1,152 @@
+.lesson-page {
+    --background: var(--bg-soft);
+}
+
+.lesson-layout {
+    min-height: 100vh;
+    background: var(--bg-soft);
+}
+
+.lesson-content {
+    margin-left: 310px;
+    width: calc(100% - 310px);
+    min-height: 100vh;
+    padding: 42px 32px 40px;
+    background: var(--bg-soft);
+    display: flex;
+    justify-content: center;
+}
+
+.lesson-container {
+    width: 100%;
+    max-width: 1180px;
+}
+
+.back-button {
+    margin-bottom: 18px;
+    --color: var(--primary);
+    font-weight: 700;
+    text-transform: none;
+}
+
+.lesson-hero {
+    margin-bottom: 28px;
+}
+
+.lesson-eyebrow {
+    margin-bottom: 8px;
+    color: var(--primary);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.lesson-hero h1 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+.lesson-hero p {
+    margin-top: 8px;
+    color: var(--text-light);
+    font-size: 16px;
+}
+
+.lesson-loading {
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.lesson-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 20px;
+}
+
+.lesson-main-card,
+.lesson-side-card {
+    border-radius: 22px;
+    background: white;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.lesson-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.lesson-section-title ion-icon {
+    font-size: 28px;
+    color: var(--primary);
+}
+
+.lesson-section-title h2 {
+    margin: 0;
+    color: var(--text-dark);
+}
+
+.lesson-text {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1.7;
+    white-space: pre-line;
+}
+
+.lesson-side {
+    display: grid;
+    gap: 14px;
+    align-content: start;
+}
+
+.lesson-side-card ion-card-content {
+    text-align: center;
+}
+
+.lesson-side-card ion-icon {
+    font-size: 34px;
+    color: var(--primary);
+}
+
+.lesson-side-card h3 {
+    margin: 10px 0 4px;
+    color: var(--text-dark);
+}
+
+.lesson-side-card p {
+    margin: 0;
+    color: var(--text-light);
+}
+
+@media (max-width: 1024px) {
+    .lesson-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .lesson-side {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .lesson-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 28px 16px 96px;
+    }
+
+    .lesson-hero h1 {
+        font-size: 30px;
+    }
+
+    .lesson-side {
+        grid-template-columns: 1fr;
+    }
+}

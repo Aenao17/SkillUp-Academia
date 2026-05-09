@@ -179,3 +179,59 @@ export const getCurrentUser = async(): Promise<CurrentUserDto> =>{
 export const getUserProgress = async(): Promise<UserProgressDto[]>=>{
     return getJsonAuth("/api/user/progress");
 }
+
+export type LessonSummaryDto = {
+    id: number;
+    title: string;
+    description: string;
+    score: number | null;
+    completed: boolean;
+};
+
+export type ModuleDetailsDto = {
+    id: number;
+    title: string;
+    description: string;
+    completed: boolean;
+    lessons: LessonSummaryDto[];
+};
+
+export type LessonDetailsDto = {
+    id: number;
+    title: string;
+    description: string;
+    content: string;
+    completed: boolean;
+    score: number | null;
+    test?: {
+        id: number;
+        title: string;
+        passingScore: number;
+    };
+};
+
+export const getModuleById = async (id: string): Promise<ModuleDetailsDto> => {
+    return getJsonAuth(`/api/modules/${id}`);
+};
+
+export const getLessonById = async (id: string): Promise<LessonDetailsDto> => {
+    return getJsonAuth(`/api/lessons/${id}`);
+};
+
+export type SubmitTestRequest = {
+    lessonId: number;
+    score: number;
+};
+
+export type SubmitTestResponse = {
+    lessonId: number;
+    lessonTitle: string;
+    score: number;
+    completed: boolean;
+};
+
+export const submitLessonTest = async (
+    body: SubmitTestRequest
+): Promise<SubmitTestResponse> => {
+    return postJsonAuth("/api/progress/submit-test", body);
+};
