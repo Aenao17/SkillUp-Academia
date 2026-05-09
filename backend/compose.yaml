@@ -8,6 +8,7 @@ services:
       POSTGRES_DB: skillup-academia
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
+      SPRING_PROFILES_ACTIVE: dev
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
