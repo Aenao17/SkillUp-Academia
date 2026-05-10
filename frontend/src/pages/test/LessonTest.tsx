@@ -116,7 +116,7 @@ const LessonTest: React.FC = () => {
         (answer) => answer !== -1
     );
 
-    const passingScore = lesson?.test?.passingScore ?? 75;
+    const passingScore = lesson?.passingScore ?? 75;
 
     return (
         <IonPage>
@@ -138,8 +138,7 @@ const LessonTest: React.FC = () => {
                                         <p>Lesson test</p>
 
                                         <h1>
-                                            {lesson.test?.title ??
-                                                lesson.title}
+                                            {lesson.test? lesson.test : "Test"}
                                         </h1>
 
                                         <span>
