@@ -13,5 +13,6 @@ public class LessonRequest {
     private String title;
     private String description;
     private String content;
-    private LessonTestRequest test;
+    private String testTitle;
+    private Integer passingScore;
 }

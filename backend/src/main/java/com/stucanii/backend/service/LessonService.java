@@ -10,6 +10,7 @@ import com.stucanii.backend.model.LessonProgress;
 import com.stucanii.backend.model.LessonTest;
 import com.stucanii.backend.model.User;
 import com.stucanii.backend.repository.LessonRepository;
+import com.stucanii.backend.repository.LessonTestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +22,38 @@ public class LessonService {
 
     private final LessonRepository lessonRepository;
     private final LessonMapper lessonMapper;
+    private final LessonTestRepository testRepository;
 
     public LessonDetailsDTO createLesson(LessonRequest request) {
-        Lesson lesson = lessonMapper.toEntity(request);
+        Lesson lesson = Lesson.builder()
+                .title(request.getTitle())
+                .description(request.getDescription())
+                .content(request.getContent())
+                .build();
+
         Lesson savedLesson = lessonRepository.save(lesson);
 
-        return lessonMapper.toDetailsDto(savedLesson, null);
+        LessonTest test = LessonTest.builder()
+                .title(
+                        request.getTestTitle() != null
+                                ? request.getTestTitle()
+                                : savedLesson.getTitle() + " Test"
+                )
+                .passingScore(
+                        request.getPassingScore() != null
+                                ? request.getPassingScore()
+                                : 75
+                )
+                .lesson(savedLesson)
+                .build();
+
+        testRepository.save(test);
+
+        savedLesson.setTest(test);
+
+        LessonProgress lessonProgress = new LessonProgress();
+
+        return lessonMapper.toDetailsDto(savedLesson, lessonProgress);
     }
 
     public LessonDetailsDTO getLessonById(Long lessonId) {

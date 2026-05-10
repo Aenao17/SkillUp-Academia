@@ -203,11 +203,8 @@ export type LessonDetailsDto = {
     content: string;
     completed: boolean;
     score: number | null;
-    test?: {
-        id: number;
-        title: string;
-        passingScore: number;
-    };
+    test?: string;
+    passingScore?: number;
 };
 
 export const getModuleById = async (id: string): Promise<ModuleDetailsDto> => {
@@ -234,4 +231,85 @@ export const submitLessonTest = async (
     body: SubmitTestRequest
 ): Promise<SubmitTestResponse> => {
     return postJsonAuth("/api/progress/submit-test", body);
+};
+
+export type AdminUserDto = {
+    userId: number;
+    username: string;
+    role: string;
+};
+
+export const getAdminUsers = async (): Promise<AdminUserDto[]> => {
+    return getJsonAuth<AdminUserDto[]>("/api/admin/users");
+};
+
+export const updateAdminUserRole = async (
+    userId: number,
+    role: string
+): Promise<AdminUserDto> => {
+    return patchJsonAuth<AdminUserDto>(`/api/admin/users/${userId}/role`, {
+        role,
+    });
+};
+
+export const resetAdminUserPassword = async (
+    userId: number,
+    newPassword: string
+): Promise<void> => {
+    return patchJsonAuth<void>(`/api/admin/users/${userId}/password`, {
+        newPassword,
+    });
+};
+
+export type AdminLessonDto = {
+    id: number;
+    title: string;
+    description: string;
+    content?: string;
+    completed?: boolean;
+    test?: string;
+    passingScore?: number;
+    score?: number | null;
+};
+
+export type AdminLessonRequest = {
+    title: string;
+    description: string;
+    content: string;
+    testTitle: string;
+    passingScore: number;
+};
+
+export type AdminModuleDto = {
+    id: number;
+    title: string;
+    description: string;
+    lessons: AdminLessonDto[];
+    completed?: boolean;
+};
+
+export type AdminModuleRequest = {
+    title: string;
+    description: string;
+    lessonIds: number[];
+};
+
+export const getAdminLessons = async (): Promise<AdminLessonDto[]> => {
+    return getJsonAuth<AdminLessonDto[]>("/api/lessons");
+};
+
+export const createAdminLesson = async (
+    body: AdminLessonRequest
+): Promise<AdminLessonDto> => {
+    return postJsonAuth<AdminLessonDto>("/api/admin/lessons", body);
+};
+
+export const getAdminModules = async (): Promise<AdminModuleDto[]> => {
+    return getJsonAuth<AdminModuleDto[]>("/api/modules");
+};
+
+export const createAdminModule = async (
+    body: AdminModuleRequest
+): Promise<AdminModuleDto> => {
+    return postJsonAuth<AdminModuleDto>("/api/admin/modules", body);
 };

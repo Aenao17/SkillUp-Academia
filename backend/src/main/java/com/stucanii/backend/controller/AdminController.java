@@ -5,6 +5,8 @@ import com.stucanii.backend.dto.dtos.LessonDetailsDTO;
 import com.stucanii.backend.dto.dtos.UserDTO;
 import com.stucanii.backend.dto.requests.LearningModuleRequest;
 import com.stucanii.backend.dto.requests.LessonRequest;
+import com.stucanii.backend.dto.requests.ResetPasswordRequest;
+import com.stucanii.backend.dto.requests.UpdateUserRoleRequest;
 import com.stucanii.backend.service.LearningModuleService;
 import com.stucanii.backend.service.LessonService;
 import com.stucanii.backend.service.UserAdminService;
@@ -46,5 +48,24 @@ public class AdminController {
         return ResponseEntity.ok(
                 moduleService.createModule(request)
         );
+    }
+
+    @PatchMapping("/users/{userId}/role")
+    public ResponseEntity<UserDTO> updateUserRole(
+            @PathVariable Long userId,
+            @RequestBody UpdateUserRoleRequest request
+    ) {
+        return ResponseEntity.ok(
+                userAdminService.updateUserRole(userId, request.getRole())
+        );
+    }
+
+    @PatchMapping("/users/{userId}/password")
+    public ResponseEntity<Void> resetUserPassword(
+            @PathVariable Long userId,
+            @RequestBody ResetPasswordRequest request
+    ) {
+        userAdminService.resetUserPassword(userId, request.getNewPassword());
+        return ResponseEntity.noContent().build();
     }
 }
