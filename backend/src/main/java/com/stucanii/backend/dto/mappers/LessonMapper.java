@@ -53,10 +53,10 @@ public class LessonMapper {
                 .content(request.getContent())
                 .build();
 
-        if (request.getTest() != null) {
+        if (request.getTestTitle() != null) {
             LessonTest test = LessonTest.builder()
-                    .title(request.getTest().getTitle())
-                    .passingScore(request.getTest().getPassingScore())
+                    .title(request.getTestTitle())
+                    .passingScore(request.getPassingScore())
                     .build();
 
             lesson.setTest(test);

@@ -15,9 +15,15 @@ const AdminRoute: React.FC<AdminRouteProps> = ({ component: Component, ...rest }
 
                 const token = getAccessToken();
                 const payload = token ? parseJwt(token) : null;
-                const role = payload?.role;
+                const isAdmin =
+                    payload?.sub === "admin" ||
+                    payload?.role === "ROLE_ADMIN" ||
+                    payload?.roles?.includes("ADMIN") ||
+                    payload?.roles?.includes("ROLE_ADMIN") ||
+                    payload?.authorities?.includes("ADMIN") ||
+                    payload?.authorities?.includes("ROLE_ADMIN");
 
-                return role === "ADMIN" ? <Component {...props} /> : <Redirect to="/home" />;
+                return isAdmin ? <Component {...props} /> : <Redirect to="/home" />;
             }}
         />
     );

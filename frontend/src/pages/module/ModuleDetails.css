@@ -10,24 +10,24 @@
 .module-content {
     margin-left: 310px;
     width: calc(100% - 310px);
-    height: 100vh;
+    min-height: 100vh;
     padding: 0;
     background: #f3f1ff;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .module-phone {
     width: 100%;
     max-width: none;
-    height: 100vh;
-    min-height: 0;
+    min-height: 100vh;
     background: #f3f1ff;
     box-shadow: none;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .module-top {
-    height: 250px;
+    min-height: 250px;
     padding: 24px 64px 28px;
     background: linear-gradient(180deg, var(--primary), var(--primary-dark));
     color: white;
@@ -141,13 +141,15 @@
     transition: width 0.3s ease;
 }
 
+/* PATH */
+
 .lesson-path-map {
-    height: calc(100vh - 250px);
-    padding: 30px 80px 36px;
-    display: grid;
-    align-content: center;
-    gap: 0;
-    overflow: hidden;
+    min-height: calc(100vh - 250px);
+    padding: 70px 80px 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: visible;
 }
 
 .path-step {
@@ -155,7 +157,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 76px;
+    padding-bottom: 96px;
 }
 
 .path-step:last-child {
@@ -258,7 +260,7 @@
 }
 
 .module-loading {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -266,6 +268,7 @@
 }
 
 /* laptop / tablet */
+
 @media (max-width: 1200px) {
     .path-step.left {
         transform: translateX(-110px);
@@ -299,19 +302,23 @@
 }
 
 /* mobile */
+
 @media (max-width: 768px) {
     .module-content {
         margin-left: 0;
         width: 100%;
-        height: 100vh;
+        min-height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
     .module-phone {
-        height: 100vh;
+        min-height: 100vh;
+        overflow: visible;
     }
 
     .module-top {
-        height: 270px;
+        min-height: 270px;
         padding: 26px 24px 34px;
     }
 
@@ -349,12 +356,13 @@
     }
 
     .lesson-path-map {
-        height: calc(100vh - 270px);
-        padding: 30px 24px 96px;
+        min-height: calc(100vh - 270px);
+        padding: 60px 24px 150px;
+        overflow: visible;
     }
 
     .path-step {
-        padding-bottom: 74px;
+        padding-bottom: 92px;
     }
 
     .path-step.left {
@@ -379,6 +387,7 @@
 }
 
 /* small phones */
+
 @media (max-width: 420px) {
     .module-points {
         font-size: 13px;
@@ -391,7 +400,7 @@
     }
 
     .module-top {
-        height: 330px;
+        min-height: 330px;
     }
 
     .module-top p {
@@ -404,12 +413,12 @@
     }
 
     .lesson-path-map {
-        height: calc(100vh - 330px);
-        padding-inline: 18px;
+        min-height: calc(100vh - 330px);
+        padding: 54px 18px 150px;
     }
 
     .path-step {
-        padding-bottom: 68px;
+        padding-bottom: 84px;
     }
 
     .path-step.left {
