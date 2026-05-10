@@ -4,8 +4,14 @@ import {
     bookOutline,
     personOutline,
     settingsOutline,
+    shieldOutline,
 } from "ionicons/icons";
+
 import { useLocation } from "react-router-dom";
+
+import { getAccessToken } from "../../auth/authStorage";
+import { parseJwt } from "../../auth/jwt";
+
 import "./SidebarNav.css";
 
 const SidebarNav: React.FC = () => {
@@ -13,7 +19,14 @@ const SidebarNav: React.FC = () => {
     const location = useLocation();
 
     const isActive = (path: string) =>
-        location.pathname === path || location.pathname.startsWith(`${path}/`);
+        location.pathname === path ||
+        location.pathname.startsWith(`${path}/`);
+
+    const token = getAccessToken();
+    const payload = token ? parseJwt(token) : null;
+
+    const isAdmin = payload?.sub === "admin";
+
 
     return (
         <div className="sidebar">
@@ -42,6 +55,18 @@ const SidebarNav: React.FC = () => {
                 <IonIcon icon={personOutline} />
                 <span>Profile</span>
             </button>
+
+            {isAdmin && (
+                <button
+                    className={`side-link ${
+                        isActive("/admin") ? "active" : ""
+                    }`}
+                    onClick={() => router.push("/admin")}
+                >
+                    <IonIcon icon={shieldOutline} />
+                    <span>Admin</span>
+                </button>
+            )}
 
             <button
                 className={`side-link side-link-bottom ${
