@@ -39,6 +39,8 @@ import '@ionic/react/css/palettes/dark.system.css';
 import ProtectedRoute from "./auth/ProtectedRoute";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
+import AdminRoute from "./auth/AdminRoute";
+import Admin from "./pages/admin/Admin";
 
 setupIonicReact();
 
@@ -64,6 +66,7 @@ const App: React.FC = () => (
           <ProtectedRoute exact path="/lessons/:id/test" component={LessonTest} />
           <ProtectedRoute exact path="/lessons/:id" component={Lesson} />
           <ProtectedRoute exact path="/modules" component={Modules} />
+          <AdminRoute exact path="/admin" component={Admin} />
 
       </IonRouterOutlet>
     </IonReactRouter>
