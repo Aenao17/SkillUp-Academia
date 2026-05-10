@@ -62,10 +62,7 @@ const Home: React.FC = () => {
 
                         <div className="desktop-title">
                             <h1>Home</h1>
-                            <p>Aici vin modulele tale</p>
                         </div>
-
-                        <p className="mobile-subtitle">Aici vin modulele tale</p>
 
                         <InitialAssessmentCard show={!hasCompletedInitialAssessment} />
 
