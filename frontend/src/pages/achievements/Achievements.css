@@ -1,0 +1,218 @@
+.ach-page {
+    --background: var(--bg-soft);
+}
+
+/* ── Desktop layout ─────────────────────────────────────────────── */
+.ach-layout {
+    display: flex;
+    min-height: 100vh;
+    background: var(--bg-soft);
+}
+
+.ach-main {
+    flex: 1;
+    margin-left: 310px;
+    min-height: 100vh;
+    padding: 42px 32px 40px;
+    background: var(--bg-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ── Mobile header (hidden on desktop) ──────────────────────────── */
+.ach-mobile-header {
+    display: none;
+}
+
+/* ── Desktop header ─────────────────────────────────────────────── */
+.ach-desktop-header {
+    width: 100%;
+    max-width: 640px;
+    margin-bottom: 8px;
+}
+
+.ach-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 16px;
+}
+
+.ach-desktop-header h1 {
+    margin: 0 0 6px;
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+.ach-subtitle {
+    margin: 0;
+    font-size: 15px;
+    color: var(--text-light);
+}
+
+/* ── Content ─────────────────────────────────────────────────────── */
+.ach-content {
+    width: 100%;
+    max-width: 640px;
+}
+
+/* ── Loading ─────────────────────────────────────────────────────── */
+.ach-loading {
+    display: flex;
+    justify-content: center;
+    padding: 48px 0;
+}
+
+/* ── Section label ───────────────────────────────────────────────── */
+.ach-section-label {
+    margin: 24px 0 12px 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+}
+
+.ach-empty {
+    font-size: 14px;
+    color: var(--text-light);
+    margin: 0 0 8px 4px;
+}
+
+/* ── Badge grid ──────────────────────────────────────────────────── */
+.ach-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px;
+}
+
+/* ── Badge card ──────────────────────────────────────────────────── */
+.ach-badge {
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+    padding: 20px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    transition: transform 0.15s;
+}
+
+.ach-badge--earned:hover {
+    transform: translateY(-2px);
+}
+
+.ach-badge--locked {
+    opacity: 0.45;
+}
+
+/* ── Badge icon ──────────────────────────────────────────────────── */
+.ach-badge-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+}
+
+.ach-badge-icon--locked {
+    background: #f0f0f0;
+    color: #aaa;
+}
+
+/* ── Badge text ──────────────────────────────────────────────────── */
+.ach-badge-name {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.3;
+}
+
+.ach-badge-desc {
+    margin: 0;
+    font-size: 11px;
+    color: var(--text-light);
+    line-height: 1.4;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE  (≤ 768 px)
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .ach-main {
+        margin-left: 0;
+        padding: 0 0 130px;
+        background: linear-gradient(
+            180deg,
+            var(--primary)      0%,
+            var(--primary-dark) 38%,
+            var(--bg-soft)      38%,
+            var(--bg-soft)     100%
+        );
+        align-items: stretch;
+    }
+
+    .ach-desktop-header {
+        display: none;
+    }
+
+    .ach-mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 28px 18px 24px;
+        color: white;
+    }
+
+    .ach-back-btn {
+        background: rgba(255, 255, 255, 0.18);
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    .ach-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 800;
+        color: white;
+    }
+
+    .ach-header-spacer {
+        width: 36px;
+        flex-shrink: 0;
+    }
+
+    .ach-content {
+        padding: 0 16px;
+        max-width: 100%;
+    }
+
+    .ach-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

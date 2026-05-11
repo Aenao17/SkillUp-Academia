@@ -41,6 +41,12 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import AdminRoute from "./auth/AdminRoute";
 import Admin from "./pages/admin/Admin";
+import Settings from "./pages/settings/Settings";
+import LanguagePage from "./pages/language/Language";
+import DailyReminderPage from "./pages/dailyReminder/DailyReminder";
+import PrivacyPage from "./pages/privacy/Privacy";
+import AchievementsPage from "./pages/achievements/Achievements";
+import HelpSupportPage from "./pages/helpSupport/HelpSupport";
 
 setupIonicReact();
 
@@ -67,6 +73,12 @@ const App: React.FC = () => (
           <ProtectedRoute exact path="/lessons/:id" component={Lesson} />
           <ProtectedRoute exact path="/modules" component={Modules} />
           <AdminRoute exact path="/admin" component={Admin} />
+          <ProtectedRoute exact path="/settings" component={Settings} />
+          <ProtectedRoute exact path="/settings/language" component={LanguagePage} />
+          <ProtectedRoute exact path="/settings/daily-reminder" component={DailyReminderPage} />
+          <ProtectedRoute exact path="/settings/privacy" component={PrivacyPage} />
+          <ProtectedRoute exact path="/settings/achievements" component={AchievementsPage} />
+          <ProtectedRoute exact path="/settings/help" component={HelpSupportPage} />
 
       </IonRouterOutlet>
     </IonReactRouter>

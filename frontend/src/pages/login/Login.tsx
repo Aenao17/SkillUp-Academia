@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import { postJson } from "../../api/api";
 import { setTokens } from "../../auth/authStorage";
 import { useIonRouter } from "@ionic/react";
+import { useTranslation } from "react-i18next";
 
 import "./Login.css"
 import Signup from "../signup/Signup";
@@ -31,11 +32,12 @@ const Login: React.FC = () => {
     const [showError, setShowError] = useState(false);
 
     const router = useIonRouter();
+    const { t } = useTranslation();
 
     const validate = (): string | null => {
         const u = username.trim();
-        if (u.length < 3) return "Username must be at least 3 characters.";
-        if (password.length < 3) return "Password must be at least 3 characters.";
+        if (u.length < 3) return t("auth.usernameMin");
+        if (password.length < 3) return t("auth.passwordMin");
         return null;
     };
 

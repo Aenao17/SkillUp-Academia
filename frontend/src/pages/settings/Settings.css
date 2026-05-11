@@ -1,0 +1,277 @@
+/* ── Variables (match app-wide tokens) ────────────────────────── */
+:root {
+    --primary: #6c5cff;
+    --primary-dark: #2f4be8;
+    --accent: #ffc400;
+    --bg-soft: #f4f6ff;
+    --text-dark: #111827;
+    --text-light: #666;
+}
+
+/* ── Page background ──────────────────────────────────────────── */
+.settings-page {
+    --background: var(--bg-soft);
+}
+
+/* ── Desktop layout: sidebar + main side-by-side ─────────────── */
+.settings-layout {
+    display: flex;
+    min-height: 100vh;
+    background: var(--bg-soft);
+}
+
+.settings-main {
+    flex: 1;
+    min-height: 100vh;
+    background: var(--bg-soft);
+    /* Desktop: push content past sidebar */
+    margin-left: 310px;
+    padding: 42px 32px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ── Desktop header (hidden on mobile, replaced by gradient) ─── */
+.settings-mobile-header {
+    display: none;
+}
+
+/* ── Desktop content card area ────────────────────────────────── */
+.settings-content {
+    width: 100%;
+    max-width: 560px;
+}
+
+/* ── Section labels ───────────────────────────────────────────── */
+.settings-section-label {
+    margin: 20px 0 8px 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+}
+
+/* ── Cards ────────────────────────────────────────────────────── */
+.settings-card {
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    padding: 0 16px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    cursor: default;
+}
+
+.settings-card--logout {
+    margin-top: 12px;
+    cursor: pointer;
+    display: block;
+}
+
+.settings-card--logout:hover {
+    opacity: 0.85;
+}
+
+/* ── Row layout ───────────────────────────────────────────────── */
+.settings-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    min-height: 52px;
+}
+
+.settings-row--btn {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+.settings-row--btn:hover {
+    opacity: 0.8;
+}
+
+.settings-divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.07);
+    margin: 0;
+}
+
+/* ── Icon badges ──────────────────────────────────────────────── */
+.settings-row-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+    color: white;
+}
+
+.settings-row-icon--blue   { background: #5b7fff; }
+.settings-row-icon--yellow { background: var(--accent); }
+.settings-row-icon--teal   { background: #2ec4b6; }
+.settings-row-icon--purple { background: var(--primary); }
+.settings-row-icon--gray   { background: #9ca3af; }
+
+/* ── Row text ─────────────────────────────────────────────────── */
+.settings-row-label {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.settings-row-value {
+    font-size: 14px;
+    color: var(--text-light);
+    margin-right: 2px;
+}
+
+.settings-chevron {
+    font-size: 18px;
+    color: #c0c0c0;
+    flex-shrink: 0;
+}
+
+/* ── Toggle ───────────────────────────────────────────────────── */
+.settings-toggle {
+    --handle-height: 22px;
+    --handle-width: 22px;
+    --track-height: 28px;
+    --track-width: 52px;
+    --border-radius: 14px;
+    --background-checked: var(--primary);
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* ── Log Out row ─────────────────────────────────────────────── */
+.settings-logout-icon {
+    font-size: 22px;
+    color: #ef4444;
+    flex-shrink: 0;
+}
+
+.settings-logout-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ef4444;
+}
+
+/* ── Version text ─────────────────────────────────────────────── */
+.settings-version {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #aaa;
+}
+
+
+/* ════════════════════════════════════════════════════════════════
+   MOBILE  (≤ 768 px)
+   ════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .settings-main {
+        margin-left: 0;
+        padding: 0 0 130px;
+        background: linear-gradient(
+            180deg,
+            var(--primary)      0%,
+            var(--primary-dark) 42%,
+            var(--bg-soft)      42%,
+            var(--bg-soft)     100%
+        );
+    }
+
+    /* ── Mobile header (gradient area) ─────────────────────────── */
+    .settings-mobile-header {
+        display: block;
+        padding: 28px 22px 24px;
+        color: white;
+    }
+
+    .settings-title-label {
+        margin: 0 0 20px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: 800;
+        color: white;
+        letter-spacing: 0;
+        text-transform: none;
+    }
+
+    .settings-user-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .settings-avatar {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        flex-shrink: 0;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    }
+
+    .settings-user-text {
+        flex: 1;
+    }
+
+    .settings-username {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        color: white;
+    }
+
+    .settings-role {
+        margin: 2px 0 0;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    .settings-edit-btn {
+        background: rgba(255, 255, 255, 0.18);
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    /* ── Mobile content sits below gradient break ───────────────── */
+    .settings-content {
+        padding: 0 16px;
+        max-width: 100%;
+    }
+
+    .settings-section-label {
+        margin-top: 16px;
+    }
+
+    /* ── Mobile toggle size tweak ───────────────────────────────── */
+    .settings-toggle {
+        --track-width: 48px;
+    }
+}

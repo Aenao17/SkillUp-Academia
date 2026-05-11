@@ -9,6 +9,7 @@ import {
 
 import { bookOutline, chevronForwardOutline } from "ionicons/icons";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
 import MobileTabBar from "../../components/MobileTabBar/MobileTabBar";
@@ -21,7 +22,7 @@ import "./Modules.css";
 const Modules: React.FC = () => {
     const [modules, setModules] = useState<LearningModuleDto[]>([]);
     const [loading, setLoading] = useState(true);
-
+    const { t } = useTranslation();
     const router = useIonRouter();
 
     const loadModules = async () => {
@@ -52,12 +53,12 @@ const Modules: React.FC = () => {
                         <div className="modules-container">
                             <section className="modules-top">
                                 <div>
-                                    <p className="modules-eyebrow">Skill path</p>
+                                    <p className="modules-eyebrow">{t("modules.eyebrow")}</p>
 
-                                    <h1>Grow Your Soft Skills</h1>
+                                    <h1>{t("modules.title")}</h1>
 
                                     <p>
-                                        Choose a module and continue your learning journey.
+                                        {t("modules.subtitle")}
                                     </p>
                                 </div>
 
@@ -65,17 +66,17 @@ const Modules: React.FC = () => {
                             </section>
 
                             <section className="modules-card">
-                                <h2>Available modules</h2>
+                                <h2>{t("modules.sectionTitle")}</h2>
 
                                 {loading ? (
                                     <div className="modules-loading">
                                         <IonSpinner name="crescent" />
 
-                                        <p>Loading modules...</p>
+                                        <p>{t("modules.loading")}</p>
                                     </div>
                                 ) : modules.length === 0 ? (
                                     <p className="modules-empty">
-                                        No modules available.
+                                        {t("modules.empty")}
                                     </p>
                                 ) : (
                                     <div className="modules-list-page">

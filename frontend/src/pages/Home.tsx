@@ -1,5 +1,6 @@
 import { IonContent, IonPage } from "@ionic/react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import "./Home.css";
 
 import { LearningModuleDto } from "../types/module";
@@ -11,6 +12,7 @@ import InitialAssessmentAlert from "../components/InitialAssessmentAlert/Initial
 import MobileTabBar from "../components/MobileTabBar/MobileTabBar";
 
 const Home: React.FC = () => {
+    const { t } = useTranslation();
     const [showAssessmentPopup, setShowAssessmentPopup] = useState(false);
     const [hasCompletedInitialAssessment, setHasCompletedInitialAssessment] =
         useState(false);
@@ -53,24 +55,24 @@ const Home: React.FC = () => {
                     <div className="main-content">
                         <div className="mobile-home-header">
                             <div>
-                                <p className="mobile-kicker">SkillUp Academia</p>
-                                <h1>Home</h1>
+                                <p className="mobile-kicker">{t("home.kicker")}</p>
+                                <h1>{t("home.title")}</h1>
                             </div>
 
                             <div className="mobile-mascot">😊</div>
                         </div>
 
                         <div className="desktop-title">
-                            <h1>Home</h1>
+                            <h1>{t("home.title")}</h1>
                         </div>
 
                         <InitialAssessmentCard show={!hasCompletedInitialAssessment} />
 
                         <div className="modules-list">
                             {loadingModules ? (
-                                <p>Loading modules...</p>
+                                <p>{t("home.loadingModules")}</p>
                             ) : modules.length === 0 ? (
-                                <p>No modules available.</p>
+                                <p>{t("home.noModules")}</p>
                             ) : (
                                 modules.map((module) => (
                                     <ModuleCard
