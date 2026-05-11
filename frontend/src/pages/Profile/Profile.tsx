@@ -14,6 +14,7 @@ import {
     schoolOutline,
 } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
 import MobileTabBar from "../../components/MobileTabBar/MobileTabBar";
 import {
@@ -51,6 +52,8 @@ const Profile: React.FC = () => {
 
     const completedLessons = progress.filter((item) => item.completed).length;
 
+    const { t } = useTranslation();
+
     const averageScore =
         progress.length > 0
             ? Math.round(
@@ -68,18 +71,17 @@ const Profile: React.FC = () => {
                     <main className="profile-content">
                         <div className="profile-container">
                             <section className="profile-hero">
-                                <p className="profile-eyebrow">Student profile</p>
-                                <h1>My Profile</h1>
+                                <p className="profile-eyebrow">{t("profile.eyebrow")}</p>
+                                <h1>{t("profile.title")}</h1>
                                 <p className="profile-subtitle">
-                                    View your account details, learning progress and completed
-                                    lessons.
+                                    {t("profile.subtitle")}
                                 </p>
                             </section>
 
                             {loading ? (
                                 <div className="profile-loading">
                                     <IonSpinner name="crescent" />
-                                    <p>Loading profile...</p>
+                                    <p>{t("profile.loading")}</p>
                                 </div>
                             ) : (
                                 <>
@@ -103,7 +105,7 @@ const Profile: React.FC = () => {
                                             <IonCardContent>
                                                 <IonIcon icon={schoolOutline} />
                                                 <h3>{progress.length}</h3>
-                                                <p>Total lessons</p>
+                                                <p>{t("profile.totalLessons")}</p>
                                             </IonCardContent>
                                         </IonCard>
 
@@ -111,7 +113,7 @@ const Profile: React.FC = () => {
                                             <IonCardContent>
                                                 <IonIcon icon={checkmarkCircleOutline} />
                                                 <h3>{completedLessons}</h3>
-                                                <p>Completed</p>
+                                                <p>{t("profile.completed")}</p>
                                             </IonCardContent>
                                         </IonCard>
 
@@ -119,16 +121,16 @@ const Profile: React.FC = () => {
                                             <IonCardContent>
                                                 <IonIcon icon={trophyOutline} />
                                                 <h3>{averageScore}%</h3>
-                                                <p>Average score</p>
+                                                <p>{t("profile.averageScore")}</p>
                                             </IonCardContent>
                                         </IonCard>
                                     </section>
 
                                     <section className="profile-progress-section">
-                                        <h2>Learning progress</h2>
+                                        <h2>{t("profile.learningProgress")}</h2>
 
                                         {progress.length === 0 ? (
-                                            <p className="profile-empty">No progress yet.</p>
+                                            <p className="profile-empty">{t("profile.noProgress")}</p>
                                         ) : (
                                             <div className="profile-progress-list">
                                                 {progress.map((item) => (
@@ -141,8 +143,8 @@ const Profile: React.FC = () => {
                                                                 <h3>{item.lessonTitle}</h3>
                                                                 <p>
                                                                     {item.completed
-                                                                        ? "Completed"
-                                                                        : "Not completed"}
+                                                                        ? t("profile.lessonCompleted")
+                                                                        : t("profile.lessonNotCompleted")}
                                                                 </p>
                                                             </div>
 

@@ -1,5 +1,6 @@
 import { IonAlert } from "@ionic/react";
 import { useIonRouter } from "@ionic/react";
+import { useTranslation } from "react-i18next";
 import "./InitialAssessmentAlert.css";
 
 type InitialAssessmentAlertProps = {
@@ -12,23 +13,24 @@ const InitialAssessmentAlert: React.FC<InitialAssessmentAlertProps> = ({
                                                                            onClose,
                                                                        }) => {
     const router = useIonRouter();
+    const { t } = useTranslation();
 
     return (
         <IonAlert
             cssClass="custom-alert"
             isOpen={isOpen}
-            header="Initial assessment"
-            message="Would you like to take the initial test to personalize your learning modules?"
+            header={t("assessment.alertHeader")}
+            message={t("assessment.alertMessage")}
             inputs={[
                 {
                     type: "checkbox",
-                    label: "Never show this again",
+                    label: t("assessment.neverShow"),
                     value: "never",
                 },
             ]}
             buttons={[
-                { text: "Maybe later", role: "cancel" },
-                { text: "Start test", role: "confirm" },
+                { text: t("assessment.maybeLater"), role: "cancel" },
+                { text: t("assessment.startTest"), role: "confirm" },
             ]}
             onDidDismiss={(e) => {
                 const selected = e.detail.data?.values ?? [];

@@ -8,6 +8,7 @@ import {
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { useIonRouter } from "@ionic/react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
@@ -19,6 +20,7 @@ import {
     submitLessonTest,
 } from "../../api/api";
 
+import { playSuccessSound, playFailSound } from "../../util/soundEffects";
 import "./LessonTest.css";
 
 const questions = [
@@ -55,6 +57,7 @@ const LessonTest: React.FC = () => {
     const [answers, setAnswers] = useState<number[]>([]);
 
     const [result, setResult] = useState<number | null>(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const loadLesson = async () => {
@@ -102,6 +105,11 @@ const LessonTest: React.FC = () => {
             });
 
             setResult(score);
+            if (score >= passingScore) {
+                playSuccessSound();
+            } else {
+                playFailSound();
+            }
         } catch (error) {
             console.error("Failed to submit test", error);
         }
@@ -130,20 +138,19 @@ const LessonTest: React.FC = () => {
                                 <div className="test-loading">
                                     <IonSpinner name="crescent" />
 
-                                    <p>Loading test...</p>
+                                    <p>{t("test.loading")}</p>
                                 </div>
                             ) : lesson ? (
                                 <>
                                     <section className="test-header">
-                                        <p>Lesson test</p>
+                                        <p>{t("test.eyebrow")}</p>
 
                                         <h1>
                                             {lesson.test? lesson.test : "Test"}
                                         </h1>
 
                                         <span>
-                                            Passing score:{" "}
-                                            {passingScore}%
+                                            {t("test.passingScore", { score: passingScore })}
                                         </span>
                                     </section>
 
@@ -213,53 +220,45 @@ const LessonTest: React.FC = () => {
                                                 }
                                                 onClick={submitTest}
                                             >
-                                                Submit test
+                                                {t("test.submit")}
                                             </IonButton>
                                         </>
                                     ) : (
                                         <IonCard className="test-result-card">
                                             <IonCardContent>
                                                 <h2>
-                                                    Your score: {result}%
+                                                    {t("test.yourScore", { score: result })}
                                                 </h2>
 
                                                 <p>
-                                                    {result >=
-                                                    passingScore
-                                                        ? "You passed this lesson."
-                                                        : "You did not pass yet. You can retake the test."}
+                                                    {result >= passingScore
+                                                        ? t("test.passed")
+                                                        : t("test.failed")}
                                                 </p>
 
-                                                {result <
-                                                    passingScore && (
-                                                        <IonButton
-                                                            expand="block"
-                                                            color="warning"
-                                                            onClick={
-                                                                retakeTest
-                                                            }
-                                                        >
-                                                            Retake test
-                                                        </IonButton>
-                                                    )}
+                                                {result < passingScore && (
+                                                    <IonButton
+                                                        expand="block"
+                                                        color="warning"
+                                                        onClick={retakeTest}
+                                                    >
+                                                        {t("test.retake")}
+                                                    </IonButton>
+                                                )}
 
                                                 <IonButton
                                                     expand="block"
                                                     fill="outline"
-                                                    onClick={() =>
-                                                        router.push(
-                                                            "/modules"
-                                                        )
-                                                    }
+                                                    onClick={() => router.push("/modules")}
                                                 >
-                                                    Back to modules
+                                                    {t("test.backToLesson")}
                                                 </IonButton>
                                             </IonCardContent>
                                         </IonCard>
                                     )}
                                 </>
                             ) : (
-                                <p>Lesson not found.</p>
+                                <p>{t("test.loading")}</p>
                             )}
                         </div>
                     </main>

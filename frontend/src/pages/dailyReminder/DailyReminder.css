@@ -1,0 +1,316 @@
+.reminder-page {
+    --background: var(--bg-soft);
+}
+
+/* ── Desktop layout ─────────────────────────────────────────────── */
+.reminder-layout {
+    display: flex;
+    min-height: 100vh;
+    background: var(--bg-soft);
+}
+
+.reminder-main {
+    flex: 1;
+    margin-left: 310px;
+    min-height: 100vh;
+    padding: 42px 32px 40px;
+    background: var(--bg-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ── Mobile header (hidden on desktop) ──────────────────────────── */
+.reminder-mobile-header {
+    display: none;
+}
+
+/* ── Desktop header ─────────────────────────────────────────────── */
+.reminder-desktop-header {
+    width: 100%;
+    max-width: 480px;
+    margin-bottom: 8px;
+}
+
+.reminder-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 16px;
+}
+
+.reminder-desktop-header h1 {
+    margin: 0 0 6px;
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+
+.reminder-subtitle {
+    margin: 0;
+    font-size: 15px;
+    color: var(--text-light);
+}
+
+/* ── Content ─────────────────────────────────────────────────────── */
+.reminder-content {
+    width: 100%;
+    max-width: 480px;
+}
+
+/* ── Clock display ───────────────────────────────────────────────── */
+.reminder-clock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 20px 0 8px;
+    padding: 24px;
+    background: white;
+    border-radius: 22px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+}
+
+.reminder-clock-icon {
+    font-size: 36px;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.reminder-clock-time {
+    font-size: 52px;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Section label ───────────────────────────────────────────────── */
+.reminder-section-label {
+    margin: 20px 0 8px 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+}
+
+/* ── Toggle card ─────────────────────────────────────────────────── */
+.reminder-card {
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    padding: 0 16px;
+}
+
+.reminder-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    min-height: 52px;
+}
+
+.reminder-row-label {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.reminder-toggle {
+    --handle-height: 22px;
+    --handle-width: 22px;
+    --track-height: 28px;
+    --track-width: 52px;
+    --border-radius: 14px;
+    --background-checked: var(--primary);
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* ── Pickers ─────────────────────────────────────────────────────── */
+.reminder-pickers {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 16px;
+    transition: opacity 0.2s;
+}
+
+.reminder-pickers--disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.reminder-picker-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.reminder-picker-label {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+}
+
+.reminder-picker-scroll {
+    width: 100%;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+    overflow-y: auto;
+    max-height: 240px;
+    padding: 6px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    /* hide scrollbar */
+    scrollbar-width: none;
+}
+.reminder-picker-scroll::-webkit-scrollbar { display: none; }
+
+.reminder-picker-item {
+    width: 100%;
+    height: 46px;
+    background: none;
+    border: none;
+    border-radius: 12px;
+    font-size: 20px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    margin: 0 6px;
+    width: calc(100% - 12px);
+}
+
+.reminder-picker-item:hover:not(:disabled) {
+    background: #f0edff;
+    color: var(--primary);
+}
+
+.reminder-picker-item--active {
+    background: var(--primary) !important;
+    color: white !important;
+}
+
+.reminder-colon {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--text-dark);
+    padding-top: 36px;
+    flex-shrink: 0;
+}
+
+/* ── Save button ─────────────────────────────────────────────────── */
+.reminder-save-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 20px;
+    padding: 16px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(108, 92, 255, 0.3);
+    transition: opacity 0.2s;
+}
+
+.reminder-save-btn:hover {
+    opacity: 0.9;
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   MOBILE  (≤ 768 px)
+   ══════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    .reminder-main {
+        margin-left: 0;
+        padding: 0 0 130px;
+        background: linear-gradient(
+            180deg,
+            var(--primary)      0%,
+            var(--primary-dark) 38%,
+            var(--bg-soft)      38%,
+            var(--bg-soft)     100%
+        );
+        align-items: stretch;
+    }
+
+    .reminder-desktop-header {
+        display: none;
+    }
+
+    .reminder-mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 28px 18px 24px;
+        color: white;
+    }
+
+    .reminder-back-btn {
+        background: rgba(255, 255, 255, 0.18);
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    .reminder-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 800;
+        color: white;
+    }
+
+    .reminder-header-spacer {
+        width: 36px;
+        flex-shrink: 0;
+    }
+
+    .reminder-content {
+        padding: 0 16px;
+        max-width: 100%;
+    }
+
+    .reminder-clock {
+        margin-top: 0;
+    }
+
+    .reminder-clock-time {
+        font-size: 42px;
+    }
+}

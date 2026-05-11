@@ -8,6 +8,7 @@ import {
 } from "ionicons/icons";
 
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { getAccessToken } from "../../auth/authStorage";
 import { parseJwt } from "../../auth/jwt";
@@ -17,6 +18,7 @@ import "./SidebarNav.css";
 const SidebarNav: React.FC = () => {
     const router = useIonRouter();
     const location = useLocation();
+    const { t } = useTranslation();
 
     const isActive = (path: string) =>
         location.pathname === path ||
@@ -37,7 +39,7 @@ const SidebarNav: React.FC = () => {
                 onClick={() => router.push("/home")}
             >
                 <IonIcon icon={homeOutline} />
-                <span>Home</span>
+                <span>{t("nav.home")}</span>
             </button>
 
             <button
@@ -45,7 +47,7 @@ const SidebarNav: React.FC = () => {
                 onClick={() => router.push("/modules")}
             >
                 <IonIcon icon={bookOutline} />
-                <span>Modules</span>
+                <span>{t("nav.modules")}</span>
             </button>
 
             <button
@@ -53,7 +55,7 @@ const SidebarNav: React.FC = () => {
                 onClick={() => router.push("/profile")}
             >
                 <IonIcon icon={personOutline} />
-                <span>Profile</span>
+                <span>{t("nav.profile")}</span>
             </button>
 
             {isAdmin && (
@@ -64,7 +66,7 @@ const SidebarNav: React.FC = () => {
                     onClick={() => router.push("/admin")}
                 >
                     <IonIcon icon={shieldOutline} />
-                    <span>Admin</span>
+                    <span>{t("nav.admin")}</span>
                 </button>
             )}
 
@@ -75,7 +77,7 @@ const SidebarNav: React.FC = () => {
                 onClick={() => router.push("/settings")}
             >
                 <IonIcon icon={settingsOutline} />
-                <span>Settings</span>
+                <span>{t("nav.settings")}</span>
             </button>
         </div>
     );

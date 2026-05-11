@@ -12,6 +12,7 @@ import {
     lockClosedOutline,
 } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
 import MobileTabBar from "../../components/MobileTabBar/MobileTabBar";
@@ -26,6 +27,7 @@ const ModuleDetails: React.FC = () => {
 
     const [module, setModule] = useState<ModuleDetailsDto | null>(null);
     const [loading, setLoading] = useState(true);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const loadModule = async () => {
@@ -61,7 +63,7 @@ const ModuleDetails: React.FC = () => {
                             {loading ? (
                                 <div className="module-loading">
                                     <IonSpinner name="crescent" />
-                                    <p>Loading module...</p>
+                                    <p>{t("moduleDetails.loading")}</p>
                                 </div>
                             ) : module ? (
                                 <>
@@ -69,7 +71,7 @@ const ModuleDetails: React.FC = () => {
                                         <div className="module-nav">
                                             <button onClick={() => router.push("/modules")}>
                                                 <IonIcon icon={arrowBackOutline} />
-                                                Modules
+                                                {t("moduleDetails.backToModules")}
                                             </button>
 
                                             <div className="module-points">
@@ -83,7 +85,7 @@ const ModuleDetails: React.FC = () => {
 
                                             <div className="module-header-text">
                                                 <span className="module-unit">
-                                                    UNIT {module.id}
+                                                    {t("moduleDetails.unit", { id: module.id })}
                                                 </span>
 
                                                 <h1>{module.title}</h1>
@@ -91,9 +93,9 @@ const ModuleDetails: React.FC = () => {
 
                                                 <div className="module-progress">
                                                     <div className="module-progress-info">
-                                                        <span>Progress</span>
+                                                        <span>{t("moduleDetails.progress")}</span>
                                                         <span>
-                                                            {completedLessons}/{totalLessons} lessons
+                                                            {t("moduleDetails.lessons", { completed: completedLessons, total: totalLessons })}
                                                         </span>
                                                     </div>
 

@@ -11,6 +11,7 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 import { postJson } from "../../api/api";
+import { useTranslation } from "react-i18next";
 import "./Signup.css";
 
 type SignupRequest = {
@@ -28,14 +29,15 @@ const Signup: React.FC = () => {
     const [showError, setShowError] = useState(false);
 
     const router = useIonRouter();
+    const { t } = useTranslation();
 
     const validate = (): string | null => {
         if (username.trim().length < 3) {
-            return "Username must be at least 3 characters.";
+            return t("auth.usernameMin");
         }
 
         if (password.length < 3) {
-            return "Password must be at least 3 characters.";
+            return t("auth.passwordMin");
         }
 
         return null;
@@ -78,19 +80,19 @@ const Signup: React.FC = () => {
 
                     <div className="auth-card">
                         <div className="auth-hero">
-                            <div className="auth-badge">SkillUp Academia</div>
-                            <h2 className="auth-title">Create account</h2>
-                            <p className="auth-subtitle">Start your soft skills journey</p>
+                            <div className="auth-badge">{t("auth.appName")}</div>
+                            <h2 className="auth-title">{t("auth.signupTitle")}</h2>
+                            <p className="auth-subtitle">{t("auth.signupSubtitle")}</p>
                         </div>
 
                         <div className="form-group">
                             <IonItem lines="none" className="form-item">
                                 <IonLabel position="stacked" className="form-label">
-                                    Username
+                                    {t("auth.usernameLabel")}
                                 </IonLabel>
                                 <IonInput
                                     value={username}
-                                    placeholder="Choose a username"
+                                    placeholder={t("auth.chooseUsername")}
                                     onIonInput={(e) => setUsername(e.detail.value ?? "")}
                                     autocomplete="username"
                                     className="form-input"
@@ -99,12 +101,12 @@ const Signup: React.FC = () => {
 
                             <IonItem lines="none" className="form-item">
                                 <IonLabel position="stacked" className="form-label">
-                                    Password
+                                    {t("auth.passwordLabel")}
                                 </IonLabel>
                                 <IonInput
                                     value={password}
                                     type="password"
-                                    placeholder="Create a password"
+                                    placeholder={t("auth.createPassword")}
                                     onIonInput={(e) => setPassword(e.detail.value ?? "")}
                                     autocomplete="new-password"
                                     className="form-input"
@@ -119,19 +121,19 @@ const Signup: React.FC = () => {
                                 onClick={onSubmit}
                                 disabled={isLoading}
                             >
-                                Sign up
+                                {t("auth.signupButton")}
                             </IonButton>
                         </div>
 
                         <div className="register-text">
                             <IonLabel>
-                                Already have an account?{" "}
+                                {t("auth.hasAccount")}{" "}
                                 <button
                                     type="button"
                                     className="register-link-button"
                                     onClick={() => router.push("/login")}
                                 >
-                                    Log in here
+                                    {t("auth.loginLink")}
                                 </button>
                             </IonLabel>
                         </div>

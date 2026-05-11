@@ -16,6 +16,7 @@ import {
 } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { useIonRouter } from "@ionic/react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
 import MobileTabBar from "../../components/MobileTabBar/MobileTabBar";
@@ -28,6 +29,7 @@ const Lesson: React.FC = () => {
 
     const [lesson, setLesson] = useState<LessonDetailsDto | null>(null);
     const [loading, setLoading] = useState(true);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const loadLesson = async () => {
@@ -67,18 +69,18 @@ const Lesson: React.FC = () => {
                                 onClick={() => router.goBack()}
                             >
                                 <IonIcon icon={arrowBackOutline} slot="start" />
-                                Back
+                                {t("lesson.back")}
                             </IonButton>
 
                             {loading ? (
                                 <div className="lesson-loading">
                                     <IonSpinner name="crescent" />
-                                    <p>Loading lesson...</p>
+                                    <p>{t("lesson.loading")}</p>
                                 </div>
                             ) : lesson ? (
                                 <>
                                     <section className="lesson-hero">
-                                        <p className="lesson-eyebrow">Lesson</p>
+                                        <p className="lesson-eyebrow">{t("lesson.eyebrow")}</p>
                                         <h1>{lesson.title}</h1>
                                         <p>{lesson.description}</p>
                                     </section>
@@ -88,7 +90,7 @@ const Lesson: React.FC = () => {
                                             <IonCardContent>
                                                 <div className="lesson-section-title">
                                                     <IonIcon icon={documentTextOutline} />
-                                                    <h2>Lesson content</h2>
+                                                    <h2>{t("lesson.content")}</h2>
                                                 </div>
 
                                                 <p className="lesson-text">{lesson.content}</p>
@@ -99,11 +101,11 @@ const Lesson: React.FC = () => {
                                             <IonCard className="lesson-side-card">
                                                 <IonCardContent>
                                                     <IonIcon icon={checkmarkCircleOutline} />
-                                                    <h3>Status</h3>
+                                                    <h3>{t("lesson.status")}</h3>
                                                     <p>
                                                         {lesson.completed
-                                                            ? "Completed"
-                                                            : "Not completed"}
+                                                            ? t("lesson.completed")
+                                                            : t("lesson.notCompleted")}
                                                     </p>
                                                 </IonCardContent>
                                             </IonCard>
@@ -111,11 +113,11 @@ const Lesson: React.FC = () => {
                                             <IonCard className="lesson-side-card">
                                                 <IonCardContent>
                                                     <IonIcon icon={trophyOutline} />
-                                                    <h3>Score</h3>
+                                                    <h3>{t("lesson.score")}</h3>
                                                     <p>
                                                         {lesson.score !== null
                                                             ? `${lesson.score}%`
-                                                            : "No score yet"}
+                                                            : t("lesson.noScore")}
                                                     </p>
                                                 </IonCardContent>
                                             </IonCard>
@@ -125,13 +127,13 @@ const Lesson: React.FC = () => {
                                                     <IonCardContent>
                                                         <IonIcon icon={playCircleOutline} />
                                                         <h3>{lesson.test}</h3>
-                                                        <p>Passing score: {lesson.passingScore}%</p>
+                                                        <p>{t("lesson.passingScore", { score: lesson.passingScore })}</p>
 
                                                         <IonButton
                                                             expand="block"
                                                             onClick={() => router.push(`/lessons/${lesson.id}/test`)}
                                                         >
-                                                            Start test
+                                                            {t("lesson.startTest")}
                                                         </IonButton>
                                                     </IonCardContent>
                                                 </IonCard>
@@ -140,7 +142,7 @@ const Lesson: React.FC = () => {
                                     </section>
                                 </>
                             ) : (
-                                <p>Lesson not found.</p>
+                                <p>{t("lesson.notFound")}</p>
                             )}
                         </div>
                     </main>

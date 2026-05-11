@@ -1,6 +1,7 @@
 import { IonIcon } from "@ionic/react";
 import { bookOutline, chevronForwardOutline } from "ionicons/icons";
 import { useIonRouter } from "@ionic/react";
+import { useTranslation } from "react-i18next";
 import "./ModuleCard.css";
 
 export type ModuleCardProps = {
@@ -17,6 +18,7 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
                                                    lessonCount,
                                                }) => {
     const router = useIonRouter();
+    const { t } = useTranslation();
 
     return (
         <button
@@ -30,7 +32,7 @@ const ModuleCard: React.FC<ModuleCardProps> = ({
             <div className="module-info">
                 <h3>{title}</h3>
                 <p>{description}</p>
-                <span>{lessonCount} lessons</span>
+                <span>{t("modules.lessonCount", { count: lessonCount })}</span>
             </div>
 
             <IonIcon className="module-arrow" icon={chevronForwardOutline} />

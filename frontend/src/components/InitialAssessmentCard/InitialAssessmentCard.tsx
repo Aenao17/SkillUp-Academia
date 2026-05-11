@@ -1,5 +1,6 @@
 import { IonButton } from "@ionic/react";
 import { useIonRouter } from "@ionic/react";
+import { useTranslation } from "react-i18next";
 import "./InitialAssessmentCard.css";
 
 type Props = {
@@ -8,6 +9,7 @@ type Props = {
 
 const InitialAssessmentCard: React.FC<Props> = ({ show }) => {
     const router = useIonRouter();
+    const { t } = useTranslation();
 
     if (!show) return null;
 
@@ -15,17 +17,15 @@ const InitialAssessmentCard: React.FC<Props> = ({ show }) => {
         <div className="assessment-card">
             <div className="assessment-content">
                 <div className="assessment-text">
-                    <h2>Start your journey 🚀</h2>
-                    <p>
-                        Take the initial assessment to personalize your learning experience.
-                    </p>
+                    <h2>{t("assessment.cardTitle")}</h2>
+                    <p>{t("assessment.cardText")}</p>
                 </div>
 
                 <IonButton
                     className="assessment-button"
                     onClick={() => router.push("/initial-assessment")}
                 >
-                    Start test
+                    {t("assessment.startTest")}
                 </IonButton>
             </div>
         </div>
