@@ -115,9 +115,9 @@ const Modules: React.FC = () => {
                     </main>
                 </div>
 
-                <MobileTabBar />
             </IonContent>
-        </IonPage>
+        <MobileTabBar />
+    </IonPage>
     );
 };
 

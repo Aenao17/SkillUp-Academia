@@ -163,8 +163,8 @@ const Profile: React.FC = () => {
                     </main>
                 </div>
 
-                <MobileTabBar />
             </IonContent>
+            <MobileTabBar />
         </IonPage>
     );
 };

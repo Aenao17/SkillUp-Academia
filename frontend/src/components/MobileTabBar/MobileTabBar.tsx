@@ -3,6 +3,7 @@ import {
     IonLabel,
     IonTabBar,
     IonTabButton,
+    useIonRouter
 } from "@ionic/react";
 
 import {
@@ -14,6 +15,7 @@ import {
 } from "ionicons/icons";
 
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 import { getAccessToken } from "../../auth/authStorage";
 import { parseJwt } from "../../auth/jwt";
 
@@ -21,38 +23,64 @@ import "./MobileTabBar.css";
 
 const MobileTabBar: React.FC = () => {
     const { t } = useTranslation();
-    const token = getAccessToken();
+    const router = useIonRouter();
+    const location = useLocation();
 
+    const token = getAccessToken();
     const payload = token ? parseJwt(token) : null;
 
-    const isAdmin = payload?.role === "ADMIN";
+    const isAdmin = payload?.sub === "admin";
+
+    const isActive = (path: string) =>
+        location.pathname === path ||
+        location.pathname.startsWith(`${path}/`);
 
     return (
         <div className="mobile-tabbar-wrapper">
             <IonTabBar className="mobile-tabbar">
-                <IonTabButton href="/home">
+                <IonTabButton 
+                    tab="home"
+                    onClick={() => router.push("/home")}
+                    className={isActive("/home") ? "tab-selected" : ""}
+                >
                     <IonIcon icon={homeOutline} />
                     <IonLabel>{t("nav.home")}</IonLabel>
                 </IonTabButton>
 
-                <IonTabButton href="/modules">
+                <IonTabButton 
+                    tab="modules"
+                    onClick={() => router.push("/modules")}
+                    className={isActive("/modules") ? "tab-selected" : ""}
+                >
                     <IonIcon icon={bookOutline} />
                     <IonLabel>{t("nav.modules")}</IonLabel>
                 </IonTabButton>
 
-                <IonTabButton href="/profile">
+                <IonTabButton 
+                    tab="profile"
+                    onClick={() => router.push("/profile")}
+                    className={isActive("/profile") ? "tab-selected" : ""}
+                >
                     <IonIcon icon={personOutline} />
                     <IonLabel>{t("nav.profile")}</IonLabel>
                 </IonTabButton>
 
                 {isAdmin && (
-                    <IonTabButton href="/admin">
+                    <IonTabButton 
+                        tab="admin"
+                        onClick={() => router.push("/admin")}
+                        className={isActive("/admin") ? "tab-selected" : ""}
+                    >
                         <IonIcon icon={shieldOutline} />
                         <IonLabel>{t("nav.admin")}</IonLabel>
                     </IonTabButton>
                 )}
 
-                <IonTabButton href="/settings">
+                <IonTabButton 
+                    tab="settings"
+                    onClick={() => router.push("/settings")}
+                    className={isActive("/settings") ? "tab-selected" : ""}
+                >
                     <IonIcon icon={settingsOutline} />
                     <IonLabel>{t("nav.settings")}</IonLabel>
                 </IonTabButton>

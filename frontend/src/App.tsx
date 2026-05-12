@@ -47,6 +47,7 @@ import DailyReminderPage from "./pages/dailyReminder/DailyReminder";
 import PrivacyPage from "./pages/privacy/Privacy";
 import AchievementsPage from "./pages/achievements/Achievements";
 import HelpSupportPage from "./pages/helpSupport/HelpSupport";
+import InitialAssessment from './pages/initialAssessment/InitialAssessment';
 
 setupIonicReact();
 
@@ -72,6 +73,7 @@ const App: React.FC = () => (
           <ProtectedRoute exact path="/lessons/:id/test" component={LessonTest} />
           <ProtectedRoute exact path="/lessons/:id" component={Lesson} />
           <ProtectedRoute exact path="/modules" component={Modules} />
+          <ProtectedRoute exact path="/initial-assessment" component={InitialAssessment} />
           <AdminRoute exact path="/admin" component={Admin} />
           <ProtectedRoute exact path="/settings" component={Settings} />
           <ProtectedRoute exact path="/settings/language" component={LanguagePage} />

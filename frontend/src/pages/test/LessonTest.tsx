@@ -146,7 +146,7 @@ const LessonTest: React.FC = () => {
                                         <p>{t("test.eyebrow")}</p>
 
                                         <h1>
-                                            {lesson.test? lesson.test : "Test"}
+                                            {lesson.test? lesson.title : "Test"}
                                         </h1>
 
                                         <span>
