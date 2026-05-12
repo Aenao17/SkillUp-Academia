@@ -168,9 +168,8 @@ const Settings: React.FC = () => {
                     </main>
                 </div>
             </IonContent>
-
-            <MobileTabBar />
-        </IonPage>
+        <MobileTabBar />
+    </IonPage>
     );
 };
 

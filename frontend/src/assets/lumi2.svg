@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="148" height="148" viewBox="-24 -24 148 148">
+<defs>
+<filter id="filter_0" x="-100%" y="-100%" width="300%" height="300%">
+  <feGaussianBlur in="SourceAlpha" stdDeviation="10.00" result="blur_0"/>
+  <feOffset in="blur_0" dx="0.0" dy="4.0" result="offset_0"/>
+  <feFlood flood-color="#ffb800" flood-opacity="0.500"/>
+  <feComposite in2="offset_0" operator="in" result="shadow_0"/>
+  <feMerge>
+    <feMergeNode in="shadow_0"/>
+    <feMergeNode in="SourceGraphic"/>
+  </feMerge>
+</filter>
+
+<linearGradient id="grad_1" gradientUnits="objectBoundingBox" x1="0.1465" y1="0.1465" x2="0.8536" y2="0.8536">
+<stop offset="0.0%" stop-color="#ffe040"/>
+<stop offset="100.0%" stop-color="#ffb800"/>
+</linearGradient>
+<linearGradient id="grad_2" gradientUnits="objectBoundingBox" x1="0.1465" y1="0.1465" x2="0.8536" y2="0.8536">
+<stop offset="0.0%" stop-color="#ffe040"/>
+<stop offset="100.0%" stop-color="#ffb800"/>
+</linearGradient>
+</defs>
+<g transform="matrix(100.0,0.0,0.0,100.0,0.0,0.0)">
+    <g transform="scale(0.01,0.01)">
+<g filter="url(#filter_0)">
+<g transform="matrix(100.0,0.0,0.0,100.0,0.0,0.0)">
+  <path d="M0.28,0 L0.72,0 C0.875,0 1,0.125 1,0.28 L1,0.72 C1,0.875 0.875,1 0.72,1 L0.28,1 C0.125,1 0,0.875 0,0.72 L0,0.28 C0,0.125 0.125,0 0.28,0 Z" fill="url(#grad_1)" stroke="none"/>
+</g>
+</g>
+<g opacity="0.500">
+<g transform="matrix(96.59258492011172,25.88189595935755,-25.881895959357543,96.59258492011172,14.646116113470502,-11.232029326472567)">
+  <path d="M0.28,0 L0.72,0 C0.875,0 1,0.125 1,0.28 L1,0.72 C1,0.875 0.875,1 0.72,1 L0.28,1 C0.125,1 0,0.875 0,0.72 L0,0.28 C0,0.125 0.125,0 0.28,0 Z" fill="url(#grad_2)" stroke="none"/>
+</g>
+</g>
+<ellipse cx="0.5" cy="0.5" rx="0.5" ry="0.5" transform="matrix(13.0,0.0,0.0,13.0,28.0,36.0)" fill="#2d1a00" stroke="none"/>
+<ellipse cx="0.5" cy="0.5" rx="0.5" ry="0.5" transform="matrix(13.0,0.0,0.0,13.0,59.0,36.0)" fill="#2d1a00" stroke="none"/>
+<g opacity="0.700">
+<ellipse cx="0.5" cy="0.5" rx="0.5" ry="0.5" transform="matrix(5.0,0.0,0.0,5.0,32.0,42.0)" fill="#ffffff" stroke="none"/>
+</g>
+<g opacity="0.700">
+<ellipse cx="0.5" cy="0.5" rx="0.5" ry="0.5" transform="matrix(5.0,0.0,0.0,5.0,63.0,42.0)" fill="#ffffff" stroke="none"/>
+</g>
+<g transform="matrix(40.0,0.0,0.0,18.0,30.0,57.0)">
+  <path d="M0,0 L1,0 C1,0 1,0 1,0 L1,0.375 C1,0.72 0.874,1 0.719,1 L0.281,1 C0.126,1 0,0.72 0,0.375 L0,0 C0,0 0,0 0,0 Z" fill="#ff8c00" stroke="none"/>
+</g>
+<g transform="matrix(49.18,0.0,0.0,29.0,0.0,74.0)">
+  <path d="M0.295,0 L0.705,0 C0.868,0 1,0.224 1,0.5 L1,0.5 C1,0.776 0.868,1 0.705,1 L0.295,1 C0.132,1 0,0.776 0,0.5 L0,0.5 C0,0.224 0.132,0 0.295,0 Z" fill="#ffffff" fill-opacity="0.902" stroke="none"/>
+    <g transform="scale(0.020333468889792598,0.034482758620689655)">
+<text transform="translate(12,8)" font-family="Plus Jakarta Sans" font-size="11" font-weight="600" font-style="normal" text-anchor="start" xml:space="preserve" fill="#ffb800"><tspan x="0" y="10.988">Lumi</tspan></text>
+    </g>
+</g>
+    </g>
+</g>
+</svg>
