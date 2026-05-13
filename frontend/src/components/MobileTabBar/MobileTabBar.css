@@ -21,9 +21,9 @@
 }
 
 .sidebar-logo {
-    width: 86px;
-    height: 68px;
-    background: var(--accent);
+    width: 106px;
+    height: 88px;
+    background: var(--primary);
     border-radius: 34px;
     margin: 0 auto 36px;
     display: flex;
@@ -162,7 +162,7 @@
     .mobile-mascot {
         width: 64px;
         height: 54px;
-        background: var(--accent);
+        background: var(--primary);
         border-radius: 30px;
         display: flex;
         align-items: center;

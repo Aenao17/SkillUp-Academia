@@ -96,7 +96,7 @@
         width: 64px;
         height: 54px;
         border-radius: 30px;
-        background: var(--accent);
+        background: var(--primary);
         display: flex;
         align-items: center;
         justify-content: center;

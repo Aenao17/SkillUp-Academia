@@ -1,0 +1,29 @@
+:root {
+    color-scheme: light;
+
+    --ion-background-color: #f4f6ff;
+    --ion-text-color: #111827;
+}
+
+html,
+body,
+ion-app,
+ion-content {
+    color-scheme: light;
+    background: #f4f6ff;
+    color: #111827;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: light;
+    }
+
+    html,
+    body,
+    ion-app,
+    ion-content {
+        background: #f4f6ff !important;
+        color: #111827 !important;
+    }
+}

@@ -1,5 +1,5 @@
 import { IonContent, IonPage } from "@ionic/react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./Home.css";
 
@@ -10,6 +10,7 @@ import InitialAssessmentCard from "../components/InitialAssessmentCard/InitialAs
 import ModuleCard from "../components/ModuleCard/ModuleCard";
 import InitialAssessmentAlert from "../components/InitialAssessmentAlert/InitialAssessmentAlert";
 import MobileTabBar from "../components/MobileTabBar/MobileTabBar";
+import lumiMascot from "../assets/lumi2.svg";
 
 const Home: React.FC = () => {
     const { t } = useTranslation();
@@ -59,7 +60,9 @@ const Home: React.FC = () => {
                                 <h1>{t("home.title")}</h1>
                             </div>
 
-                            <div className="mobile-mascot">😊</div>
+                            <div className="mobile-mascot">
+                                <img src={lumiMascot} alt="Lumi Mascot" className="mascot-img" />
+                            </div>
                         </div>
 
                         <div className="desktop-title">

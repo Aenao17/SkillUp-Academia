@@ -48,7 +48,7 @@ import PrivacyPage from "./pages/privacy/Privacy";
 import AchievementsPage from "./pages/achievements/Achievements";
 import HelpSupportPage from "./pages/helpSupport/HelpSupport";
 import InitialAssessment from './pages/initialAssessment/InitialAssessment';
-
+import "./theme/global.css";
 setupIonicReact();
 
 const App: React.FC = () => (

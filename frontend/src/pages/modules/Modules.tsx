@@ -8,7 +8,7 @@ import {
 } from "@ionic/react";
 
 import { bookOutline, chevronForwardOutline } from "ionicons/icons";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
@@ -18,6 +18,7 @@ import { getModules } from "../../api/api";
 import { LearningModuleDto } from "../../types/module";
 
 import "./Modules.css";
+import lumiMascot from "../../assets/lumi2.svg";
 
 const Modules: React.FC = () => {
     const [modules, setModules] = useState<LearningModuleDto[]>([]);
@@ -62,7 +63,9 @@ const Modules: React.FC = () => {
                                     </p>
                                 </div>
 
-                                <div className="modules-mascot">😊</div>
+                                <div className="modules-mascot">
+                                    <img src={lumiMascot} alt="Lumi Mascot" className="mascot-img" />
+                                </div>
                             </section>
 
                             <section className="modules-card">

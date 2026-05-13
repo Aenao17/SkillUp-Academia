@@ -1,0 +1,312 @@
+.admin-content {
+    --background: linear-gradient(
+            180deg,
+            var(--primary) 0%,
+            var(--primary-dark) 100%
+    );
+}
+
+.admin-page {
+    --background: var(--primary-dark);
+}
+
+.admin-container {
+    min-height: 100vh;
+    padding: 40px;
+    background: linear-gradient(
+            180deg,
+            var(--primary) 0%,
+            var(--primary-dark) 100%
+    );
+}
+
+.admin-hero {
+    background: white;
+    border-radius: 28px;
+    padding: 28px;
+    margin-bottom: 24px;
+}
+
+.admin-eyebrow {
+    color: var(--primary);
+    font-weight: 800;
+}
+
+.admin-hero h1 {
+    color: var(--text-dark);
+}
+
+.admin-subtitle {
+    color: var(--text-light);
+}
+
+.admin-segment {
+    padding: 8px;
+    margin-bottom: 24px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.admin-segment ion-segment-button {
+    --border-radius: 18px;
+    --background: white;
+    --background-checked: var(--accent);
+    --color: var(--text-dark);
+    --color-checked: var(--text-dark);
+    --indicator-color: transparent;
+
+    margin: 4px;
+    border-radius: 18px;
+    background: white;
+}
+
+.admin-segment ion-segment-button::part(indicator) {
+    border-radius: 18px;
+}
+
+.admin-segment ion-label {
+    color: var(--text-dark);
+    font-weight: 800;
+}
+
+.admin-section {
+    border-radius: 28px;
+}
+
+.admin-card {
+    background: white;
+    border-radius: 28px;
+    padding: 24px;
+    margin-bottom: 18px;
+}
+
+.admin-card h2 {
+    color: var(--text-dark);
+}
+
+.admin-card p {
+    color: var(--text-light);
+}
+
+.admin-page ion-list {
+    background: transparent;
+    border-radius: 24px;
+}
+
+.admin-page ion-item {
+    --background: white;
+    --border-radius: 18px;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    border-radius: 18px;
+}
+
+.admin-page ion-input,
+.admin-page ion-textarea,
+.admin-page ion-select {
+    color: var(--text-dark);
+}
+
+.admin-page ion-button {
+    --background: var(--accent);
+    --color: var(--text-dark);
+    --border-radius: 18px;
+    font-weight: 800;
+    text-transform: none;
+}
+
+.admin-page ion-icon {
+    color: var(--primary);
+}
+
+.admin-page ion-searchbar {
+    --background: white;
+    --color: var(--text-dark);
+    --placeholder-color: var(--text-light);
+    --border-radius: 18px;
+}
+
+.admin-page ion-card {
+    background: white;
+    border-radius: 28px;
+    color: var(--text-dark);
+}
+
+.admin-page ion-card-title {
+    color: var(--text-dark);
+}
+
+.admin-page ion-card-content {
+    color: var(--text-light);
+}
+
+.admin-page ion-chip {
+    --background: var(--accent);
+    --color: var(--text-dark);
+    border-radius: 16px;
+}
+
+.admin-page ion-badge {
+    --background: var(--accent);
+    --color: var(--text-dark);
+    border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+    .admin-container {
+        padding: 24px 18px 120px;
+    }
+
+    .admin-hero {
+        border-radius: 24px;
+        padding: 22px;
+    }
+
+    .admin-segment {
+        border-radius: 22px;
+    }
+
+    .admin-segment ion-segment-button {
+        --border-radius: 16px;
+        border-radius: 16px;
+    }
+
+    .admin-card {
+        border-radius: 24px;
+        padding: 20px;
+    }
+
+    .admin-page ion-item {
+        --border-radius: 16px;
+        border-radius: 16px;
+    }
+
+    .admin-page ion-button {
+        --border-radius: 16px;
+    }
+}
+.admin-page ion-item.ion-focused,
+.admin-page ion-item.item-has-focus,
+.admin-page ion-item.item-interactive.ion-activated,
+.admin-page ion-item.item-interactive:hover {
+    --background: rgba(255, 255, 255, 0.92);
+    color: var(--text-dark);
+}
+
+.admin-page ion-item.ion-focused ion-label,
+.admin-page ion-item.item-has-focus ion-label,
+.admin-page ion-item.item-interactive.ion-activated ion-label,
+.admin-page ion-item.item-interactive:hover ion-label {
+    color: var(--text-dark);
+}
+
+.admin-page ion-item ion-label,
+.admin-page ion-item h1,
+.admin-page ion-item h2,
+.admin-page ion-item h3,
+.admin-page ion-item p {
+    color: var(--text-dark);
+}
+
+.admin-page ion-item[aria-selected="true"],
+.admin-page ion-item.selected,
+.admin-page .selected {
+    --background: var(--accent);
+    background: var(--accent);
+    color: var(--text-dark);
+}
+
+.admin-page ion-item[aria-selected="true"] ion-label,
+.admin-page ion-item.selected ion-label,
+.admin-page .selected ion-label {
+    color: var(--text-dark);
+}
+@media (max-width: 768px) {
+
+    .admin-content {
+        --background: linear-gradient(
+                180deg,
+                var(--primary) 0%,
+                var(--primary-dark) 28%,
+                #f4f6ff 28%,
+                #f4f6ff 100%
+        );
+    }
+
+    .admin-container {
+        padding: 20px 16px 120px;
+        min-height: 100vh;
+        background: transparent;
+    }
+
+    .admin-hero {
+        border-radius: 24px;
+        padding: 22px 18px;
+        margin-bottom: 18px;
+    }
+
+    .admin-hero h1 {
+        font-size: 28px;
+        line-height: 1.1;
+    }
+
+    .admin-subtitle {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .admin-segment {
+        padding: 6px;
+        border-radius: 20px;
+        overflow-x: auto;
+    }
+
+    .admin-segment ion-segment-button {
+        min-height: 44px;
+        min-width: 110px;
+        font-size: 14px;
+        --border-radius: 14px;
+        border-radius: 14px;
+    }
+
+    .admin-segment ion-label {
+        font-size: 13px;
+    }
+
+    .admin-card {
+        border-radius: 22px;
+        padding: 18px;
+    }
+
+    .admin-page ion-item {
+        --border-radius: 16px;
+        border-radius: 16px;
+        margin-bottom: 10px;
+    }
+
+    .admin-page ion-input,
+    .admin-page ion-textarea,
+    .admin-page ion-select {
+        font-size: 14px;
+    }
+
+    .admin-page ion-button {
+        width: 100%;
+        min-height: 46px;
+        font-size: 14px;
+        --border-radius: 16px;
+    }
+
+    .admin-page ion-searchbar {
+        --border-radius: 16px;
+    }
+
+    .admin-page ion-chip,
+    .admin-page ion-badge {
+        font-size: 12px;
+    }
+
+    .admin-page ion-card {
+        border-radius: 22px;
+    }
+}

@@ -14,6 +14,8 @@ import { getAccessToken } from "../../auth/authStorage";
 import { parseJwt } from "../../auth/jwt";
 
 import "./SidebarNav.css";
+import lumiMascot from "../../assets/lumi2.svg";
+import React from "react";
 
 const SidebarNav: React.FC = () => {
     const router = useIonRouter();
@@ -32,7 +34,9 @@ const SidebarNav: React.FC = () => {
 
     return (
         <div className="sidebar">
-            <div className="sidebar-logo">😊</div>
+            <div className="sidebar-logo">
+                <img src={lumiMascot} alt="Lumi Mascot" className="mascot-img" />
+            </div>
 
             <button
                 className={`side-link ${isActive("/home") ? "active" : ""}`}
