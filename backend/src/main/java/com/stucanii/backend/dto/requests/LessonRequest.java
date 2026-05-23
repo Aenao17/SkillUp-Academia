@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,4 +17,5 @@ public class LessonRequest {
     private String content;
     private String testTitle;
     private Integer passingScore;
+    private List<TestQuestionRequest> questions;
 }

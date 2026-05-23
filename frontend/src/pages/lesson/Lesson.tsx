@@ -35,14 +35,6 @@ const Lesson: React.FC = () => {
         const loadLesson = async () => {
             try {
                 const data = await getLessonById(id);
-                let testData = data.test || { title: "Test", passingScore: 70 };
-                if(typeof (testData) === "string") {
-                    testData = "Test";
-                }
-                else{
-                    data.passingScore = testData.passingScore;
-                    data.test = testData.title;
-                }
                 console.log(data);
                 setLesson(data);
             } catch (error) {
@@ -126,8 +118,12 @@ const Lesson: React.FC = () => {
                                                 <IonCard className="lesson-side-card">
                                                     <IonCardContent>
                                                         <IonIcon icon={playCircleOutline} />
-                                                        <h3>{lesson.test}</h3>
-                                                        <p>{t("lesson.passingScore", { score: lesson.passingScore })}</p>
+                                                        <h3>{lesson.test?.title}</h3>
+                                                        <p>
+                                                            {t("lesson.passingScore", {
+                                                                score: lesson.test?.passingScore ?? 75,
+                                                            })}
+                                                        </p>
 
                                                         <IonButton
                                                             expand="block"

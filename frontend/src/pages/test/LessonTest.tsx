@@ -23,41 +23,19 @@ import {
 import { playSuccessSound, playFailSound } from "../../util/soundEffects";
 import "./LessonTest.css";
 
-const questions = [
-    {
-        question: "Did you understand the main idea of this lesson?",
-        answers: ["Yes", "Partially", "No"],
-        correctIndex: 0,
-    },
-    {
-        question: "Can you apply this concept in a real situation?",
-        answers: ["Yes", "Not sure", "No"],
-        correctIndex: 0,
-    },
-    {
-        question: "What is the goal of soft skills learning?",
-        answers: [
-            "Better communication",
-            "Memorizing theory",
-            "Avoiding teamwork",
-        ],
-        correctIndex: 0,
-    },
-];
-
 const LessonTest: React.FC = () => {
     const { id } = useParams<{ id: string }>();
-
     const router = useIonRouter();
 
     const [lesson, setLesson] = useState<LessonDetailsDto | null>(null);
-
     const [loading, setLoading] = useState(true);
-
     const [answers, setAnswers] = useState<number[]>([]);
-
     const [result, setResult] = useState<number | null>(null);
+
     const { t } = useTranslation();
+
+    const questions = lesson?.test?.questions || [];
+    const passingScore = lesson?.test?.passingScore ?? 75;
 
     useEffect(() => {
         const loadLesson = async () => {
@@ -66,7 +44,9 @@ const LessonTest: React.FC = () => {
 
                 setLesson(data);
 
-                setAnswers(new Array(questions.length).fill(-1));
+                setAnswers(
+                    new Array(data.test?.questions?.length || 0).fill(-1)
+                );
             } catch (error) {
                 console.error("Failed to load lesson test", error);
             } finally {
@@ -82,16 +62,18 @@ const LessonTest: React.FC = () => {
         answerIndex: number
     ) => {
         const updated = [...answers];
-
         updated[questionIndex] = answerIndex;
-
         setAnswers(updated);
     };
 
     const submitTest = async () => {
+        if (questions.length === 0) {
+            return;
+        }
+
         const correctAnswers = answers.filter(
             (answer, index) =>
-                answer === questions[index].correctIndex
+                answer === questions[index].correctOption - 1
         ).length;
 
         const score = Math.round(
@@ -105,6 +87,7 @@ const LessonTest: React.FC = () => {
             });
 
             setResult(score);
+
             if (score >= passingScore) {
                 playSuccessSound();
             } else {
@@ -120,11 +103,10 @@ const LessonTest: React.FC = () => {
         setResult(null);
     };
 
-    const allAnswered = answers.every(
-        (answer) => answer !== -1
-    );
-
-    const passingScore = lesson?.passingScore ?? 75;
+    const allAnswered =
+        questions.length > 0 &&
+        answers.length === questions.length &&
+        answers.every((answer) => answer !== -1);
 
     return (
         <IonPage>
@@ -137,7 +119,6 @@ const LessonTest: React.FC = () => {
                             {loading ? (
                                 <div className="test-loading">
                                     <IonSpinner name="crescent" />
-
                                     <p>{t("test.loading")}</p>
                                 </div>
                             ) : lesson ? (
@@ -146,78 +127,74 @@ const LessonTest: React.FC = () => {
                                         <p>{t("test.eyebrow")}</p>
 
                                         <h1>
-                                            {lesson.test? lesson.title : "Test"}
+                                            {lesson.test?.title || lesson.title}
                                         </h1>
 
                                         <span>
-                                            {t("test.passingScore", { score: passingScore })}
+                                            {t("test.passingScore", {
+                                                score: passingScore,
+                                            })}
                                         </span>
                                     </section>
 
-                                    {result === null ? (
+                                    {questions.length === 0 ? (
+                                        <IonCard className="test-result-card">
+                                            <IonCardContent>
+                                                <h2>Acest test nu are întrebări încă.</h2>
+
+                                                <IonButton
+                                                    expand="block"
+                                                    fill="outline"
+                                                    onClick={() => router.push("/modules")}
+                                                >
+                                                    {t("test.backToLesson")}
+                                                </IonButton>
+                                            </IonCardContent>
+                                        </IonCard>
+                                    ) : result === null ? (
                                         <>
                                             <div className="test-questions">
-                                                {questions.map(
-                                                    (
-                                                        item,
-                                                        questionIndex
-                                                    ) => (
-                                                        <IonCard
-                                                            key={
-                                                                questionIndex
-                                                            }
-                                                            className="test-card"
-                                                        >
-                                                            <IonCardContent>
-                                                                <h3>
-                                                                    {
-                                                                        item.question
-                                                                    }
-                                                                </h3>
+                                                {questions.map((item, questionIndex) => (
+                                                    <IonCard
+                                                        key={item.id ?? questionIndex}
+                                                        className="test-card"
+                                                    >
+                                                        <IonCardContent>
+                                                            <h3>{item.questionText}</h3>
 
-                                                                <div className="test-answers">
-                                                                    {item.answers.map(
-                                                                        (
-                                                                            answer,
-                                                                            answerIndex
-                                                                        ) => (
-                                                                            <button
-                                                                                key={
-                                                                                    answer
-                                                                                }
-                                                                                className={
-                                                                                    answers[
-                                                                                        questionIndex
-                                                                                        ] ===
-                                                                                    answerIndex
-                                                                                        ? "selected"
-                                                                                        : ""
-                                                                                }
-                                                                                onClick={() =>
-                                                                                    selectAnswer(
-                                                                                        questionIndex,
-                                                                                        answerIndex
-                                                                                    )
-                                                                                }
-                                                                            >
-                                                                                {
-                                                                                    answer
-                                                                                }
-                                                                            </button>
-                                                                        )
-                                                                    )}
-                                                                </div>
-                                                            </IonCardContent>
-                                                        </IonCard>
-                                                    )
-                                                )}
+                                                            <div className="test-answers">
+                                                                {[
+                                                                    item.optionA,
+                                                                    item.optionB,
+                                                                    item.optionC,
+                                                                    item.optionD,
+                                                                ].map((answer, answerIndex) => (
+                                                                    <button
+                                                                        key={`${questionIndex}-${answerIndex}`}
+                                                                        className={
+                                                                            answers[questionIndex] === answerIndex
+                                                                                ? "selected"
+                                                                                : ""
+                                                                        }
+                                                                        onClick={() =>
+                                                                            selectAnswer(
+                                                                                questionIndex,
+                                                                                answerIndex
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        {answer}
+                                                                    </button>
+                                                                ))}
+                                                            </div>
+                                                        </IonCardContent>
+                                                    </IonCard>
+                                                ))}
                                             </div>
 
                                             <IonButton
                                                 expand="block"
-                                                disabled={
-                                                    !allAnswered
-                                                }
+                                                disabled={!allAnswered}
                                                 onClick={submitTest}
                                             >
                                                 {t("test.submit")}
@@ -227,7 +204,9 @@ const LessonTest: React.FC = () => {
                                         <IonCard className="test-result-card">
                                             <IonCardContent>
                                                 <h2>
-                                                    {t("test.yourScore", { score: result })}
+                                                    {t("test.yourScore", {
+                                                        score: result,
+                                                    })}
                                                 </h2>
 
                                                 <p>
