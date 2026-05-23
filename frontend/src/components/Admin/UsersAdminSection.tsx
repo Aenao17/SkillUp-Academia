@@ -7,6 +7,7 @@ import {
     IonInput,
     IonItem,
     IonLabel,
+    IonSearchbar,
     IonSelect,
     IonSelectOption,
     IonSpinner,
@@ -18,28 +19,56 @@ import {
     personOutline,
     shieldOutline,
     keyOutline,
+    addOutline,
+    closeOutline,
 } from "ionicons/icons";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
     AdminUserDto,
     getAdminUsers,
     updateAdminUserRole,
     resetAdminUserPassword,
+    createAdminUser,
+    updateAdminUser,
+    deleteAdminUser,
 } from "../../api/api";
 
 const UsersAdminSection: React.FC = () => {
     const [users, setUsers] = useState<AdminUserDto[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [toastMessage, setToastMessage] = useState("");
+
+    const [search, setSearch] = useState("");
+    const [showCreateForm, setShowCreateForm] = useState(false);
 
     const [passwords, setPasswords] = useState<Record<number, string>>({});
-    const [toastMessage, setToastMessage] = useState("");
+
+    const [newUsername, setNewUsername] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [newRole, setNewRole] = useState("USER");
+
+    const [editingUserId, setEditingUserId] = useState<number | null>(null);
+    const [editUsername, setEditUsername] = useState("");
+    const [editRole, setEditRole] = useState("USER");
 
     useEffect(() => {
         loadUsers();
     }, []);
+
+    const filteredUsers = useMemo(() => {
+        const value = search.toLowerCase().trim();
+
+        return users
+            .filter((user) =>
+                user.username.toLowerCase().includes(value) ||
+                user.role.toLowerCase().includes(value) ||
+                String(user.userId).includes(value)
+            )
+            .sort((a, b) => a.userId - b.userId);
+    }, [users, search]);
 
     const loadUsers = async () => {
         try {
@@ -55,9 +84,44 @@ const UsersAdminSection: React.FC = () => {
         }
     };
 
-    const handleRoleChange = async (userId: number, newRole: string) => {
+    const closeCreateForm = () => {
+        setShowCreateForm(false);
+        setNewUsername("");
+        setNewPassword("");
+        setNewRole("USER");
+    };
+
+    const handleCreateUser = async () => {
+        if (!newUsername.trim() || !newPassword.trim()) {
+            setError("Username-ul și parola sunt obligatorii.");
+            return;
+        }
+
+        if (newPassword.length < 6) {
+            setError("Parola trebuie să aibă cel puțin 6 caractere.");
+            return;
+        }
+
         try {
-            const updatedUser = await updateAdminUserRole(userId, newRole);
+            const createdUser = await createAdminUser({
+                username: newUsername,
+                password: newPassword,
+                role: newRole,
+            });
+
+            setUsers((prev) => [...prev, createdUser]);
+
+            closeCreateForm();
+            setError("");
+            setToastMessage("Utilizatorul a fost creat.");
+        } catch {
+            setError("Utilizatorul nu a putut fi creat.");
+        }
+    };
+
+    const handleRoleChange = async (userId: number, newRoleValue: string) => {
+        try {
+            const updatedUser = await updateAdminUserRole(userId, newRoleValue);
 
             setUsers((prev) =>
                 prev.map((user) =>
@@ -72,15 +136,15 @@ const UsersAdminSection: React.FC = () => {
     };
 
     const handlePasswordReset = async (userId: number) => {
-        const newPassword = passwords[userId];
+        const newPasswordValue = passwords[userId];
 
-        if (!newPassword || newPassword.length < 6) {
+        if (!newPasswordValue || newPasswordValue.length < 6) {
             setError("Parola trebuie să aibă cel puțin 6 caractere.");
             return;
         }
 
         try {
-            await resetAdminUserPassword(userId, newPassword);
+            await resetAdminUserPassword(userId, newPasswordValue);
 
             setPasswords((prev) => ({
                 ...prev,
@@ -91,6 +155,63 @@ const UsersAdminSection: React.FC = () => {
             setToastMessage("Parola a fost resetată.");
         } catch {
             setError("Parola nu a putut fi resetată.");
+        }
+    };
+
+    const startEditUser = (user: AdminUserDto) => {
+        setEditingUserId(user.userId);
+        setEditUsername(user.username);
+        setEditRole(user.role);
+    };
+
+    const cancelEditUser = () => {
+        setEditingUserId(null);
+        setEditUsername("");
+        setEditRole("USER");
+    };
+
+    const handleUpdateUser = async (userId: number) => {
+        if (!editUsername.trim()) {
+            setError("Username-ul este obligatoriu.");
+            return;
+        }
+
+        try {
+            const updatedUser = await updateAdminUser(userId, {
+                username: editUsername,
+                role: editRole,
+            });
+
+            setUsers((prev) =>
+                prev.map((user) =>
+                    user.userId === userId ? updatedUser : user
+                )
+            );
+
+            cancelEditUser();
+            setError("");
+            setToastMessage("Utilizatorul a fost actualizat.");
+        } catch {
+            setError("Utilizatorul nu a putut fi actualizat.");
+        }
+    };
+
+    const handleDeleteUser = async (userId: number) => {
+        const confirmed = window.confirm("Sigur vrei să ștergi acest utilizator?");
+
+        if (!confirmed) return;
+
+        try {
+            await deleteAdminUser(userId);
+
+            setUsers((prev) =>
+                prev.filter((user) => user.userId !== userId)
+            );
+
+            setError("");
+            setToastMessage("Utilizatorul a fost șters.");
+        } catch {
+            setError("Utilizatorul nu a putut fi șters.");
         }
     };
 
@@ -110,86 +231,245 @@ const UsersAdminSection: React.FC = () => {
                 </IonText>
             )}
 
-            <IonCard className="admin-stat-card">
-                <IonCardContent>
-                    <IonIcon icon={personOutline} />
-                    <h3>{users.length}</h3>
-                    <p>Total users</p>
-                </IonCardContent>
-            </IonCard>
+            <div className="admin-top-bar">
+                <IonCard className="admin-stat-card admin-compact-stat-card">
+                    <IonCardContent>
+                        <IonIcon icon={personOutline} />
+                        <div>
+                            <h3>{users.length}</h3>
+                            <p>Total users</p>
+                        </div>
+                    </IonCardContent>
+                </IonCard>
 
-            <div className="admin-grid">
-                {users.map((user) => (
-                    <IonCard className="admin-card" key={user.userId}>
-                        <IonCardContent>
-                            <div className="admin-user-header">
-                                <div className="admin-user-avatar">
-                                    <IonIcon icon={personOutline} />
-                                </div>
+                <div className="admin-toolbar">
+                    <IonSearchbar
+                        value={search}
+                        placeholder="Caută utilizator după username, rol sau ID..."
+                        onIonInput={(e) => setSearch(e.detail.value || "")}
+                    />
 
-                                <div>
-                                    <h2>{user.username}</h2>
-                                    <p>User ID: {user.userId}</p>
-                                </div>
-                            </div>
-
-                            <div className="admin-card-section">
-                                <IonItem lines="none">
-                                    <IonIcon icon={shieldOutline} slot="start" />
-
-                                    <IonLabel>
-                                        <h3>Rol curent</h3>
-                                        <IonChip
-                                            color={user.role === "ADMIN" ? "danger" : "primary"}
-                                        >
-                                            {user.role}
-                                        </IonChip>
-                                    </IonLabel>
-                                </IonItem>
-
-                                <IonItem className="admin-input-item">
-                                    <IonSelect
-                                        label="Schimbă rol"
-                                        labelPlacement="stacked"
-                                        value={user.role}
-                                        onIonChange={(e) =>
-                                            handleRoleChange(user.userId, e.detail.value as string)
-                                        }
-                                    >
-                                        <IonSelectOption value="USER">USER</IonSelectOption>
-                                        <IonSelectOption value="ADMIN">ADMIN</IonSelectOption>
-                                    </IonSelect>
-                                </IonItem>
-
-                                <IonItem className="admin-input-item">
-                                    <IonIcon icon={keyOutline} slot="start" />
-
-                                    <IonInput
-                                        label="Parolă nouă"
-                                        labelPlacement="stacked"
-                                        type="password"
-                                        value={passwords[user.userId] || ""}
-                                        onIonInput={(e) =>
-                                            setPasswords((prev) => ({
-                                                ...prev,
-                                                [user.userId]: e.detail.value || "",
-                                            }))
-                                        }
-                                    />
-                                </IonItem>
-
-                                <IonButton
-                                    expand="block"
-                                    className="admin-button admin-warning-button"
-                                    onClick={() => handlePasswordReset(user.userId)}
-                                >
-                                    Resetează parola
-                                </IonButton>
-                            </div>
-                        </IonCardContent>
-                    </IonCard>
-                ))}
+                    <IonButton
+                        className="admin-add-button"
+                        onClick={() => setShowCreateForm((prev) => !prev)}
+                    >
+                        <IonIcon icon={addOutline} />
+                    </IonButton>
+                </div>
             </div>
+
+            {showCreateForm && (
+                <IonCard className="admin-form-card admin-slide-form-card">
+                    <IonCardContent>
+                        <div className="admin-form-header">
+                            <h2>Adaugă utilizator</h2>
+
+                            <IonButton
+                                fill="clear"
+                                className="admin-close-button"
+                                onClick={closeCreateForm}
+                            >
+                                <IonIcon icon={closeOutline} />
+                            </IonButton>
+                        </div>
+
+                        <IonItem className="admin-input-item">
+                            <IonInput
+                                label="Username"
+                                labelPlacement="stacked"
+                                value={newUsername}
+                                onIonInput={(e) => setNewUsername(e.detail.value || "")}
+                            />
+                        </IonItem>
+
+                        <IonItem className="admin-input-item">
+                            <IonInput
+                                label="Parolă"
+                                labelPlacement="stacked"
+                                type="password"
+                                value={newPassword}
+                                onIonInput={(e) => setNewPassword(e.detail.value || "")}
+                            />
+                        </IonItem>
+
+                        <IonItem className="admin-input-item">
+                            <IonSelect
+                                label="Rol"
+                                labelPlacement="stacked"
+                                value={newRole}
+                                onIonChange={(e) => setNewRole(e.detail.value as string)}
+                            >
+                                <IonSelectOption value="USER">USER</IonSelectOption>
+                                <IonSelectOption value="ADMIN">ADMIN</IonSelectOption>
+                            </IonSelect>
+                        </IonItem>
+
+                        <IonButton
+                            expand="block"
+                            className="admin-button"
+                            onClick={handleCreateUser}
+                        >
+                            Creează utilizator
+                        </IonButton>
+
+                        <IonButton
+                            expand="block"
+                            fill="outline"
+                            className="admin-secondary-button"
+                            onClick={closeCreateForm}
+                        >
+                            Anulează
+                        </IonButton>
+                    </IonCardContent>
+                </IonCard>
+            )}
+
+            {filteredUsers.length === 0 ? (
+                <div className="admin-empty-state">
+                    Nu există utilizatori pentru căutarea introdusă.
+                </div>
+            ) : (
+                <div className="admin-grid">
+                    {filteredUsers.map((user) => (
+                        <IonCard className="admin-card" key={user.userId}>
+                            <IonCardContent>
+                                <div className="admin-card-header-row">
+                                    <div className="admin-user-header">
+                                        <div className="admin-user-avatar">
+                                            <IonIcon icon={personOutline} />
+                                        </div>
+
+                                        <div>
+                                            <h2>{user.username}</h2>
+                                            <p>User ID: {user.userId}</p>
+                                        </div>
+                                    </div>
+
+                                    <IonChip
+                                        color={user.role === "ADMIN" ? "danger" : "primary"}
+                                    >
+                                        {user.role}
+                                    </IonChip>
+                                </div>
+
+                                <div className="admin-card-section">
+                                    <IonItem lines="none">
+                                        <IonIcon icon={shieldOutline} slot="start" />
+
+                                        <IonLabel>
+                                            <h3>Schimbă rol rapid</h3>
+                                        </IonLabel>
+                                    </IonItem>
+
+                                    <IonItem className="admin-input-item">
+                                        <IonSelect
+                                            label="Rol"
+                                            labelPlacement="stacked"
+                                            value={user.role}
+                                            onIonChange={(e) =>
+                                                handleRoleChange(
+                                                    user.userId,
+                                                    e.detail.value as string
+                                                )
+                                            }
+                                        >
+                                            <IonSelectOption value="USER">USER</IonSelectOption>
+                                            <IonSelectOption value="ADMIN">ADMIN</IonSelectOption>
+                                        </IonSelect>
+                                    </IonItem>
+
+                                    <IonItem className="admin-input-item">
+                                        <IonIcon icon={keyOutline} slot="start" />
+
+                                        <IonInput
+                                            label="Parolă nouă"
+                                            labelPlacement="stacked"
+                                            type="password"
+                                            value={passwords[user.userId] || ""}
+                                            onIonInput={(e) =>
+                                                setPasswords((prev) => ({
+                                                    ...prev,
+                                                    [user.userId]: e.detail.value || "",
+                                                }))
+                                            }
+                                        />
+                                    </IonItem>
+
+                                    <IonButton
+                                        expand="block"
+                                        className="admin-button admin-warning-button"
+                                        onClick={() => handlePasswordReset(user.userId)}
+                                    >
+                                        Resetează parola
+                                    </IonButton>
+
+                                    {editingUserId === user.userId ? (
+                                        <div className="admin-edit-box">
+                                            <IonItem className="admin-input-item">
+                                                <IonInput
+                                                    label="Username"
+                                                    labelPlacement="stacked"
+                                                    value={editUsername}
+                                                    onIonInput={(e) =>
+                                                        setEditUsername(e.detail.value || "")
+                                                    }
+                                                />
+                                            </IonItem>
+
+                                            <IonItem className="admin-input-item">
+                                                <IonSelect
+                                                    label="Rol"
+                                                    labelPlacement="stacked"
+                                                    value={editRole}
+                                                    onIonChange={(e) =>
+                                                        setEditRole(e.detail.value as string)
+                                                    }
+                                                >
+                                                    <IonSelectOption value="USER">USER</IonSelectOption>
+                                                    <IonSelectOption value="ADMIN">ADMIN</IonSelectOption>
+                                                </IonSelect>
+                                            </IonItem>
+
+                                            <div className="admin-card-actions">
+                                                <IonButton
+                                                    className="admin-button"
+                                                    onClick={() => handleUpdateUser(user.userId)}
+                                                >
+                                                    Salvează
+                                                </IonButton>
+
+                                                <IonButton
+                                                    className="admin-secondary-button"
+                                                    fill="clear"
+                                                    onClick={cancelEditUser}
+                                                >
+                                                    Anulează
+                                                </IonButton>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="admin-card-actions">
+                                            <IonButton
+                                                fill="outline"
+                                                onClick={() => startEditUser(user)}
+                                            >
+                                                Editează
+                                            </IonButton>
+
+                                            <IonButton
+                                                className="admin-danger-button"
+                                                onClick={() => handleDeleteUser(user.userId)}
+                                            >
+                                                Șterge
+                                            </IonButton>
+                                        </div>
+                                    )}
+                                </div>
+                            </IonCardContent>
+                        </IonCard>
+                    ))}
+                </div>
+            )}
 
             <IonToast
                 isOpen={!!toastMessage}

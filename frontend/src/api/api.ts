@@ -203,8 +203,13 @@ export type LessonDetailsDto = {
     content: string;
     completed: boolean;
     score: number | null;
-    test?: string;
-    passingScore?: number;
+
+    test?: {
+        id: number;
+        title: string;
+        passingScore: number;
+        questions: TestQuestionDto[];
+    };
 };
 
 export const getModuleById = async (id: string): Promise<ModuleDetailsDto> => {
@@ -261,13 +266,28 @@ export const resetAdminUserPassword = async (
     });
 };
 
+export type TestQuestionDto = {
+    id?: number;
+    questionText: string;
+    optionA: string;
+    optionB: string;
+    optionC: string;
+    optionD: string;
+    correctOption: number;
+};
+
 export type AdminLessonDto = {
     id: number;
     title: string;
     description: string;
     content?: string;
     completed?: boolean;
-    test?: string;
+    test?: {
+        id: number;
+        title: string;
+        passingScore: number;
+        questions?: TestQuestionDto[];
+    };
     passingScore?: number;
     score?: number | null;
 };
@@ -278,6 +298,7 @@ export type AdminLessonRequest = {
     content: string;
     testTitle: string;
     passingScore: number;
+    questions: TestQuestionDto[];
 };
 
 export type AdminModuleDto = {
@@ -312,4 +333,91 @@ export const createAdminModule = async (
     body: AdminModuleRequest
 ): Promise<AdminModuleDto> => {
     return postJsonAuth<AdminModuleDto>("/api/admin/modules", body);
+};
+
+export async function putJsonAuth<TResponse>(
+    path: string,
+    body: unknown
+): Promise<TResponse> {
+    const token = getAccessToken();
+    if (!token) throw new Error("Not authenticated");
+
+    const res = await fetch(`${BASE_URL}${path}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+        let payload: ApiError | null = null;
+        try {
+            payload = await res.json();
+        } catch { /* empty */ }
+
+        const msg = payload?.error || `Request failed (${res.status})`;
+        throw new Error(msg);
+    }
+
+    if (res.status === 204) return undefined as TResponse;
+
+    return (await res.json()) as TResponse;
+}
+
+export type CreateAdminUserRequest = {
+    username: string;
+    password: string;
+    role: string;
+};
+
+export type UpdateAdminUserRequest = {
+    username: string;
+    role: string;
+};
+
+export const createAdminUser = async (
+    body: CreateAdminUserRequest
+): Promise<AdminUserDto> => {
+    return postJsonAuth<AdminUserDto>("/api/admin/users", body);
+};
+
+export const updateAdminUser = async (
+    userId: number,
+    body: UpdateAdminUserRequest
+): Promise<AdminUserDto> => {
+    return putJsonAuth<AdminUserDto>(`/api/admin/users/${userId}`, body);
+};
+
+export const deleteAdminUser = async (
+    userId: number
+): Promise<void> => {
+    return deleteAuth(`/api/admin/users/${userId}`);
+};
+
+export const updateAdminLesson = async (
+    lessonId: number,
+    body: AdminLessonRequest
+): Promise<AdminLessonDto> => {
+    return putJsonAuth<AdminLessonDto>(`/api/admin/lessons/${lessonId}`, body);
+};
+
+export const deleteAdminLesson = async (
+    lessonId: number
+): Promise<void> => {
+    return deleteAuth(`/api/admin/lessons/${lessonId}`);
+};
+
+export const updateAdminModule = async (
+    moduleId: number,
+    body: AdminModuleRequest
+): Promise<AdminModuleDto> => {
+    return putJsonAuth<AdminModuleDto>(`/api/admin/modules/${moduleId}`, body);
+};
+
+export const deleteAdminModule = async (
+    moduleId: number
+): Promise<void> => {
+    return deleteAuth(`/api/admin/modules/${moduleId}`);
 };

@@ -3,6 +3,9 @@ package com.stucanii.backend.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "lesson_tests")
 @Getter
@@ -25,4 +28,8 @@ public class LessonTest {
     @OneToOne
     @JoinColumn(name = "lesson_id", nullable = false, unique = true)
     private Lesson lesson;
+
+    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<TestQuestion> questions = new ArrayList<>();
 }

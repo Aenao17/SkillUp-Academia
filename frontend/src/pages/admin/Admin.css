@@ -309,4 +309,269 @@
     .admin-page ion-card {
         border-radius: 22px;
     }
+
+    .admin-toolbar {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .admin-toolbar ion-searchbar {
+        flex: 1;
+        padding: 0;
+    }
+
+    .admin-card-header-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: flex-start;
+        margin-bottom: 16px;
+    }
+
+    .admin-card-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .admin-card-actions ion-button {
+        min-width: 110px;
+    }
+
+    .admin-edit-box {
+        margin-top: 18px;
+        padding: 18px;
+        border-radius: 22px;
+        background: #f4f6ff;
+    }
+
+    .admin-form-card {
+        margin-bottom: 22px;
+        padding: 8px;
+    }
+
+    .admin-form-card h2 {
+        color: var(--text-dark);
+        margin-bottom: 16px;
+    }
+
+    .admin-empty-state {
+        background: white;
+        border-radius: 24px;
+        padding: 24px;
+        text-align: center;
+        color: var(--text-light);
+    }
+
+    .admin-danger-button {
+        --background: #ff6b6b !important;
+        --color: white !important;
+    }
+
+    .admin-secondary-button {
+        --background: white !important;
+        --color: var(--text-dark) !important;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 18px;
+    }
+
+    @media (max-width: 768px) {
+        .admin-toolbar {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .admin-card-header-row {
+            flex-direction: column;
+        }
+
+        .admin-card-actions {
+            justify-content: stretch;
+        }
+
+        .admin-card-actions ion-button {
+            width: 100%;
+        }
+
+        .admin-edit-box {
+            padding: 14px;
+            border-radius: 18px;
+        }
+    }
+}
+
+.admin-top-bar {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 18px;
+    align-items: stretch;
+    margin-bottom: 22px;
+}
+
+.admin-compact-stat-card {
+    margin: 0;
+}
+
+.admin-compact-stat-card ion-card-content {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.admin-compact-stat-card ion-icon {
+    font-size: 34px;
+    padding: 12px;
+    border-radius: 18px;
+    background: #f4f6ff;
+}
+
+.admin-compact-stat-card h3 {
+    margin: 0;
+    font-size: 28px;
+    color: var(--text-dark);
+}
+
+.admin-compact-stat-card p {
+    margin: 2px 0 0;
+    color: var(--text-light);
+}
+
+.admin-toolbar {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin: 0;
+}
+
+.admin-toolbar ion-searchbar {
+    flex: 1;
+    padding: 0;
+}
+
+.admin-add-button {
+    width: 56px;
+    height: 56px;
+    --border-radius: 50%;
+    margin: 0;
+}
+
+.admin-add-button ion-icon {
+    font-size: 26px;
+    color: var(--text-dark);
+}
+
+.admin-slide-form-card {
+    margin-bottom: 22px;
+    animation: adminSlideDown 0.2s ease-out;
+}
+
+.admin-form-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.admin-form-header h2 {
+    margin: 0;
+}
+
+.admin-close-button {
+    --background: transparent !important;
+    --box-shadow: none;
+    --color: var(--text-dark);
+    width: 42px;
+    height: 42px;
+}
+
+.admin-close-button ion-icon {
+    font-size: 24px;
+    color: var(--text-dark);
+}
+
+.admin-card-header-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.admin-card-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-top: 14px;
+}
+
+.admin-card-actions ion-button {
+    flex: 1;
+    min-width: 120px;
+}
+
+.admin-edit-box {
+    margin-top: 18px;
+    padding: 18px;
+    border-radius: 22px;
+    background: #f4f6ff;
+}
+
+.admin-empty-state {
+    background: white;
+    border-radius: 24px;
+    padding: 24px;
+    text-align: center;
+    color: var(--text-light);
+}
+
+.admin-danger-button {
+    --background: #ff6b6b !important;
+    --color: white !important;
+}
+
+.admin-secondary-button {
+    --background: white !important;
+    --color: var(--text-dark) !important;
+    --border-color: rgba(0, 0, 0, 0.12);
+    --border-style: solid;
+    --border-width: 1px;
+}
+
+@keyframes adminSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-top-bar {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-toolbar {
+        align-items: stretch;
+    }
+
+    .admin-card-header-row {
+        flex-direction: column;
+    }
+
+    .admin-card-actions {
+        flex-direction: column;
+    }
+
+    .admin-card-actions ion-button {
+        width: 100%;
+    }
 }

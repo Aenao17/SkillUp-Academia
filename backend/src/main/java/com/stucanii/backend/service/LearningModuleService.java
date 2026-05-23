@@ -60,4 +60,30 @@ public class LearningModuleService {
 
         return moduleMapper.toDto(module, progressList);
     }
+
+    public LearningModuleDTO updateModule(
+            Long moduleId,
+            LearningModuleRequest request
+    ) {
+        LearningModule module = moduleRepository.findById(moduleId)
+                .orElseThrow(() -> new RuntimeException("Module not found"));
+
+        List<Lesson> lessons =
+                lessonRepository.findAllById(request.getLessonIds());
+
+        module.setTitle(request.getTitle());
+        module.setDescription(request.getDescription());
+        module.setLessons(lessons);
+
+        LearningModule savedModule = moduleRepository.save(module);
+
+        return moduleMapper.toDto(savedModule, List.of());
+    }
+
+    public void deleteModule(Long moduleId) {
+        LearningModule module = moduleRepository.findById(moduleId)
+                .orElseThrow(() -> new RuntimeException("Module not found"));
+
+        moduleRepository.delete(module);
+    }
 }
