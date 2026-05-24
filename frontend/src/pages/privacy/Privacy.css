@@ -169,8 +169,17 @@
     --track-height: 28px;
     --track-width: 52px;
     --border-radius: 14px;
-    --background-checked: var(--primary);
+    --background-checked: #3880ff;
+    --handle-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     flex-shrink: 0;
+}
+
+.privacy-toggle::part(track) {
+    background: #c8cdd6;
+}
+
+.privacy-toggle.toggle-checked::part(track) {
+    background: #3880ff;
 }
 
 
@@ -233,5 +242,9 @@
     .privacy-content {
         padding: 0 16px;
         max-width: 100%;
+    }
+
+    .privacy-section-label:first-of-type {
+        color: white;
     }
 }

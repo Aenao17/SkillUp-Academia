@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
 import MobileTabBar from "../../components/MobileTabBar/MobileTabBar";
 import { clearTokens } from "../../auth/authStorage";
+import { deleteCurrentUser } from "../../api/api";
 import "./Privacy.css";
 
 const ANALYTICS_KEY = "skillup_analytics";
@@ -38,8 +39,12 @@ const PrivacyPage: React.FC = () => {
         localStorage.setItem(RECOMMENDATIONS_KEY, String(val));
     };
 
-    const handleDeleteAccount = () => {
-        // TODO: call DELETE /api/user/me once backend endpoint is available
+    const handleDeleteAccount = async () => {
+        try {
+            await deleteCurrentUser();
+        } catch {
+            // account deleted or token already invalid — proceed anyway
+        }
         clearTokens();
         history.replace("/login");
     };

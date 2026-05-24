@@ -149,9 +149,18 @@
     --track-height: 28px;
     --track-width: 52px;
     --border-radius: 14px;
-    --background-checked: var(--primary);
+    --background-checked: #3880ff;
+    --handle-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     margin-left: auto;
     flex-shrink: 0;
+}
+
+.settings-toggle::part(track) {
+    background: #c8cdd6;
+}
+
+.settings-toggle.toggle-checked::part(track) {
+    background: #3880ff;
 }
 
 /* ── Log Out row ─────────────────────────────────────────────── */

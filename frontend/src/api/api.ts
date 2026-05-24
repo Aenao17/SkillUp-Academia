@@ -176,6 +176,10 @@ export const getCurrentUser = async(): Promise<CurrentUserDto> =>{
     return getJsonAuth("/api/user/me");
 };
 
+export const deleteCurrentUser = async (): Promise<void> => {
+    return deleteAuth("/api/user/me");
+};
+
 export const getUserProgress = async(): Promise<UserProgressDto[]>=>{
     return getJsonAuth("/api/user/progress");
 }
