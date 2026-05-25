@@ -91,7 +91,7 @@
 /* ── Row ─────────────────────────────────────────────────────────── */
 .lang-row {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     gap: 14px;
     padding: 15px 0;
     width: 100%;
@@ -112,7 +112,6 @@
 
 .lang-flag {
     font-size: 26px;
-    line-height: 1;
     flex-shrink: 0;
 }
 

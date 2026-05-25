@@ -54,6 +54,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: var(--text-light);
+}
+
+.profile-loading ion-spinner {
+    color: var(--text-light);
 }
 
 .profile-user-card,
