@@ -10,7 +10,7 @@ import InitialAssessmentCard from "../components/InitialAssessmentCard/InitialAs
 import ModuleCard from "../components/ModuleCard/ModuleCard";
 import InitialAssessmentAlert from "../components/InitialAssessmentAlert/InitialAssessmentAlert";
 import MobileTabBar from "../components/MobileTabBar/MobileTabBar";
-import lumiMascot from "../assets/lumi2.svg";
+import lumiMascot from "../assets/lumi_fixed.svg";
 
 const Home: React.FC = () => {
     const { t } = useTranslation();

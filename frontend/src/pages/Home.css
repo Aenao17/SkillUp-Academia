@@ -108,6 +108,12 @@
         box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
     }
 
+    .mobile-mascot .mascot-img {
+        width: 56px;
+        height: 56px;
+        object-fit: contain;
+    }
+
     .mobile-subtitle {
         display: block;
         margin: 0 18px;

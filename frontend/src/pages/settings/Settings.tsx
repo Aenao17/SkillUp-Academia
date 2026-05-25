@@ -27,7 +27,7 @@ import MobileTabBar from "../../components/MobileTabBar/MobileTabBar";
 import { getCurrentUser, CurrentUserDto, changeMyPassword } from "../../api/api";
 import { clearTokens } from "../../auth/authStorage";
 import { isSoundEnabled, setSoundEnabled } from "../../util/soundEffects";
-import lumiSvg from "../../assets/lumi2.svg";
+import lumiSvg from "../../assets/lumi_fixed.svg";
 import "./Settings.css";
 
 const Settings: React.FC = () => {
@@ -60,7 +60,7 @@ const Settings: React.FC = () => {
                         <div className="settings-mobile-header">
                             <p className="settings-title-label">{t("settings.title")}</p>
                             <div className="settings-user-row">
-                                <div className="settings-avatar"><img src={lumiSvg} alt="Lumi" /></div>
+                                <div className="settings-avatar"><img src={lumiSvg} alt="Lumi" className="mascot-img" /></div>
                                 <div className="settings-user-text">
                                     <h2 className="settings-username">{user?.username ?? "—"}</h2>
                                     <p className="settings-role">{user?.role?.toLowerCase()}</p>

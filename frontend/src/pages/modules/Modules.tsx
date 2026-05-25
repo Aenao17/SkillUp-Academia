@@ -18,7 +18,7 @@ import { getModules } from "../../api/api";
 import { LearningModuleDto } from "../../types/module";
 
 import "./Modules.css";
-import lumiMascot from "../../assets/lumi2.svg";
+import lumiMascot from "../../assets/lumi_fixed.svg";
 
 const Modules: React.FC = () => {
     const [modules, setModules] = useState<LearningModuleDto[]>([]);

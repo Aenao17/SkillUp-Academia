@@ -19,7 +19,7 @@ import {
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
 import MobileTabBar from "../../components/MobileTabBar/MobileTabBar";
 
-import lumiMascot from "../../assets/lumi2.svg"; 
+import lumiMascot from "../../assets/lumi_fixed.svg"; 
 import "./InitialAssessment.css";
 
 // Mock Data for the Assessment
