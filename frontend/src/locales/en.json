@@ -190,6 +190,7 @@
   },
   "admin": {
     "eyebrow": "Admin Panel",
+    "back": "Back",
     "title": "Platform Administration",
     "subtitle": "Manage users, learning modules and lessons from one place.",
     "tabUsers": "Users",

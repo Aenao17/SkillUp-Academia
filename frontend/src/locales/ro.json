@@ -190,6 +190,7 @@
   },
   "admin": {
     "eyebrow": "Panou Admin",
+    "back": "ÎnapoI",
     "title": "Administrare Platformă",
     "subtitle": "Gestionează utilizatorii, modulele și lecțiile dintr-un singur loc.",
     "tabUsers": "Utilizatori",

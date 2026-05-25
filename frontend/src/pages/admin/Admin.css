@@ -1,9 +1,5 @@
 .admin-content {
-    --background: linear-gradient(
-            180deg,
-            var(--primary) 0%,
-            var(--primary-dark) 100%
-    );
+    --background: transparent;
 }
 
 .admin-page {
@@ -32,6 +28,25 @@
     font-weight: 800;
 }
 
+.admin-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0;
+    margin-bottom: 16px;
+    transition: color 0.15s;
+}
+
+.admin-back-btn:hover {
+    color: var(--primary);
+}
+
 .admin-hero h1 {
     color: var(--text-dark);
 }
@@ -45,6 +60,23 @@
     margin-bottom: 24px;
     border-radius: 24px;
     background: rgba(255, 255, 255, 0.2);
+    --indicator-color: transparent;
+    --indicator-height: 0px;
+    --border-color: transparent;
+    --border-width: 0px;
+    --border-style: none;
+    border: none;
+    overflow: hidden;
+}
+
+.admin-segment::part(native) {
+    border: none;
+    box-shadow: none;
+}
+
+.admin-segment::after,
+.admin-segment::before {
+    display: none !important;
 }
 
 .admin-segment ion-segment-button {
@@ -60,8 +92,13 @@
     background: white;
 }
 
-.admin-segment ion-segment-button::part(indicator) {
-    border-radius: 18px;
+.admin-segment ion-segment-button::part(indicator),
+.admin-segment ion-segment-button::part(indicator-background) {
+    display: none;
+}
+
+.admin-segment::part(indicator) {
+    display: none;
 }
 
 .admin-segment ion-label {
@@ -224,19 +261,24 @@
 @media (max-width: 768px) {
 
     .admin-content {
-        --background: linear-gradient(
-                180deg,
-                var(--primary) 0%,
-                var(--primary-dark) 28%,
-                #f4f6ff 28%,
-                #f4f6ff 100%
-        );
+        --background: transparent;
     }
 
     .admin-container {
-        padding: 20px 16px 120px;
+        padding: 0 16px 120px;
         min-height: 100vh;
-        background: transparent;
+        background: #f4f6ff;
+    }
+
+    .admin-top {
+        background: linear-gradient(
+                180deg,
+                var(--primary) 0%,
+                var(--primary-dark) 100%
+        );
+        padding: 20px 16px 24px;
+        border-radius: 0 0 28px 28px;
+        margin: 0 -16px 24px;
     }
 
     .admin-hero {
@@ -259,11 +301,13 @@
         padding: 6px;
         border-radius: 20px;
         overflow-x: auto;
+        width: 100%;
     }
 
     .admin-segment ion-segment-button {
         min-height: 44px;
-        min-width: 110px;
+        min-width: 0;
+        flex: 1;
         font-size: 14px;
         --border-radius: 14px;
         border-radius: 14px;

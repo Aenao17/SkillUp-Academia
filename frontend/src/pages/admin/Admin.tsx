@@ -1,13 +1,16 @@
 import {
     IonContent,
+    IonIcon,
     IonLabel,
     IonPage,
     IonSegment,
     IonSegmentButton,
 } from "@ionic/react";
+import { arrowBackOutline } from "ionicons/icons";
 
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 
 import "./Admin.css";
 import UsersAdminSection from "../../components/Admin/UsersAdminSection";
@@ -19,12 +22,18 @@ type AdminSection = "users" | "modules" | "lessons";
 const AdminPage: React.FC = () => {
     const [section, setSection] = useState<AdminSection>("users");
     const { t } = useTranslation();
+    const history = useHistory();
 
     return (
         <IonPage className="admin-page">
             <IonContent fullscreen className="admin-content">
                 <div className="admin-container">
+                    <div className="admin-top">
                     <div className="admin-hero">
+                        <button className="admin-back-btn" onClick={() => history.goBack()}>
+                            <IonIcon icon={arrowBackOutline} />
+                            {t("admin.back")}
+                        </button>
                         <p className="admin-eyebrow">{t("admin.eyebrow")}</p>
                         <h1>{t("admin.title")}</h1>
                         <p className="admin-subtitle">
@@ -34,6 +43,7 @@ const AdminPage: React.FC = () => {
 
                     <IonSegment
                         className="admin-segment"
+                        mode="ios"
                         value={section}
                         onIonChange={(e) => {
                             const value = e.detail.value as AdminSection;
@@ -52,6 +62,7 @@ const AdminPage: React.FC = () => {
                             <IonLabel>{t("admin.tabLessons")}</IonLabel>
                         </IonSegmentButton>
                     </IonSegment>
+                    </div>
 
                     {section === "users" && <UsersAdminSection />}
                     {section === "modules" && <ModulesAdminSection />}
