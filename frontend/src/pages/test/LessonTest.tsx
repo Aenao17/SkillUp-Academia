@@ -140,7 +140,7 @@ const LessonTest: React.FC = () => {
                                     {questions.length === 0 ? (
                                         <IonCard className="test-result-card">
                                             <IonCardContent>
-                                                <h2>Acest test nu are întrebări încă.</h2>
+                                                <h2>{t("test.noQuestions")}</h2>
 
                                                 <IonButton
                                                     expand="block"

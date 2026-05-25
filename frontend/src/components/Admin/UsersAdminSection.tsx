@@ -24,6 +24,7 @@ import {
 } from "ionicons/icons";
 
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
     AdminUserDto,
@@ -54,6 +55,8 @@ const UsersAdminSection: React.FC = () => {
     const [editUsername, setEditUsername] = useState("");
     const [editRole, setEditRole] = useState("USER");
 
+    const { t } = useTranslation();
+
     useEffect(() => {
         loadUsers();
     }, []);
@@ -78,7 +81,7 @@ const UsersAdminSection: React.FC = () => {
             const data = await getAdminUsers();
             setUsers(data);
         } catch {
-            setError("Nu s-au putut încărca utilizatorii.");
+            setError(t("admin.errLoadUsers"));
         } finally {
             setLoading(false);
         }
@@ -93,12 +96,12 @@ const UsersAdminSection: React.FC = () => {
 
     const handleCreateUser = async () => {
         if (!newUsername.trim() || !newPassword.trim()) {
-            setError("Username-ul și parola sunt obligatorii.");
+            setError(t("admin.errUsernamePasswordRequired"));
             return;
         }
 
         if (newPassword.length < 6) {
-            setError("Parola trebuie să aibă cel puțin 6 caractere.");
+            setError(t("admin.errPasswordMin"));
             return;
         }
 
@@ -113,9 +116,9 @@ const UsersAdminSection: React.FC = () => {
 
             closeCreateForm();
             setError("");
-            setToastMessage("Utilizatorul a fost creat.");
+            setToastMessage(t("admin.successCreateUser"));
         } catch {
-            setError("Utilizatorul nu a putut fi creat.");
+            setError(t("admin.errCreateUser"));
         }
     };
 
@@ -129,9 +132,9 @@ const UsersAdminSection: React.FC = () => {
                 )
             );
 
-            setToastMessage("Rolul utilizatorului a fost actualizat.");
+            setToastMessage(t("admin.successUpdateRole"));
         } catch {
-            setError("Rolul nu a putut fi actualizat.");
+            setError(t("admin.errUpdateRole"));
         }
     };
 
@@ -139,7 +142,7 @@ const UsersAdminSection: React.FC = () => {
         const newPasswordValue = passwords[userId];
 
         if (!newPasswordValue || newPasswordValue.length < 6) {
-            setError("Parola trebuie să aibă cel puțin 6 caractere.");
+            setError(t("admin.errPasswordMin"));
             return;
         }
 
@@ -152,9 +155,9 @@ const UsersAdminSection: React.FC = () => {
             }));
 
             setError("");
-            setToastMessage("Parola a fost resetată.");
+            setToastMessage(t("admin.successResetPassword"));
         } catch {
-            setError("Parola nu a putut fi resetată.");
+            setError(t("admin.errResetPassword"));
         }
     };
 
@@ -172,7 +175,7 @@ const UsersAdminSection: React.FC = () => {
 
     const handleUpdateUser = async (userId: number) => {
         if (!editUsername.trim()) {
-            setError("Username-ul este obligatoriu.");
+            setError(t("admin.errUsernameRequired"));
             return;
         }
 
@@ -190,14 +193,14 @@ const UsersAdminSection: React.FC = () => {
 
             cancelEditUser();
             setError("");
-            setToastMessage("Utilizatorul a fost actualizat.");
+            setToastMessage(t("admin.successUpdateUser"));
         } catch {
-            setError("Utilizatorul nu a putut fi actualizat.");
+            setError(t("admin.errUpdateUser"));
         }
     };
 
     const handleDeleteUser = async (userId: number) => {
-        const confirmed = window.confirm("Sigur vrei să ștergi acest utilizator?");
+        const confirmed = window.confirm(t("admin.confirmDeleteUser"));
 
         if (!confirmed) return;
 
@@ -209,9 +212,9 @@ const UsersAdminSection: React.FC = () => {
             );
 
             setError("");
-            setToastMessage("Utilizatorul a fost șters.");
+            setToastMessage(t("admin.successDeleteUser"));
         } catch {
-            setError("Utilizatorul nu a putut fi șters.");
+            setError(t("admin.errDeleteUser"));
         }
     };
 
@@ -245,7 +248,7 @@ const UsersAdminSection: React.FC = () => {
                 <div className="admin-toolbar">
                     <IonSearchbar
                         value={search}
-                        placeholder="Caută utilizator după username, rol sau ID..."
+                        placeholder={t("admin.searchUsers")}
                         onIonInput={(e) => setSearch(e.detail.value || "")}
                     />
 
@@ -262,7 +265,7 @@ const UsersAdminSection: React.FC = () => {
                 <IonCard className="admin-form-card admin-slide-form-card">
                     <IonCardContent>
                         <div className="admin-form-header">
-                            <h2>Adaugă utilizator</h2>
+                            <h2>{t("admin.addUser")}</h2>
 
                             <IonButton
                                 fill="clear"
@@ -284,7 +287,7 @@ const UsersAdminSection: React.FC = () => {
 
                         <IonItem className="admin-input-item">
                             <IonInput
-                                label="Parolă"
+                                label={t("admin.password")}
                                 labelPlacement="stacked"
                                 type="password"
                                 value={newPassword}
@@ -294,7 +297,7 @@ const UsersAdminSection: React.FC = () => {
 
                         <IonItem className="admin-input-item">
                             <IonSelect
-                                label="Rol"
+                                label={t("admin.role")}
                                 labelPlacement="stacked"
                                 value={newRole}
                                 onIonChange={(e) => setNewRole(e.detail.value as string)}
@@ -309,7 +312,7 @@ const UsersAdminSection: React.FC = () => {
                             className="admin-button"
                             onClick={handleCreateUser}
                         >
-                            Creează utilizator
+                            {t("admin.createUser")}
                         </IonButton>
 
                         <IonButton
@@ -318,7 +321,7 @@ const UsersAdminSection: React.FC = () => {
                             className="admin-secondary-button"
                             onClick={closeCreateForm}
                         >
-                            Anulează
+                            {t("admin.cancel")}
                         </IonButton>
                     </IonCardContent>
                 </IonCard>
@@ -326,7 +329,7 @@ const UsersAdminSection: React.FC = () => {
 
             {filteredUsers.length === 0 ? (
                 <div className="admin-empty-state">
-                    Nu există utilizatori pentru căutarea introdusă.
+                    {t("admin.emptyUsers")}
                 </div>
             ) : (
                 <div className="admin-grid">
@@ -357,13 +360,13 @@ const UsersAdminSection: React.FC = () => {
                                         <IonIcon icon={shieldOutline} slot="start" />
 
                                         <IonLabel>
-                                            <h3>Schimbă rol rapid</h3>
+                                            <h3>{t("admin.changeRoleQuick")}</h3>
                                         </IonLabel>
                                     </IonItem>
 
                                     <IonItem className="admin-input-item">
                                         <IonSelect
-                                            label="Rol"
+                                            label={t("admin.role")}
                                             labelPlacement="stacked"
                                             value={user.role}
                                             onIonChange={(e) =>
@@ -382,7 +385,7 @@ const UsersAdminSection: React.FC = () => {
                                         <IonIcon icon={keyOutline} slot="start" />
 
                                         <IonInput
-                                            label="Parolă nouă"
+                                            label={t("admin.newPassword")}
                                             labelPlacement="stacked"
                                             type="password"
                                             value={passwords[user.userId] || ""}
@@ -400,7 +403,7 @@ const UsersAdminSection: React.FC = () => {
                                         className="admin-button admin-warning-button"
                                         onClick={() => handlePasswordReset(user.userId)}
                                     >
-                                        Resetează parola
+                                        {t("admin.resetPassword")}
                                     </IonButton>
 
                                     {editingUserId === user.userId ? (
@@ -418,7 +421,7 @@ const UsersAdminSection: React.FC = () => {
 
                                             <IonItem className="admin-input-item">
                                                 <IonSelect
-                                                    label="Rol"
+                                                    label={t("admin.role")}
                                                     labelPlacement="stacked"
                                                     value={editRole}
                                                     onIonChange={(e) =>
@@ -435,7 +438,7 @@ const UsersAdminSection: React.FC = () => {
                                                     className="admin-button"
                                                     onClick={() => handleUpdateUser(user.userId)}
                                                 >
-                                                    Salvează
+                                                    {t("admin.save")}
                                                 </IonButton>
 
                                                 <IonButton
@@ -443,7 +446,7 @@ const UsersAdminSection: React.FC = () => {
                                                     fill="clear"
                                                     onClick={cancelEditUser}
                                                 >
-                                                    Anulează
+                                                    {t("admin.cancel")}
                                                 </IonButton>
                                             </div>
                                         </div>
@@ -453,14 +456,14 @@ const UsersAdminSection: React.FC = () => {
                                                 fill="outline"
                                                 onClick={() => startEditUser(user)}
                                             >
-                                                Editează
+                                                {t("admin.edit")}
                                             </IonButton>
 
                                             <IonButton
                                                 className="admin-danger-button"
                                                 onClick={() => handleDeleteUser(user.userId)}
                                             >
-                                                Șterge
+                                                {t("admin.delete")}
                                             </IonButton>
                                         </div>
                                     )}

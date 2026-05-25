@@ -269,4 +269,8 @@ a.help-row:hover {
         padding: 0 16px;
         max-width: 100%;
     }
+
+    .help-section-label:first-of-type {
+        color: white;
+    }
 }

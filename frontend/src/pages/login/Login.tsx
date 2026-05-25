@@ -100,6 +100,7 @@ const Login: React.FC = () => {
                                     type="password"
                                     placeholder="Enter your password"
                                     onIonInput={(e) => setPassword(e.detail.value ?? "")}
+                                    onKeyDown={(e) => { if (e.key === "Enter") onSubmit(); }}
                                     autocomplete="current-password"
                                     className="form-input"
                                 />

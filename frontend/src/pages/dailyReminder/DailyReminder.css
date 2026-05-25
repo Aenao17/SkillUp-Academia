@@ -306,6 +306,10 @@
         max-width: 100%;
     }
 
+    .reminder-section-label {
+        color: white;
+    }
+
     .reminder-clock {
         margin-top: 0;
     }

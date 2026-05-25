@@ -22,6 +22,7 @@ import {
 } from "ionicons/icons";
 
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
     AdminLessonDto,
@@ -53,6 +54,8 @@ const ModulesAdminSection: React.FC = () => {
     const [editDescription, setEditDescription] = useState("");
     const [editSelectedLessonIds, setEditSelectedLessonIds] = useState<number[]>([]);
 
+    const { t } = useTranslation();
+
     useEffect(() => {
         loadData();
     }, []);
@@ -82,7 +85,7 @@ const ModulesAdminSection: React.FC = () => {
             setModules(modulesData);
             setLessons(lessonsData);
         } catch {
-            setError("Nu s-au putut încărca modulele.");
+            setError(t("admin.errLoadModules"));
         } finally {
             setLoading(false);
         }
@@ -105,7 +108,7 @@ const ModulesAdminSection: React.FC = () => {
 
     const handleCreateModule = async () => {
         if (!title.trim() || !description.trim()) {
-            setError("Titlul și descrierea sunt obligatorii.");
+            setError(t("admin.errTitleDescRequired"));
             return;
         }
 
@@ -120,9 +123,9 @@ const ModulesAdminSection: React.FC = () => {
 
             closeCreateForm();
             setError("");
-            setToastMessage("Modulul a fost creat.");
+            setToastMessage(t("admin.successCreateModule"));
         } catch {
-            setError("Modulul nu a putut fi creat.");
+            setError(t("admin.errCreateModule"));
         }
     };
 
@@ -150,7 +153,7 @@ const ModulesAdminSection: React.FC = () => {
 
     const handleUpdateModule = async (moduleId: number) => {
         if (!editTitle.trim() || !editDescription.trim()) {
-            setError("Titlul și descrierea sunt obligatorii.");
+            setError(t("admin.errTitleDescRequired"));
             return;
         }
 
@@ -169,14 +172,14 @@ const ModulesAdminSection: React.FC = () => {
 
             cancelEditModule();
             setError("");
-            setToastMessage("Modulul a fost actualizat.");
+            setToastMessage(t("admin.successUpdateModule"));
         } catch {
-            setError("Modulul nu a putut fi actualizat.");
+            setError(t("admin.errUpdateModule"));
         }
     };
 
     const handleDeleteModule = async (moduleId: number) => {
-        const confirmed = window.confirm("Sigur vrei să ștergi modulul?");
+        const confirmed = window.confirm(t("admin.confirmDeleteModule"));
         if (!confirmed) return;
 
         try {
@@ -187,9 +190,9 @@ const ModulesAdminSection: React.FC = () => {
             );
 
             setError("");
-            setToastMessage("Modulul a fost șters.");
+            setToastMessage(t("admin.successDeleteModule"));
         } catch {
-            setError("Modulul nu a putut fi șters.");
+            setError(t("admin.errDeleteModule"));
         }
     };
 
@@ -223,7 +226,7 @@ const ModulesAdminSection: React.FC = () => {
                 <div className="admin-toolbar">
                     <IonSearchbar
                         value={search}
-                        placeholder="Caută modul după titlu, descriere sau ID..."
+                        placeholder={t("admin.searchModules")}
                         onIonInput={(e) => setSearch(e.detail.value || "")}
                     />
 
@@ -240,7 +243,7 @@ const ModulesAdminSection: React.FC = () => {
                 <IonCard className="admin-form-card admin-slide-form-card">
                     <IonCardContent>
                         <div className="admin-form-header">
-                            <h2>Adaugă modul</h2>
+                            <h2>{t("admin.addModule")}</h2>
 
                             <IonButton
                                 fill="clear"
@@ -253,7 +256,7 @@ const ModulesAdminSection: React.FC = () => {
 
                         <IonItem className="admin-input-item">
                             <IonInput
-                                label="Titlu modul"
+                                label={t("admin.moduleTitle")}
                                 labelPlacement="stacked"
                                 value={title}
                                 onIonInput={(e) => setTitle(e.detail.value || "")}
@@ -262,7 +265,7 @@ const ModulesAdminSection: React.FC = () => {
 
                         <IonItem className="admin-input-item">
                             <IonTextarea
-                                label="Descriere modul"
+                                label={t("admin.moduleDescription")}
                                 labelPlacement="stacked"
                                 value={description}
                                 onIonInput={(e) => setDescription(e.detail.value || "")}
@@ -271,7 +274,7 @@ const ModulesAdminSection: React.FC = () => {
 
                         <IonCard className="admin-inner-card">
                             <IonCardContent>
-                                <h2>Selectează lecții</h2>
+                                <h2>{t("admin.selectLessons")}</h2>
 
                                 <IonList lines="none">
                                     {lessons.map((lesson) => (
@@ -300,7 +303,7 @@ const ModulesAdminSection: React.FC = () => {
                             className="admin-button"
                             onClick={handleCreateModule}
                         >
-                            Creează modul
+                            {t("admin.createModule")}
                         </IonButton>
 
                         <IonButton
@@ -309,7 +312,7 @@ const ModulesAdminSection: React.FC = () => {
                             className="admin-secondary-button"
                             onClick={closeCreateForm}
                         >
-                            Anulează
+                            {t("admin.cancel")}
                         </IonButton>
                     </IonCardContent>
                 </IonCard>
@@ -317,7 +320,7 @@ const ModulesAdminSection: React.FC = () => {
 
             {filteredModules.length === 0 ? (
                 <div className="admin-empty-state">
-                    Nu există module pentru căutarea introdusă.
+                    {t("admin.emptyModules")}
                 </div>
             ) : (
                 <div className="admin-grid">
@@ -328,7 +331,7 @@ const ModulesAdminSection: React.FC = () => {
                                     <div>
                                         <h2>{module.title}</h2>
                                         <p>ID: {module.id}</p>
-                                        <p>Lecții: {module.lessons?.length ?? 0}</p>
+                                        <p>{t("admin.lessons", { count: module.lessons?.length ?? 0 })}</p>
                                     </div>
 
                                     {editingModuleId !== module.id && (
@@ -337,7 +340,7 @@ const ModulesAdminSection: React.FC = () => {
                                                 fill="outline"
                                                 onClick={() => startEditModule(module)}
                                             >
-                                                Editează
+                                                {t("admin.edit")}
                                             </IonButton>
 
                                             <IonButton
@@ -346,7 +349,7 @@ const ModulesAdminSection: React.FC = () => {
                                                     handleDeleteModule(module.id)
                                                 }
                                             >
-                                                Șterge
+                                                {t("admin.delete")}
                                             </IonButton>
                                         </div>
                                     )}
@@ -369,7 +372,7 @@ const ModulesAdminSection: React.FC = () => {
                                     <div className="admin-edit-box">
                                         <IonItem className="admin-input-item">
                                             <IonInput
-                                                label="Titlu modul"
+                                                label={t("admin.moduleTitle")}
                                                 labelPlacement="stacked"
                                                 value={editTitle}
                                                 onIonInput={(e) =>
@@ -380,7 +383,7 @@ const ModulesAdminSection: React.FC = () => {
 
                                         <IonItem className="admin-input-item">
                                             <IonTextarea
-                                                label="Descriere modul"
+                                                label={t("admin.moduleDescription")}
                                                 labelPlacement="stacked"
                                                 value={editDescription}
                                                 onIonInput={(e) =>
@@ -393,7 +396,7 @@ const ModulesAdminSection: React.FC = () => {
 
                                         <IonCard className="admin-inner-card">
                                             <IonCardContent>
-                                                <h2>Lecții modul</h2>
+                                                <h2>{t("admin.moduleLessons")}</h2>
 
                                                 <IonList lines="none">
                                                     {lessons.map((lesson) => (
@@ -428,7 +431,7 @@ const ModulesAdminSection: React.FC = () => {
                                                     handleUpdateModule(module.id)
                                                 }
                                             >
-                                                Salvează
+                                                {t("admin.save")}
                                             </IonButton>
 
                                             <IonButton
@@ -436,7 +439,7 @@ const ModulesAdminSection: React.FC = () => {
                                                 className="admin-secondary-button"
                                                 onClick={cancelEditModule}
                                             >
-                                                Anulează
+                                                {t("admin.cancel")}
                                             </IonButton>
                                         </div>
                                     </div>

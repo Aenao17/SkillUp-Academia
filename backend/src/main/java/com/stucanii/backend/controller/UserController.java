@@ -3,6 +3,7 @@ package com.stucanii.backend.controller;
 import com.stucanii.backend.dto.dtos.LearningModuleDTO;
 import com.stucanii.backend.dto.dtos.LessonProgressDTO;
 import com.stucanii.backend.dto.dtos.UserDTO;
+import com.stucanii.backend.dto.requests.ResetPasswordRequest;
 import com.stucanii.backend.service.LearningModuleService;
 import com.stucanii.backend.service.LessonProgressService;
 import com.stucanii.backend.service.UserService;
@@ -12,6 +13,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -59,6 +62,16 @@ public class UserController {
     ) {
         UserDTO dto = userService.getCurrentUser(userDetails.getUsername());
         userService.delete(dto.userId());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/me/password")
+    public ResponseEntity<Void> changeMyPassword(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestBody ResetPasswordRequest request
+    ) {
+        UserDTO dto = userService.getCurrentUser(userDetails.getUsername());
+        userService.changePassword(dto.userId(), request.getNewPassword());
         return ResponseEntity.noContent().build();
     }
 }

@@ -7,6 +7,7 @@ import {
 } from "@ionic/react";
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import "./Admin.css";
 import UsersAdminSection from "../../components/Admin/UsersAdminSection";
@@ -17,16 +18,17 @@ type AdminSection = "users" | "modules" | "lessons";
 
 const AdminPage: React.FC = () => {
     const [section, setSection] = useState<AdminSection>("users");
+    const { t } = useTranslation();
 
     return (
         <IonPage className="admin-page">
             <IonContent fullscreen className="admin-content">
                 <div className="admin-container">
                     <div className="admin-hero">
-                        <p className="admin-eyebrow">Admin Panel</p>
-                        <h1>Platform Administration</h1>
+                        <p className="admin-eyebrow">{t("admin.eyebrow")}</p>
+                        <h1>{t("admin.title")}</h1>
                         <p className="admin-subtitle">
-                            Manage users, learning modules and lessons from one place.
+                            {t("admin.subtitle")}
                         </p>
                     </div>
 
@@ -39,15 +41,15 @@ const AdminPage: React.FC = () => {
                         }}
                     >
                         <IonSegmentButton value="users">
-                            <IonLabel>Users</IonLabel>
+                            <IonLabel>{t("admin.tabUsers")}</IonLabel>
                         </IonSegmentButton>
 
                         <IonSegmentButton value="modules">
-                            <IonLabel>Modules</IonLabel>
+                            <IonLabel>{t("admin.tabModules")}</IonLabel>
                         </IonSegmentButton>
 
                         <IonSegmentButton value="lessons">
-                            <IonLabel>Lessons</IonLabel>
+                            <IonLabel>{t("admin.tabLessons")}</IonLabel>
                         </IonSegmentButton>
                     </IonSegment>
 

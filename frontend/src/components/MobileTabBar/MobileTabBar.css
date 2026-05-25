@@ -95,7 +95,21 @@
     z-index: 1000;
 }
 
+/* Background floor that separates the content area from the tab bar */
+.mobile-tabbar-wrapper::before {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 90px;
+    background: var(--bg-soft, #f4f6ff);
+    z-index: 0;
+}
+
 .mobile-tabbar {
+    position: relative;
+    z-index: 1;
     height: 64px;
     border-radius: 24px;
     overflow: hidden;
