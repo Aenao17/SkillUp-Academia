@@ -5,6 +5,15 @@
     --ion-text-color: #111827;
 }
 
+@keyframes lumi-bounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+}
+
+.mascot-img {
+    animation: lumi-bounce 2.8s ease-in-out infinite;
+}
+
 html,
 body,
 ion-app,

@@ -14,7 +14,7 @@ import { getAccessToken } from "../../auth/authStorage";
 import { parseJwt } from "../../auth/jwt";
 
 import "./SidebarNav.css";
-import lumiMascot from "../../assets/lumi2.svg";
+import lumiMascot from "../../assets/lumi_fixed.svg";
 import React from "react";
 
 const SidebarNav: React.FC = () => {
