@@ -64,6 +64,16 @@ public class UserService {
         LOGGER.info("user with id {} was deleted successfully", id);
     }
 
+    public void changePassword(Long id, String newPassword) {
+        User user = userRepository.findById(id).orElseThrow(() -> {
+            LOGGER.error("user with id {} was not found", id);
+            return new NoSuchElementException("user not found");
+        });
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        LOGGER.info("password changed for user with id {}", id);
+    }
+
     public List<UserDTO> findAll(){
         List<User> userList = userRepository.findAll();
         LOGGER.info("found all users in db");

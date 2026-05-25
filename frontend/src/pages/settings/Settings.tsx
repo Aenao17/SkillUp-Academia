@@ -1,4 +1,5 @@
 import {
+    IonAlert,
     IonContent,
     IonIcon,
     IonPage,
@@ -15,6 +16,7 @@ import {
     chevronForwardOutline,
     logOutOutline,
     createOutline,
+    keyOutline,
 } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -22,15 +24,17 @@ import { useTranslation } from "react-i18next";
 import { LANGUAGE_KEY, LANGUAGES, Language } from "../language/Language";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
 import MobileTabBar from "../../components/MobileTabBar/MobileTabBar";
-import { getCurrentUser, CurrentUserDto } from "../../api/api";
+import { getCurrentUser, CurrentUserDto, changeMyPassword } from "../../api/api";
 import { clearTokens } from "../../auth/authStorage";
 import { isSoundEnabled, setSoundEnabled } from "../../util/soundEffects";
+import lumiSvg from "../../assets/lumi2.svg";
 import "./Settings.css";
 
 const Settings: React.FC = () => {
     const [user, setUser] = useState<CurrentUserDto | null>(null);
     const [notifications, setNotifications] = useState(true);
     const [soundEffects, setSoundEffects] = useState(isSoundEnabled);
+    const [showEditAlert, setShowEditAlert] = useState(false);
     const history = useHistory();
 
     const activeLangCode = localStorage.getItem(LANGUAGE_KEY) ?? "en";
@@ -56,12 +60,12 @@ const Settings: React.FC = () => {
                         <div className="settings-mobile-header">
                             <p className="settings-title-label">{t("settings.title")}</p>
                             <div className="settings-user-row">
-                                <div className="settings-avatar">😊</div>
+                                <div className="settings-avatar"><img src={lumiSvg} alt="Lumi" /></div>
                                 <div className="settings-user-text">
                                     <h2 className="settings-username">{user?.username ?? "—"}</h2>
                                     <p className="settings-role">{user?.role?.toLowerCase()}</p>
                                 </div>
-                                <button className="settings-edit-btn" aria-label="Edit profile">
+                                <button className="settings-edit-btn" aria-label="Edit profile" onClick={() => setShowEditAlert(true)}>
                                     <IonIcon icon={createOutline} />
                                 </button>
                             </div>
@@ -127,6 +131,16 @@ const Settings: React.FC = () => {
 
                             <p className="settings-section-label">{t("settings.account")}</p>
                             <div className="settings-card">
+                                <button className="settings-row settings-row--btn settings-desktop-only" onClick={() => setShowEditAlert(true)}>
+                                    <span className="settings-row-icon settings-row-icon--purple">
+                                        <IonIcon icon={keyOutline} />
+                                    </span>
+                                    <span className="settings-row-label">{t("settings.changePassword")}</span>
+                                    <IonIcon icon={chevronForwardOutline} className="settings-chevron" />
+                                </button>
+
+                                <div className="settings-divider settings-desktop-only" />
+
                                 <button className="settings-row settings-row--btn" onClick={() => history.push("/settings/privacy")}>
                                     <span className="settings-row-icon settings-row-icon--blue">
                                         <IonIcon icon={shieldOutline} />
@@ -169,6 +183,46 @@ const Settings: React.FC = () => {
                 </div>
             </IonContent>
         <MobileTabBar />
+
+        <IonAlert
+            isOpen={showEditAlert}
+            onDidDismiss={() => setShowEditAlert(false)}
+            header="Change Password"
+            inputs={[
+                {
+                    name: "newPassword",
+                    type: "password",
+                    placeholder: "New password",
+                },
+                {
+                    name: "confirmPassword",
+                    type: "password",
+                    placeholder: "Confirm new password",
+                },
+            ]}
+            buttons={[
+                { text: "Cancel", role: "cancel" },
+                {
+                    text: "Save",
+                    handler: async (data) => {
+                        if (!data.newPassword || data.newPassword.length < 3) {
+                            alert("Password must be at least 3 characters.");
+                            return false;
+                        }
+                        if (data.newPassword !== data.confirmPassword) {
+                            alert("Passwords do not match.");
+                            return false;
+                        }
+                        try {
+                            await changeMyPassword(data.newPassword);
+                        } catch {
+                            alert("Failed to change password.");
+                            return false;
+                        }
+                    },
+                },
+            ]}
+        />
     </IonPage>
     );
 };

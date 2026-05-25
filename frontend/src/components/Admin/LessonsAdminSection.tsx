@@ -21,6 +21,7 @@ import {
 } from "ionicons/icons";
 
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
     AdminLessonDto,
@@ -64,6 +65,8 @@ const LessonsAdminSection: React.FC = () => {
     const [editPassingScore, setEditPassingScore] = useState(75);
     const [editQuestions, setEditQuestions] = useState<TestQuestionDto[]>([]);
 
+    const { t } = useTranslation();
+
     useEffect(() => {
         loadLessons();
     }, []);
@@ -88,7 +91,7 @@ const LessonsAdminSection: React.FC = () => {
             const data = await getAdminLessons();
             setLessons(data);
         } catch {
-            setError("Nu s-au putut încărca lecțiile.");
+            setError(t("admin.errLoadLessons"));
         } finally {
             setLoading(false);
         }
@@ -159,22 +162,22 @@ const LessonsAdminSection: React.FC = () => {
 
     const handleCreateLesson = async () => {
         if (!title.trim() || !description.trim() || !content.trim()) {
-            setError("Titlul, descrierea și conținutul sunt obligatorii.");
+            setError(t("admin.errTitleDescContentRequired"));
             return;
         }
 
         if (!testTitle.trim()) {
-            setError("Titlul testului este obligatoriu.");
+            setError(t("admin.errTestTitleRequired"));
             return;
         }
 
         if (passingScore < 1 || passingScore > 100) {
-            setError("Scorul de promovare trebuie să fie între 1 și 100.");
+            setError(t("admin.errPassingScoreRange"));
             return;
         }
 
         if (hasInvalidQuestions(questions)) {
-            setError("Completează toate câmpurile pentru întrebările testului.");
+            setError(t("admin.errFillQuestions"));
             return;
         }
 
@@ -191,9 +194,9 @@ const LessonsAdminSection: React.FC = () => {
             setLessons((prev) => [...prev, newLesson]);
             closeCreateForm();
             setError("");
-            setToastMessage("Lecția și testul au fost create.");
+            setToastMessage(t("admin.successCreateLesson"));
         } catch {
-            setError("Lecția nu a putut fi creată.");
+            setError(t("admin.errCreateLesson"));
         }
     };
 
@@ -219,22 +222,22 @@ const LessonsAdminSection: React.FC = () => {
 
     const handleUpdateLesson = async (lessonId: number) => {
         if (!editTitle.trim() || !editDescription.trim() || !editContent.trim()) {
-            setError("Titlul, descrierea și conținutul sunt obligatorii.");
+            setError(t("admin.errTitleDescContentRequired"));
             return;
         }
 
         if (!editTestTitle.trim()) {
-            setError("Titlul testului este obligatoriu.");
+            setError(t("admin.errTestTitleRequired"));
             return;
         }
 
         if (editPassingScore < 1 || editPassingScore > 100) {
-            setError("Scorul de promovare trebuie să fie între 1 și 100.");
+            setError(t("admin.errPassingScoreRange"));
             return;
         }
 
         if (hasInvalidQuestions(editQuestions)) {
-            setError("Completează toate câmpurile pentru întrebările testului.");
+            setError(t("admin.errFillQuestions"));
             return;
         }
 
@@ -256,14 +259,14 @@ const LessonsAdminSection: React.FC = () => {
 
             cancelEditLesson();
             setError("");
-            setToastMessage("Lecția a fost actualizată.");
+            setToastMessage(t("admin.successUpdateLesson"));
         } catch {
-            setError("Lecția nu a putut fi actualizată.");
+            setError(t("admin.errUpdateLesson"));
         }
     };
 
     const handleDeleteLesson = async (lessonId: number) => {
-        const confirmed = window.confirm("Sigur vrei să ștergi lecția?");
+        const confirmed = window.confirm(t("admin.confirmDeleteLesson"));
         if (!confirmed) return;
 
         try {
@@ -274,9 +277,9 @@ const LessonsAdminSection: React.FC = () => {
             );
 
             setError("");
-            setToastMessage("Lecția a fost ștearsă.");
+            setToastMessage(t("admin.successDeleteLesson"));
         } catch {
-            setError("Lecția nu a putut fi ștearsă.");
+            setError(t("admin.errDeleteLesson"));
         }
     };
 
@@ -292,7 +295,7 @@ const LessonsAdminSection: React.FC = () => {
     ) => (
         <div className="admin-edit-box">
             <div className="admin-form-header">
-                <h2>Întrebări test</h2>
+                <h2>{t("admin.testQuestions")}</h2>
 
                 <IonButton className="admin-add-button" onClick={onAdd}>
                     <IonIcon icon={addOutline} />
@@ -300,17 +303,17 @@ const LessonsAdminSection: React.FC = () => {
             </div>
 
             {items.length === 0 && (
-                <p>Nu ai adăugat încă întrebări pentru test.</p>
+                <p>{t("admin.noQuestions")}</p>
             )}
 
             {items.map((question, index) => (
                 <IonCard className="admin-inner-card" key={index}>
                     <IonCardContent>
-                        <h2>Întrebarea {index + 1}</h2>
+                        <h2>{t("admin.question", { number: index + 1 })}</h2>
 
                         <IonItem className="admin-input-item">
                             <IonInput
-                                label="Text întrebare"
+                                label={t("admin.questionText")}
                                 labelPlacement="stacked"
                                 value={question.questionText}
                                 onIonInput={(e) =>
@@ -325,7 +328,7 @@ const LessonsAdminSection: React.FC = () => {
 
                         <IonItem className="admin-input-item">
                             <IonInput
-                                label="Varianta 1"
+                                label={t("admin.option1")}
                                 labelPlacement="stacked"
                                 value={question.optionA}
                                 onIonInput={(e) =>
@@ -336,7 +339,7 @@ const LessonsAdminSection: React.FC = () => {
 
                         <IonItem className="admin-input-item">
                             <IonInput
-                                label="Varianta 2"
+                                label={t("admin.option2")}
                                 labelPlacement="stacked"
                                 value={question.optionB}
                                 onIonInput={(e) =>
@@ -347,7 +350,7 @@ const LessonsAdminSection: React.FC = () => {
 
                         <IonItem className="admin-input-item">
                             <IonInput
-                                label="Varianta 3"
+                                label={t("admin.option3")}
                                 labelPlacement="stacked"
                                 value={question.optionC}
                                 onIonInput={(e) =>
@@ -358,7 +361,7 @@ const LessonsAdminSection: React.FC = () => {
 
                         <IonItem className="admin-input-item">
                             <IonInput
-                                label="Varianta 4"
+                                label={t("admin.option4")}
                                 labelPlacement="stacked"
                                 value={question.optionD}
                                 onIonInput={(e) =>
@@ -369,7 +372,7 @@ const LessonsAdminSection: React.FC = () => {
 
                         <IonItem className="admin-input-item">
                             <IonSelect
-                                label="Răspuns corect"
+                                label={t("admin.correctAnswer")}
                                 labelPlacement="stacked"
                                 value={question.correctOption}
                                 onIonChange={(e) =>
@@ -380,10 +383,10 @@ const LessonsAdminSection: React.FC = () => {
                                     )
                                 }
                             >
-                                <IonSelectOption value={1}>Varianta 1</IonSelectOption>
-                                <IonSelectOption value={2}>Varianta 2</IonSelectOption>
-                                <IonSelectOption value={3}>Varianta 3</IonSelectOption>
-                                <IonSelectOption value={4}>Varianta 4</IonSelectOption>
+                                <IonSelectOption value={1}>{t("admin.option1")}</IonSelectOption>
+                                <IonSelectOption value={2}>{t("admin.option2")}</IonSelectOption>
+                                <IonSelectOption value={3}>{t("admin.option3")}</IonSelectOption>
+                                <IonSelectOption value={4}>{t("admin.option4")}</IonSelectOption>
                             </IonSelect>
                         </IonItem>
 
@@ -392,7 +395,7 @@ const LessonsAdminSection: React.FC = () => {
                             className="admin-danger-button"
                             onClick={() => onRemove(index)}
                         >
-                            Șterge întrebarea
+                            {t("admin.deleteQuestion")}
                         </IonButton>
                     </IonCardContent>
                 </IonCard>
@@ -430,7 +433,7 @@ const LessonsAdminSection: React.FC = () => {
                 <div className="admin-toolbar">
                     <IonSearchbar
                         value={search}
-                        placeholder="Caută lecție după titlu, descriere sau ID..."
+                        placeholder={t("admin.searchLessons")}
                         onIonInput={(e) => setSearch(e.detail.value || "")}
                     />
 
@@ -447,7 +450,7 @@ const LessonsAdminSection: React.FC = () => {
                 <IonCard className="admin-form-card admin-slide-form-card">
                     <IonCardContent>
                         <div className="admin-form-header">
-                            <h2>Adaugă lecție</h2>
+                            <h2>{t("admin.addLesson")}</h2>
 
                             <IonButton
                                 fill="clear"
@@ -460,7 +463,7 @@ const LessonsAdminSection: React.FC = () => {
 
                         <IonItem className="admin-input-item">
                             <IonInput
-                                label="Titlu lecție"
+                                label={t("admin.lessonTitle")}
                                 labelPlacement="stacked"
                                 value={title}
                                 onIonInput={(e) => setTitle(e.detail.value || "")}
@@ -469,7 +472,7 @@ const LessonsAdminSection: React.FC = () => {
 
                         <IonItem className="admin-input-item">
                             <IonTextarea
-                                label="Descriere lecție"
+                                label={t("admin.lessonDescription")}
                                 labelPlacement="stacked"
                                 value={description}
                                 onIonInput={(e) =>
@@ -480,7 +483,7 @@ const LessonsAdminSection: React.FC = () => {
 
                         <IonItem className="admin-input-item">
                             <IonTextarea
-                                label="Conținut lecție"
+                                label={t("admin.lessonContent")}
                                 labelPlacement="stacked"
                                 autoGrow
                                 value={content}
@@ -490,7 +493,7 @@ const LessonsAdminSection: React.FC = () => {
 
                         <IonItem className="admin-input-item">
                             <IonInput
-                                label="Titlu test"
+                                label={t("admin.testTitle")}
                                 labelPlacement="stacked"
                                 value={testTitle}
                                 placeholder="Ex: Communication Basics Test"
@@ -500,7 +503,7 @@ const LessonsAdminSection: React.FC = () => {
 
                         <IonItem className="admin-input-item">
                             <IonInput
-                                label="Scor promovare (%)"
+                                label={t("admin.passingScore")}
                                 labelPlacement="stacked"
                                 type="number"
                                 value={passingScore}
@@ -524,7 +527,7 @@ const LessonsAdminSection: React.FC = () => {
                             className="admin-button"
                             onClick={handleCreateLesson}
                         >
-                            Creează lecție + test
+                            {t("admin.createLessonTest")}
                         </IonButton>
 
                         <IonButton
@@ -533,7 +536,7 @@ const LessonsAdminSection: React.FC = () => {
                             className="admin-secondary-button"
                             onClick={closeCreateForm}
                         >
-                            Anulează
+                            {t("admin.cancel")}
                         </IonButton>
                     </IonCardContent>
                 </IonCard>
@@ -541,7 +544,7 @@ const LessonsAdminSection: React.FC = () => {
 
             {filteredLessons.length === 0 ? (
                 <div className="admin-empty-state">
-                    Nu există lecții pentru căutarea introdusă.
+                    {t("admin.emptyLessons")}
                 </div>
             ) : (
                 <div className="admin-grid">
@@ -553,8 +556,7 @@ const LessonsAdminSection: React.FC = () => {
                                         <h2>{lesson.title}</h2>
                                         <p>ID: {lesson.id}</p>
                                         <p>
-                                            Întrebări test:{" "}
-                                            {lesson.test?.questions?.length ?? 0}
+                                            {t("admin.testQuestionCount", { count: lesson.test?.questions?.length ?? 0 })}
                                         </p>
                                     </div>
 
@@ -564,7 +566,7 @@ const LessonsAdminSection: React.FC = () => {
                                                 fill="outline"
                                                 onClick={() => startEditLesson(lesson)}
                                             >
-                                                Editează
+                                                {t("admin.edit")}
                                             </IonButton>
 
                                             <IonButton
@@ -573,7 +575,7 @@ const LessonsAdminSection: React.FC = () => {
                                                     handleDeleteLesson(lesson.id)
                                                 }
                                             >
-                                                Șterge
+                                                {t("admin.delete")}
                                             </IonButton>
                                         </div>
                                     )}
@@ -585,7 +587,7 @@ const LessonsAdminSection: React.FC = () => {
                                     <div className="admin-edit-box">
                                         <IonItem className="admin-input-item">
                                             <IonInput
-                                                label="Titlu"
+                                                label={t("admin.lessonTitle")}
                                                 labelPlacement="stacked"
                                                 value={editTitle}
                                                 onIonInput={(e) =>
@@ -596,7 +598,7 @@ const LessonsAdminSection: React.FC = () => {
 
                                         <IonItem className="admin-input-item">
                                             <IonTextarea
-                                                label="Descriere"
+                                                label={t("admin.lessonDescription")}
                                                 labelPlacement="stacked"
                                                 value={editDescription}
                                                 onIonInput={(e) =>
@@ -609,7 +611,7 @@ const LessonsAdminSection: React.FC = () => {
 
                                         <IonItem className="admin-input-item">
                                             <IonTextarea
-                                                label="Conținut"
+                                                label={t("admin.lessonContent")}
                                                 labelPlacement="stacked"
                                                 autoGrow
                                                 value={editContent}
@@ -623,7 +625,7 @@ const LessonsAdminSection: React.FC = () => {
 
                                         <IonItem className="admin-input-item">
                                             <IonInput
-                                                label="Titlu test"
+                                                label={t("admin.testTitle")}
                                                 labelPlacement="stacked"
                                                 value={editTestTitle}
                                                 onIonInput={(e) =>
@@ -636,7 +638,7 @@ const LessonsAdminSection: React.FC = () => {
 
                                         <IonItem className="admin-input-item">
                                             <IonInput
-                                                label="Scor promovare (%)"
+                                                label={t("admin.passingScore")}
                                                 labelPlacement="stacked"
                                                 type="number"
                                                 value={editPassingScore}
@@ -664,7 +666,7 @@ const LessonsAdminSection: React.FC = () => {
                                                     handleUpdateLesson(lesson.id)
                                                 }
                                             >
-                                                Salvează
+                                                {t("admin.save")}
                                             </IonButton>
 
                                             <IonButton
@@ -672,7 +674,7 @@ const LessonsAdminSection: React.FC = () => {
                                                 className="admin-secondary-button"
                                                 onClick={cancelEditLesson}
                                             >
-                                                Anulează
+                                                {t("admin.cancel")}
                                             </IonButton>
                                         </div>
                                     </div>

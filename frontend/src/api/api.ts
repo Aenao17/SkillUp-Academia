@@ -180,6 +180,10 @@ export const deleteCurrentUser = async (): Promise<void> => {
     return deleteAuth("/api/user/me");
 };
 
+export const changeMyPassword = async (newPassword: string): Promise<void> => {
+    return patchJsonAuth<void>("/api/user/me/password", { newPassword });
+};
+
 export const getUserProgress = async(): Promise<UserProgressDto[]>=>{
     return getJsonAuth("/api/user/progress");
 }

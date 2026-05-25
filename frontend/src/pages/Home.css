@@ -43,6 +43,10 @@
     gap: 16px;
 }
 
+.modules-list p {
+    color: var(--text-light);
+}
+
 .mobile-home-header,
 .mobile-subtitle {
     display: none;

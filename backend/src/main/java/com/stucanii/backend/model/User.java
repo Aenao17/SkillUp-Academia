@@ -29,6 +29,7 @@ public class User {
     @Column(nullable = false)
     private Role role;
 
+    @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<LessonProgress> lessonProgress = new ArrayList<>();
 }
