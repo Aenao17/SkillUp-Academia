@@ -363,7 +363,7 @@ const ModulesAdminSection: React.FC = () => {
                                             className="admin-module-chip"
                                             key={lesson.id}
                                         >
-                                            {lesson.title}
+                                            {lesson.title + ", "}
                                         </span>
                                     ))}
                                 </div>
