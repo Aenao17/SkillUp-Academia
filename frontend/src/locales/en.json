@@ -188,6 +188,145 @@
     "neverShow": "Never show this again",
     "maybeLater": "Maybe later"
   },
+  "initialAssessment": {
+    "title": "Soft Skills Assessment",
+    "testCounter": "Test {{current}} of {{total}}",
+    "instructionCommunication": "Rate your competence from 0 = completely incompetent to 100 = competent.",
+    "validationError": "The input must be between 0 and 100",
+    "results": {
+      "title": "Assessment Complete!",
+      "subtitle": "Here's how your soft skills stack up",
+      "startHere": "Start Here: {{category}}",
+      "recommendation": "Your assessment shows this is your highest growth opportunity",
+      "goModule": "Go to {{category}} Module",
+      "yourScores": "Your Skill Scores",
+      "subgroups": "Subgroups",
+      "status": {
+        "excellent": "Excellent",
+        "good": "Good",
+        "needsWork": "Needs work"
+      },
+      "categories": {
+        "Communication": "Communication",
+        "Adaptability": "Adaptability",
+        "Emotional Intelligence": "Emotional Intelligence",
+        "Teamwork": "Teamwork"
+      },
+      "subgroupsLabels": {
+        "Public": "Public",
+        "Meeting": "Meeting",
+        "Group": "Group",
+        "Dyad": "Dyad",
+        "Stranger": "Stranger",
+        "Acquaintance": "Acquaintance",
+        "Friend": "Friend"
+      }
+    },
+    "exitWarningTitle": "Leave Assessment?",
+    "exitWarningMessage": "If you leave now, all your current progress will be lost. Are you sure you want to exit?",
+    "stay": "Stay",
+    "exit": "Exit",
+    "sections": {
+      "1": {
+        "title": "Initial Communication Ability Assessment Questionnaire",
+        "description": "Below are twelve situations in which you might need to communicate. People's skills to communicate effectively vary greatly, and sometimes the same person can communicate more competently in one situation than in another.\n\nPlease indicate how competent you consider yourself to be in communication for each of the situations described below. Note in the space provided for each item your estimate of your communication competence level.",
+        "questions": {
+          "101": "Give a presentation in front of a group of strangers",
+          "102": "Talk with an acquaintance.",
+          "103": "Talk in a large meeting with friends.",
+          "104": "Talk in a small group of strangers.",
+          "105": "Talk with a friend.",
+          "106": "Talk in a large meeting with acquaintances.",
+          "107": "Talk with a stranger",
+          "108": "Give a presentation in front of a group of friends",
+          "109": "Talk in a small group of acquaintances",
+          "110": "Talk in a large meeting with strangers",
+          "111": "Talk in a small group of friends",
+          "112": "Give a presentation in front of a group of acquaintances"
+        }
+      },
+      "2": {
+        "title": "Career Adapt-Abilities Inventory",
+        "description": "People use different strengths to build their careers. No one is good at everything, and each person develops certain skills more than others. Please evaluate how developed the following skills are for you, using the scale below.\n\n5 = Very strongly developed\n4 = Strongly developed\n3 = Fairly developed\n2 = Little developed\n1 = Not at all developed",
+        "questions": {
+          "201": "I think about what my future will look like.",
+          "202": "I realize that today's choices influence my future.",
+          "203": "I prepare for the future.",
+          "204": "I become aware of the educational and professional choices I must make.",
+          "205": "I plan how I will achieve my goals.",
+          "206": "I am concerned about my career.",
+          "207": "I try to stay optimistic.",
+          "208": "I make decisions on my own.",
+          "209": "I take responsibility for my actions.",
+          "210": "I stick up for my beliefs.",
+          "211": "I rely on myself.",
+          "212": "I do what I think is right for me.",
+          "213": "I explore my surroundings.",
+          "214": "I look for opportunities to grow as a person.",
+          "215": "I investigate options before making a choice.",
+          "216": "I observe different ways of doing things.",
+          "217": "I probe deeply into questions I have.",
+          "218": "I become curious about new opportunities.",
+          "219": "I perform tasks efficiently.",
+          "220": "I take care to do things well.",
+          "221": "I learn new skills.",
+          "222": "I work up to my ability.",
+          "223": "I overcome obstacles.",
+          "224": "I solve problems efficiently."
+        }
+      },
+      "3": {
+        "title": "Emotional Intelligence Assessment",
+        "description": "Please evaluate how developed the following skills are for you, using the scale below.\n\n5 = Very strongly developed\n4 = Strongly developed\n3 = Fairly developed\n2 = Little developed\n1 = Not at all developed",
+        "questions": {
+          "301": "I recognize very well the emotion a person is feeling at any given moment.",
+          "302": "Even when I am very nervous, I know what to look for to understand others' emotions.",
+          "303": "I can always sense changes in a person's emotional state.",
+          "304": "It is easy for me to describe the emotions a person is feeling.",
+          "305": "I always correctly anticipate a person's behavior based on the emotions they are feeling.",
+          "306": "I always understand how one emotion can generate another.",
+          "307": "I am able to correctly predict what I will do based on the emotion I am feeling.",
+          "308": "I describe my emotions very easily.",
+          "309": "I am aware of my emotions at every moment.",
+          "310": "I am aware of my emotions even in difficult situations.",
+          "311": "I quickly realize what exactly is generating my emotions.",
+          "312": "It is easy for me to understand the factors that influence my emotions.",
+          "313": "I am always able to calm someone down if needed.",
+          "314": "I often help others overcome difficult emotional states.",
+          "315": "If an acquaintance is sad, I am able to make them feel better.",
+          "316": "I always take my emotions into account when making a decision.",
+          "317": "I can simulate various emotions if needed.",
+          "318": "I express my emotions spontaneously to achieve the desired effect.",
+          "319": "I can use my emotions to achieve a goal.",
+          "320": "I am able to temper my emotional outbursts well.",
+          "321": "Usually, I overcome unpleasant emotional states on my own.",
+          "322": "My emotions do not prevent me from carrying out my activities.",
+          "323": "I always use my emotions when I communicate.",
+          "324": "I quickly realize the possible consequences (physiological or behavioral) of my emotions."
+        }
+      },
+      "4": {
+        "title": "Teamwork Assessment",
+        "description": "Please evaluate how developed the following skills are for you, using the scale below.\n\n5 = Very strongly developed\n4 = Strongly developed\n3 = Fairly developed\n2 = Little developed\n1 = Not at all developed",
+        "questions": {
+          "401": "I prefer to work in team tasks rather than individual tasks.",
+          "402": "When I have a choice, I try to work in a group instead of alone.",
+          "403": "I personally enjoy working with others.",
+          "404": "Group work is better than working alone.",
+          "405": "Working in a group is better than working alone.",
+          "406": "If I had a choice, I would rather perform a task where I can work alone than perform a task where I have to work with others in a group.",
+          "407": "I like to interact with others when working on projects."
+        }
+      }
+    },
+    "options": {
+      "1": "Not at all developed",
+      "2": "Little developed",
+      "3": "Fairly developed",
+      "4": "Strongly developed",
+      "5": "Very strongly developed"
+    }
+  },
   "admin": {
     "eyebrow": "Admin Panel",
     "back": "Back",

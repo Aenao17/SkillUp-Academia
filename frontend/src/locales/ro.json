@@ -188,6 +188,145 @@
     "neverShow": "Nu mai afișa",
     "maybeLater": "Mai târziu"
   },
+  "initialAssessment": {
+    "title": "Evaluare Soft Skills",
+    "testCounter": "Testul {{current}} din {{total}}",
+    "instructionCommunication": "Dați note de la 0 = complet incompetent, până la 100 = competent.",
+    "validationError": "Valoarea trebuie să fie între 0 și 100",
+    "results": {
+      "title": "Evaluare finalizată!",
+      "subtitle": "Iată cum se prezintă abilitățile tale soft",
+      "startHere": "Începe aici: {{category}}",
+      "recommendation": "Evaluarea ta arată că aceasta este cea mai mare oportunitate de creștere pentru tine",
+      "goModule": "Mergi la modulul {{category}}",
+      "yourScores": "Scorurile tale",
+      "subgroups": "Subgrupuri",
+      "status": {
+        "excellent": "Excelent",
+        "good": "Bine",
+        "needsWork": "Necesită îmbunătățire"
+      },
+      "categories": {
+        "Communication": "Comunicare",
+        "Adaptability": "Adaptabilitate",
+        "Emotional Intelligence": "Inteligență Emoțională",
+        "Teamwork": "Muncă în echipă"
+      },
+      "subgroupsLabels": {
+        "Public": "Public",
+        "Meeting": "Întâlnire",
+        "Group": "Grup",
+        "Dyad": "Diadă",
+        "Stranger": "Necunoscut",
+        "Acquaintance": "Cunoștință",
+        "Friend": "Prieten"
+      }
+    },
+    "exitWarningTitle": "Părăsiți evaluarea?",
+    "exitWarningMessage": "Dacă plecați acum, tot progresul curent va fi pierdut. Sigur doriți să ieșiți?",
+    "stay": "Rămâi",
+    "exit": "Ieși",
+    "sections": {
+      "1": {
+        "title": "Chestionar de evaluare inițială a abilității de comunicare",
+        "description": "Mai jos sunt prezentate douăsprezece situații în care ați putea avea nevoie să comunicați. Abilitățile oamenilor de a comunica eficient variază foarte mult, iar uneori aceeași persoană poate comunica mai competent într-o anumită situație decât în alta.\n\nVă rugăm să indicați cât de competent considerați că sunteți în comunicare pentru fiecare dintre situațiile descrise mai jos. Notați în spațiul din stânga fiecărui item estimarea dumneavoastră privind nivelul de competență în comunicare.",
+        "questions": {
+          "101": "Susțineți o prezentare în fața unui grup de persoane necunoscute",
+          "102": "Vorbiți cu o cunoștință.",
+          "103": "Vorbiți într-o întâlnire mare cu prieteni.",
+          "104": "Vorbiți într-un grup mic de persoane necunoscute.",
+          "105": "Vorbiți cu un prieten.",
+          "106": "Vorbiți într-o întâlnire mare cu cunoștințe.",
+          "107": "Vorbiți cu o persoană necunoscută",
+          "108": "Susțineți o prezentare în fața unui grup de prieteni",
+          "109": "Vorbiți într-un grup mic de cunoștințe",
+          "110": "Vorbiți într-o întâlnire mare cu persoane necunoscute",
+          "111": "Vorbiți într-un grup mic de prieteni",
+          "112": "Susțineți o prezentare în fața unui grup de cunoștințe"
+        }
+      },
+      "2": {
+        "title": "Career Adapt-Abilities Inventory",
+        "description": "Oamenii folosesc diferite puncte forte pentru a-și construi cariera. Nimeni nu este bun la toate, iar fiecare persoană își dezvoltă anumite abilități mai mult decât altele. Te rugăm să evaluezi cât de dezvoltate sunt pentru tine următoarele abilități, utilizând scala de mai jos.\n\n5 = Foarte puternic dezvoltat\n4 = Puternic dezvoltat\n3 = Destul de dezvoltat\n2 = Puțin dezvoltat\n1 = Deloc dezvoltat",
+        "questions": {
+          "201": "Mă gândesc cum va arăta viitorul meu.",
+          "202": "Îmi dau seama că alegerile de astăzi îmi influențează viitorul.",
+          "203": "Mă pregătesc pentru viitor.",
+          "204": "Devin conștient(ă) de alegerile educaționale și profesionale pe care trebuie să le fac.",
+          "205": "Îmi planific modul în care îmi voi atinge obiectivele.",
+          "206": "Sunt preocupat(ă) de cariera mea.",
+          "207": "Încerc să rămân optimist(ă).",
+          "208": "Iau decizii pe cont propriu.",
+          "209": "Îmi asum responsabilitatea pentru acțiunile mele.",
+          "210": "Îmi susțin convingerile.",
+          "211": "Mă bazez pe mine însumi/însămi.",
+          "212": "Fac ceea ce consider că este potrivit pentru mine.",
+          "213": "Explorez mediul din jurul meu.",
+          "214": "Caut oportunități de dezvoltare personală.",
+          "215": "Analizez opțiunile înainte de a lua o decizie.",
+          "216": "Observ diferite moduri de a face lucrurile.",
+          "217": "Analizez în profunzime întrebările pe care le am.",
+          "218": "Devin curios/curioasă cu privire la noi oportunități.",
+          "219": "Îndeplinesc sarcinile eficient.",
+          "220": "Am grijă să fac lucrurile bine.",
+          "221": "Învăț abilități noi.",
+          "222": "Muncesc la capacitatea mea maximă.",
+          "223": "Depășesc obstacolele.",
+          "224": "Rezolv problemele eficient."
+        }
+      },
+      "3": {
+        "title": "Emotional Intelligence Assessment",
+        "description": "Te rugăm să evaluezi cât de dezvoltate sunt pentru tine următoarele abilități, utilizând scala de mai jos.\n\n5 = Foarte puternic dezvoltat\n4 = Puternic dezvoltat\n3 = Destul de dezvoltat\n2 = Puțin dezvoltat\n1 = Deloc dezvoltat",
+        "questions": {
+          "301": "Recunosc foarte bine emoția pe care o simte o persoană în orice moment dat.",
+          "302": "Chiar și atunci când sunt foarte nervos/nervoasă, știu ce să urmăresc pentru a înțelege emoțiile celorlalți.",
+          "303": "Pot întotdeauna să sesizez schimbările din starea emoțională a unei persoane.",
+          "304": "Îmi este ușor să descriu emoțiile pe care le simte o persoană.",
+          "305": "Anticipez întotdeauna corect comportamentul unei persoane pe baza emoțiilor pe care aceasta le simte.",
+          "306": "Înțeleg întotdeauna cum o emoție poate genera o alta.",
+          "307": "Sunt capabil(ă) să prezic corect ce voi face pe baza emoției pe care o simt.",
+          "308": "Îmi descriu emoțiile foarte ușor.",
+          "309": "Sunt conștient(ă) de emoțiile mele în fiecare moment.",
+          "310": "Sunt conștient(ă) de emoțiile mele chiar și în situații dificile.",
+          "311": "Îmi dau seama rapid ce anume îmi generează emoțiile.",
+          "312": "Îmi este ușor să înțeleg factorii care îmi influențează emoțiile.",
+          "313": "Sunt întotdeauna capabil(ă) să liniștesc pe cineva, dacă este nevoie.",
+          "314": "Îi ajut adesea pe ceilalți să depășească stări emoționale dificile.",
+          "315": "Dacă o cunoștință este tristă, sunt capabil(ă) să o fac să se simtă mai bine.",
+          "316": "Întotdeauna țin cont de emoțiile mele atunci când iau o decizie.",
+          "317": "Pot simula diverse emoții dacă este nevoie.",
+          "318": "Îmi exprim emoțiile spontan pentru a obține efectul dorit.",
+          "319": "Îmi pot folosi emoțiile pentru a atinge un scop.",
+          "320": "Sunt capabil(ă) să îmi temperez bine izbucnirile emoționale.",
+          "321": "De obicei, îmi depășesc singur(ă) stările emoționale neplăcute.",
+          "322": "Emoțiile mele nu mă împiedică să îmi desfășor activitățile.",
+          "323": "Întotdeauna îmi folosesc emoțiile atunci când comunic.",
+          "324": "Îmi dau seama rapid care sunt posibilele consecințe (fiziologice sau comportamentale) ale emoțiilor mele."
+        }
+      },
+      "4": {
+        "title": "Teamwork Assessment",
+        "description": "Te rugăm să evaluezi cât de dezvoltate sunt pentru tine următoarele abilități, utilizând scala de mai jos.\n\n5 = Foarte puternic dezvoltat\n4 = Puternic dezvoltat\n3 = Destul de dezvoltat\n2 = Puțin dezvoltat\n1 = Deloc dezvoltat",
+        "questions": {
+          "401": "Prefer să lucrez mai degrabă în sarcini de echipă decât în sarcini individuale.",
+          "402": "Când am de ales, încerc să lucrez în grup în loc de unul singur.",
+          "403": "Mie, personal, îmi face plăcere să lucrez cu alţii.",
+          "404": "Lucrul în grup este mai bun decât lucrul de unul singur.",
+          "405": "A lucra în grup este mai bine decât a lucra singur.",
+          "406": "Dacă aş avea de ales, aş realiza mai degrabă o sarcină în care pot lucra de unul singur decât să realizez o sarcină în care trebuie să muncesc cu alţii în grup.",
+          "407": "Îmi place să interacţionez cu alţii atunci când lucrez la proiecte."
+        }
+      }
+    },
+    "options": {
+      "1": "Deloc dezvoltat",
+      "2": "Puțin dezvoltat",
+      "3": "Destul de dezvoltat",
+      "4": "Puternic dezvoltat",
+      "5": "Foarte puternic dezvoltat"
+    }
+  },
   "admin": {
     "eyebrow": "Panou Admin",
     "back": "Înapoi",

@@ -132,7 +132,6 @@ const InitialAssessment: React.FC = () => {
     let totalCommunicationScore = 0;
     
     let communicationStatusClass;
-    let communicationStatusText;
     let communicationBarColor;
 
     let publicScore = 0;
@@ -160,20 +159,6 @@ const InitialAssessment: React.FC = () => {
 
         totalCommunicationScore = Math.round((strangerScore + acquaintanceScore + friendScore) / 3);
 
-        if (totalCommunicationScore >= 80) {
-            communicationStatusClass = "good";
-            communicationStatusText = "Excellent";
-            communicationBarColor = "green";
-        } else if (totalCommunicationScore >= 60) {
-            communicationStatusClass = "yellow";
-            communicationStatusText = "Good";
-            communicationBarColor = "yellow";
-        } else {
-            communicationStatusClass = "needs-work";
-            communicationStatusText = "Needs work";
-            communicationBarColor = "red";
-        }
-
         adaptabilityScore = getCategoryScore("Adaptability");
         eiScore = getCategoryScore("Emotional intelligence");
         teamworkScore = getCategoryScore("Teamwork");
@@ -196,15 +181,15 @@ const InitialAssessment: React.FC = () => {
 
         if (score >= 80) {
             statusClass = "good";
-            statusText = "Excellent";
+            statusText = t("initialAssessment.results.status.excellent", "Excellent");
             barColor = "green";
         } else if (score >= 60) {
             statusClass = "yellow";
-            statusText = "Good";
+            statusText = t("initialAssessment.results.status.good", "Good");
             barColor = "yellow";
         } else {
             statusClass = "needs-work";
-            statusText = "Needs work";
+            statusText = t("initialAssessment.results.status.needsWork", "Needs work");
             barColor = "red";
         }
 
@@ -212,7 +197,7 @@ const InitialAssessment: React.FC = () => {
             <div className="score-card">
                 <div className="score-header">
                     <div className="score-label">
-                        {icon && <IonIcon icon={icon} />} {title}
+                        {icon && <IonIcon icon={icon} />} {t(`initialAssessment.results.categories.${title}`, title)}
                     </div>
                     <div className={`score-value ${statusClass}`}>
                         <strong>{score}%</strong> <span>{statusText}</span>
@@ -256,7 +241,7 @@ const InitialAssessment: React.FC = () => {
                                         <button className="back-btn" onClick={handleBack}>
                                             <IonIcon icon={arrowBackOutline} /> {t("nav.back", "Back")}
                                         </button>
-                                        <span className="banner-title">Soft Skills Assessment</span>
+                                        <span className="banner-title">{t("initialAssessment.title", "Soft Skills Assessment")}</span>
                                         <button className="skip-btn" onClick={handleSkip}>
                                             {t("assessment.skip", "Skip")}
                                         </button>
@@ -265,7 +250,11 @@ const InitialAssessment: React.FC = () => {
                                     <div className="progress-container">
                                         <div className="progress-labels">
                                             <span>
-                                                Test {currentSectionIndex + 1} of {assessmentData.length}
+                                                {t("initialAssessment.testCounter", {
+                                                    current: currentSectionIndex + 1,
+                                                    total: assessmentData.length,
+                                                    defaultValue: `Test ${currentSectionIndex + 1} of ${assessmentData.length}`
+                                                })}
                                             </span>
                                             <span className="progress-percent">{progressPercentage}%</span>
                                         </div>
@@ -289,12 +278,12 @@ const InitialAssessment: React.FC = () => {
                                         <div className="question-card section-card">
                                             <div className="question-category">
                                                 {currentSection.icon && <IonIcon icon={currentSection.icon} />}
-                                                <span>{currentSection.title}</span>
+                                                <span>{t(currentSection.title)}</span>
                                             </div>
-                                            <p className="section-description">{currentSection.description}</p>
+                                            <p className="section-description">{t(currentSection.description)}</p>
                                         </div>
                                         <h2 className="section-instruction">
-                                            Dați note de la 0 = complet incompetent, până la 100 = competent.
+                                            {t("initialAssessment.instructionCommunication", "Rate your competence from 0 = completely incompetent to 100 = competent.")}
                                         </h2>
                                         {currentSection.questions.map((q) => {
                                             const question = q as InputQuestion;
@@ -304,7 +293,7 @@ const InitialAssessment: React.FC = () => {
 
                                             return (
                                                 <div key={question.id} className="input-question-card">
-                                                    <p className="input-question-text">{question.question}</p>
+                                                    <p className="input-question-text">{t(question.question)}</p>
                                                     <IonInput
                                                         type="number"
                                                         placeholder="0 - 100"
@@ -318,7 +307,7 @@ const InitialAssessment: React.FC = () => {
                                                     />
                                                     {isInvalid && (
                                                         <p className="validation-error-text">
-                                                            {t("assessment.validation", "The input must be between 0 and 100")}
+                                                            {t("initialAssessment.validationError", "The input must be between 0 and 100")}
                                                         </p>
                                                     )}
                                                 </div>
@@ -336,10 +325,10 @@ const InitialAssessment: React.FC = () => {
                                                     <div className="question-card">
                                                         <div className="question-category">
                                                             {currentSection.icon && <IonIcon icon={currentSection.icon} />}
-                                                            <span>{currentSection.title}</span>
+                                                            <span>{t(currentSection.title)}</span>
                                                         </div>
-                                                        <p className="section-description">{currentSection.description}</p>
-                                                        <h2 className="question-text">{q.question}</h2>
+                                                        <p className="section-description">{t(currentSection.description)}</p>
+                                                        <h2 className="question-text">{t(q.question)}</h2>
                                                     </div>
 
                                                     <div className="options-container">
@@ -360,7 +349,7 @@ const InitialAssessment: React.FC = () => {
                                                                         {option.id}
                                                                     </div>
                                                                     <span className="option-text">
-                                                                        {option.text}
+                                                                        {t(option.text)}
                                                                     </span>
                                                                 </button>
                                                             );
@@ -388,9 +377,9 @@ const InitialAssessment: React.FC = () => {
                             <div className="assessment-container results-container">
                                 {/* Results Header */}
                                 <div className="results-top-banner">
-                                    <h1>{t("assessment.complete", "Assessment Complete!")}</h1>
+                                    <h1>{t("initialAssessment.results.title", "Assessment Complete!")}</h1>
                                     <p>
-                                        {t("assessment.stackUp", "Here's how your soft skills stack up")}
+                                        {t("initialAssessment.results.subtitle", "Here's how your soft skills stack up")}
                                     </p>
 
                                     {/* Mascot Graphic Large */}
@@ -406,10 +395,13 @@ const InitialAssessment: React.FC = () => {
                                             <IonIcon icon={starOutline} />
                                         </div>
                                         <div className="rec-text">
-                                            <h3>{t("assessment.startHere", `Start Here: ${lowestScoreCategory}`)}</h3>
+                                            <h3>{t("initialAssessment.results.startHere", {
+                                                category: t(`initialAssessment.results.categories.${lowestScoreCategory}`),
+                                                defaultValue: `Start Here: ${lowestScoreCategory}`
+                                            })}</h3>
                                             <p>
                                                 {t(
-                                                    "assessment.recDesc",
+                                                    "initialAssessment.results.recommendation",
                                                     "Your assessment shows this is your highest growth opportunity"
                                                 )}
                                             </p>
@@ -420,7 +412,10 @@ const InitialAssessment: React.FC = () => {
                                         expand="block"
                                         onClick={() => router.push("/modules")}
                                     >
-                                        {t("assessment.goModule", `Go to ${lowestScoreCategory} Module`)}
+                                        {t("initialAssessment.results.goModule", {
+                                            category: t(`initialAssessment.results.categories.${lowestScoreCategory}`),
+                                            defaultValue: `Go to ${lowestScoreCategory} Module`
+                                        })}
                                         <IonIcon icon={arrowForwardOutline} slot="end" />
                                     </IonButton>
                                 </div>
@@ -428,17 +423,17 @@ const InitialAssessment: React.FC = () => {
                                 {/* Scores Section */}
                                 <div className="scores-section">
                                     <h3 className="scores-title">
-                                        {t("assessment.yourScores", "Your Skill Scores")}
+                                        {t("initialAssessment.results.yourScores", "Your Skill Scores")}
                                     </h3>
 
                                     <div className="score-card">
                                         <div className="score-header">
                                             <div className="score-label">
-                                                <IonIcon icon={chatbubbleOutline} /> Communication
+                                                <IonIcon icon={chatbubbleOutline} /> {t("initialAssessment.results.categories.Communication")}
                                             </div>
                                             <div className={`score-value ${communicationStatusClass}`}>
                                                 <strong>{totalCommunicationScore}%</strong>{" "}
-                                                <span>{communicationStatusText}</span>
+                                                <span>{t(`initialAssessment.results.status.${communicationStatusClass === "good" ? "excellent" : communicationStatusClass === "yellow" ? "good" : "needsWork"}`)}</span>
                                             </div>
                                         </div>
                                         <div className="score-bar-bg">
@@ -448,34 +443,34 @@ const InitialAssessment: React.FC = () => {
                                             ></div>
                                         </div>
                                         <div className="subscore-container">
-                                            <h4>Subgroups</h4>
+                                            <h4>{t("initialAssessment.results.subgroups", "Subgroups")}</h4>
                                             
                                             <div className="subscore-item">
-                                                <div className="subscore-header"><span>Public</span><span>{publicScore}%</span></div>
+                                                <div className="subscore-header"><span>{t("initialAssessment.results.subgroupsLabels.Public")}</span><span>{publicScore}%</span></div>
                                                 <div className="subscore-bar-bg"><div className="subscore-bar-fill" style={{ width: `${publicScore}%` }}></div></div>
                                             </div>
                                             <div className="subscore-item">
-                                                <div className="subscore-header"><span>Meeting</span><span>{meetingScore}%</span></div>
+                                                <div className="subscore-header"><span>{t("initialAssessment.results.subgroupsLabels.Meeting")}</span><span>{meetingScore}%</span></div>
                                                 <div className="subscore-bar-bg"><div className="subscore-bar-fill" style={{ width: `${meetingScore}%` }}></div></div>
                                             </div>
                                             <div className="subscore-item">
-                                                <div className="subscore-header"><span>Group</span><span>{groupScore}%</span></div>
+                                                <div className="subscore-header"><span>{t("initialAssessment.results.subgroupsLabels.Group")}</span><span>{groupScore}%</span></div>
                                                 <div className="subscore-bar-bg"><div className="subscore-bar-fill" style={{ width: `${groupScore}%` }}></div></div>
                                             </div>
                                             <div className="subscore-item">
-                                                <div className="subscore-header"><span>Dyad</span><span>{dyadScore}%</span></div>
+                                                <div className="subscore-header"><span>{t("initialAssessment.results.subgroupsLabels.Dyad")}</span><span>{dyadScore}%</span></div>
                                                 <div className="subscore-bar-bg"><div className="subscore-bar-fill" style={{ width: `${dyadScore}%` }}></div></div>
                                             </div>
                                             <div className="subscore-item">
-                                                <div className="subscore-header"><span>Stranger</span><span>{strangerScore}%</span></div>
+                                                <div className="subscore-header"><span>{t("initialAssessment.results.subgroupsLabels.Stranger")}</span><span>{strangerScore}%</span></div>
                                                 <div className="subscore-bar-bg"><div className="subscore-bar-fill" style={{ width: `${strangerScore}%` }}></div></div>
                                             </div>
                                             <div className="subscore-item">
-                                                <div className="subscore-header"><span>Acquaintance</span><span>{acquaintanceScore}%</span></div>
+                                                <div className="subscore-header"><span>{t("initialAssessment.results.subgroupsLabels.Acquaintance")}</span><span>{acquaintanceScore}%</span></div>
                                                 <div className="subscore-bar-bg"><div className="subscore-bar-fill" style={{ width: `${acquaintanceScore}%` }}></div></div>
                                             </div>
                                             <div className="subscore-item">
-                                                <div className="subscore-header"><span>Friend</span><span>{friendScore}%</span></div>
+                                                <div className="subscore-header"><span>{t("initialAssessment.results.subgroupsLabels.Friend")}</span><span>{friendScore}%</span></div>
                                                 <div className="subscore-bar-bg"><div className="subscore-bar-fill" style={{ width: `${friendScore}%` }}></div></div>
                                             </div>
                                         </div>
@@ -493,21 +488,21 @@ const InitialAssessment: React.FC = () => {
                 <IonAlert
                     isOpen={showExitWarning}
                     onDidDismiss={() => setShowExitWarning(false)}
-                    header={t("assessment.exitWarningTitle", "Leave Assessment?")}
+                    header={t("initialAssessment.exitWarningTitle", "Leave Assessment?")}
                     message={t(
-                        "assessment.exitWarningMessage",
+                        "initialAssessment.exitWarningMessage",
                         "If you leave now, all your current progress will be lost. Are you sure you want to exit?"
                     )}
                     buttons={[
                         {
-                            text: t("assessment.stay", "Stay"),
+                            text: t("initialAssessment.stay", "Stay"),
                             role: "cancel",
                             handler: () => {
                                 setShowExitWarning(false);
                             },
                         },
                         {
-                            text: t("assessment.exit", "Exit"),
+                            text: t("initialAssessment.exit", "Exit"),
                             role: "destructive",
                             handler: () => {
                                 setShowExitWarning(false);
