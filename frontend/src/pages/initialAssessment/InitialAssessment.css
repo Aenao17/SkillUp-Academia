@@ -164,11 +164,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 4px;
     color: #6c5ce7;
     font-weight: 600;
     font-size: 24px;
     margin-bottom: 16px;
+}
+
+.question-category ion-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.section-description {
+    font-size: 15px;
+    color: #64748b;
+    white-space: pre-line;
+    margin-top: 0;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.section-card {
+    margin-bottom: 24px;
 }
 
 .question-text {
@@ -363,8 +381,11 @@
 .score-value.needs-work strong { color: #ef4444; }
 .score-value.needs-work span { color: #ef4444; font-weight: 500; font-size: 13px; }
 
-.score-value.good strong { color: #eab308; }
-.score-value.good span { color: #eab308; font-weight: 500; font-size: 13px; }
+.score-value.yellow strong { color: #eab308; }
+.score-value.yellow span { color: #eab308; font-weight: 500; font-size: 13px; }
+
+.score-value.good strong { color: #22c55e; }
+.score-value.good span { color: #22c55e; font-weight: 500; font-size: 13px; }
 
 .score-bar-bg {
     height: 8px;
@@ -380,6 +401,113 @@
 
 .score-bar-fill.red { background: #ef4444; }
 .score-bar-fill.yellow { background: #eab308; }
+.score-bar-fill.green { background: #22c55e; }
+
+/* Subscore container */
+.subscore-container {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.subscore-container h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.subscore-item {
+    margin-bottom: 12px;
+}
+
+.subscore-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #475569;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.subscore-bar-bg {
+    height: 6px;
+    background: #f1f5f9;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.subscore-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: #6c5ce7;
+}
+
+/* ---------------------------------
+   Input Section Styles (Test 1)
+----------------------------------- */
+.input-section-container {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.section-instruction {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1e293b;
+    text-align: center;
+    margin-bottom: 12px;
+    margin-top: 0;
+}
+
+.input-question-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid #e2e8f0;
+}
+
+.input-question-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #334155;
+    margin-top: 0;
+    margin-bottom: 16px;
+    line-height: 1.4;
+}
+
+.number-input {
+    background: #f8f9fe;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 4px 16px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --background: #f8f9fe;
+}
+
+.number-input.has-focus {
+    border-color: #6c5ce7;
+}
+
+.number-input.invalid-input {
+    border-color: #ef4444 !important;
+}
+
+.validation-error-text {
+    color: #ef4444;
+    font-size: 14px;
+    margin-top: 8px;
+    margin-bottom: 0;
+}
 
 /* Responsive Desktop Wrapper Support */
 @media (min-width: 769px) {

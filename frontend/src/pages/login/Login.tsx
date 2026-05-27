@@ -89,6 +89,7 @@ const Login: React.FC = () => {
                                     value={username}
                                     placeholder="Enter your username"
                                     onIonInput={(e) => setUsername(e.detail.value ?? "")}
+                                    onKeyDown={(e) => { if (e.key === "Enter") onSubmit(); }}
                                     autocomplete="username"
                                     className="form-input"
                                 />

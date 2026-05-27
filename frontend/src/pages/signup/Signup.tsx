@@ -94,6 +94,7 @@ const Signup: React.FC = () => {
                                     value={username}
                                     placeholder={t("auth.chooseUsername")}
                                     onIonInput={(e) => setUsername(e.detail.value ?? "")}
+                                    onKeyDown={(e) => { if (e.key === "Enter") onSubmit(); }}
                                     autocomplete="username"
                                     className="form-input"
                                 />
@@ -108,6 +109,7 @@ const Signup: React.FC = () => {
                                     type="password"
                                     placeholder={t("auth.createPassword")}
                                     onIonInput={(e) => setPassword(e.detail.value ?? "")}
+                                    onKeyDown={(e) => { if (e.key === "Enter") onSubmit(); }}
                                     autocomplete="new-password"
                                     className="form-input"
                                 />
