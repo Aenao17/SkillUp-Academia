@@ -6,6 +6,7 @@ import {
     IonIcon,
     IonPage,
     IonSpinner,
+    useIonViewWillEnter
 } from "@ionic/react";
 import {
     personCircleOutline,
@@ -30,25 +31,27 @@ const Profile: React.FC = () => {
     const [progress, setProgress] = useState<UserProgressDto[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const loadProfile = async () => {
-            try {
-                const [userData, progressData] = await Promise.all([
-                    getCurrentUser(),
-                    getUserProgress(),
-                ]);
+    const loadProfile = async () => {
+        try {
+            setLoading(true);
 
-                setUser(userData);
-                setProgress(progressData);
-            } catch (error) {
-                console.error("Failed to load profile", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+            const [userData, progressData] = await Promise.all([
+                getCurrentUser(),
+                getUserProgress(),
+            ]);
 
+            setUser(userData);
+            setProgress(progressData);
+        } catch (error) {
+            console.error("Failed to load profile", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useIonViewWillEnter(() => {
         loadProfile();
-    }, []);
+    });
 
     const completedLessons = progress.filter((item) => item.completed).length;
 
