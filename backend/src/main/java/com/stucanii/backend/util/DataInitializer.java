@@ -26,7 +26,7 @@ public class DataInitializer implements CommandLineRunner {
         User admin = createAdmin();
         User student = createStudent();
 
-        createCompleteSampleModule(student);
+        //createCompleteSampleModule(student);
     }
 
     private User createAdmin() {

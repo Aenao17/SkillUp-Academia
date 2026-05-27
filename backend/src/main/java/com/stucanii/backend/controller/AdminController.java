@@ -117,6 +117,7 @@ public class AdminController {
     public ResponseEntity<Void> deleteLesson(
             @PathVariable Long lessonId
     ) {
+        System.out.println("Deleting lesson with ID: " + lessonId);
         lessonService.deleteLesson(lessonId);
 
         return ResponseEntity.noContent().build();

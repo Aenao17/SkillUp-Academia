@@ -4,6 +4,7 @@ import {
     IonPage,
     IonSpinner,
     useIonRouter,
+    useIonViewWillEnter
 } from "@ionic/react";
 import {
     arrowBackOutline,
@@ -29,20 +30,24 @@ const ModuleDetails: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const { t } = useTranslation();
 
-    useEffect(() => {
-        const loadModule = async () => {
-            try {
-                const data = await getModuleById(id);
-                setModule(data);
-            } catch (error) {
-                console.error("Failed to load module", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const loadModule = async () => {
+        try {
+            setLoading(true);
 
+            const data = await getModuleById(id);
+            console.log("MODULE DETAILS REFRESH:", data);
+
+            setModule(data);
+        } catch (error) {
+            console.error("Failed to load module", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useIonViewWillEnter(() => {
         loadModule();
-    }, [id]);
+    });
 
     const completedLessons =
         module?.lessons.filter((lesson) => lesson.completed).length ?? 0;
@@ -69,7 +74,7 @@ const ModuleDetails: React.FC = () => {
                                 <>
                                     <section className="module-top">
                                         <div className="module-nav">
-                                            <button onClick={() => router.push("/modules")}>
+                                            <button onClick={() => router.goBack()}>
                                                 <IonIcon icon={arrowBackOutline} />
                                                 {t("moduleDetails.backToModules")}
                                             </button>

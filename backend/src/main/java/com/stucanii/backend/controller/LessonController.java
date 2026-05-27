@@ -6,6 +6,8 @@ import com.stucanii.backend.dto.requests.LessonRequest;
 import com.stucanii.backend.service.LessonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +33,9 @@ public class LessonController {
 
     @GetMapping("/{lessonId}")
     public ResponseEntity<LessonDetailsDTO> getLessonById(
+            @AuthenticationPrincipal UserDetails user,
             @PathVariable Long lessonId
     ) {
-        return ResponseEntity.ok(lessonService.getLessonById(lessonId));
+        return ResponseEntity.ok(lessonService.getLessonById(user, lessonId));
     }
 }

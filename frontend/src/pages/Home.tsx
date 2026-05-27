@@ -1,5 +1,5 @@
-import { IonContent, IonPage } from "@ionic/react";
-import React, { useEffect, useState } from "react";
+import { IonContent, IonPage, useIonViewWillEnter} from "@ionic/react";
+import React, { useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import "./Home.css";
 
@@ -21,7 +21,7 @@ const Home: React.FC = () => {
     const [modules, setModules] = useState<LearningModuleDto[]>([]);
     const [loadingModules, setLoadingModules] = useState(true);
 
-    useEffect(() => {
+    const loadHomeData = async () => {
         const hidePopup = localStorage.getItem("hideInitialAssessmentPopup");
         const completed = localStorage.getItem("hasCompletedInitialAssessment");
 
@@ -29,8 +29,24 @@ const Home: React.FC = () => {
 
         if (hidePopup !== "true" && completed !== "true") {
             setShowAssessmentPopup(true);
+        } else {
+            setShowAssessmentPopup(false);
         }
-    }, []);
+
+        try {
+            setLoadingModules(true);
+            const data = await getModules();
+            setModules(data);
+        } catch (e) {
+            console.error("Failed to fetch modules", e);
+        } finally {
+            setLoadingModules(false);
+        }
+    };
+
+    useIonViewWillEnter(() => {
+        loadHomeData();
+    });
 
     useEffect(() => {
         const fetchModules = async () => {
