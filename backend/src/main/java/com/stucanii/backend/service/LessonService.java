@@ -6,9 +6,11 @@ import com.stucanii.backend.dto.dtos.LessonTestDTO;
 import com.stucanii.backend.dto.mappers.LessonMapper;
 import com.stucanii.backend.dto.requests.LessonRequest;
 import com.stucanii.backend.model.*;
+import com.stucanii.backend.repository.LessonProgressRepository;
 import com.stucanii.backend.repository.LessonRepository;
 import com.stucanii.backend.repository.LessonTestRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +22,7 @@ public class LessonService {
     private final LessonRepository lessonRepository;
     private final LessonMapper lessonMapper;
     private final LessonTestRepository testRepository;
+    private final LessonProgressRepository progressRepository;
 
     public LessonDetailsDTO createLesson(LessonRequest request) {
         Lesson lesson = Lesson.builder()
@@ -69,11 +72,15 @@ public class LessonService {
         return lessonMapper.toDetailsDto(savedLesson, lessonProgress);
     }
 
-    public LessonDetailsDTO getLessonById(Long lessonId) {
+    public LessonDetailsDTO getLessonById(UserDetails user, Long lessonId) {
         Lesson lesson = lessonRepository.findById(lessonId)
                 .orElseThrow(() -> new RuntimeException("Lesson not found"));
 
-        return lessonMapper.toDetailsDto(lesson, null);
+        LessonProgress lessonProgress = progressRepository.findByUserUsernameAndLesson(user.getUsername(), lesson)
+                .orElse(null);
+
+
+        return lessonMapper.toDetailsDto(lesson, lessonProgress);
     }
 
     public List<LessonSummaryDTO> getAllLessons() {

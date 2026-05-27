@@ -45,6 +45,8 @@ public class LessonProgressService {
 
         LessonProgress savedProgress = progressRepository.save(progress);
 
+        
+
         return progressMapper.toDto(savedProgress);
     }
 

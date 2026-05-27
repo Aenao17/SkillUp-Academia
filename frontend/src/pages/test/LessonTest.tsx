@@ -145,7 +145,7 @@ const LessonTest: React.FC = () => {
                                                 <IonButton
                                                     expand="block"
                                                     fill="outline"
-                                                    onClick={() => router.push("/modules")}
+                                                    onClick={() => router.push("/lessons/" + id)}
                                                 >
                                                     {t("test.backToLesson")}
                                                 </IonButton>
@@ -228,7 +228,7 @@ const LessonTest: React.FC = () => {
                                                 <IonButton
                                                     expand="block"
                                                     fill="outline"
-                                                    onClick={() => router.push("/modules")}
+                                                    onClick={() => router.goBack()}
                                                 >
                                                     {t("test.backToLesson")}
                                                 </IonButton>

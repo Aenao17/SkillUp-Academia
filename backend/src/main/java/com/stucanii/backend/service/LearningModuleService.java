@@ -83,7 +83,6 @@ public class LearningModuleService {
     public void deleteModule(Long moduleId) {
         LearningModule module = moduleRepository.findById(moduleId)
                 .orElseThrow(() -> new RuntimeException("Module not found"));
-
         moduleRepository.delete(module);
     }
 }

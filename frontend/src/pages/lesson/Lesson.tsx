@@ -15,13 +15,14 @@ import {
     playCircleOutline,
 } from "ionicons/icons";
 import React, { useEffect, useState } from "react";
-import { useIonRouter } from "@ionic/react";
+
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
 import MobileTabBar from "../../components/MobileTabBar/MobileTabBar";
 import { getLessonById, LessonDetailsDto } from "../../api/api";
 import "./Lesson.css";
+import { useIonRouter, useIonViewWillEnter } from "@ionic/react";
 
 const Lesson: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -31,11 +32,13 @@ const Lesson: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const { t } = useTranslation();
 
-    useEffect(() => {
+
         const loadLesson = async () => {
             try {
+                setLoading(true);
+
                 const data = await getLessonById(id);
-                console.log(data);
+
                 setLesson(data);
             } catch (error) {
                 console.error("Failed to load lesson", error);
@@ -44,8 +47,9 @@ const Lesson: React.FC = () => {
             }
         };
 
-        loadLesson();
-    }, [id]);
+        useIonViewWillEnter(() => {
+            loadLesson();
+        });
 
     return (
         <IonPage>

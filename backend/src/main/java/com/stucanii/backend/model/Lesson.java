@@ -35,6 +35,9 @@ public class Lesson {
     @Builder.Default
     private List<LearningModule> modules = new ArrayList<>();
 
+    @OneToMany(mappedBy = "lesson", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<LessonProgress> progresses = new ArrayList<>();
+
     public void setTest(LessonTest test) {
         this.test = test;
         if (test != null) {
