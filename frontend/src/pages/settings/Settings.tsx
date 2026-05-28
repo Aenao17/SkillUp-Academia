@@ -4,6 +4,7 @@ import {
     IonIcon,
     IonPage,
     IonToggle,
+    useIonViewWillEnter,
 } from "@ionic/react";
 import {
     globeOutline,
@@ -18,8 +19,8 @@ import {
     createOutline,
     keyOutline,
 } from "ionicons/icons";
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { useIonRouter } from "@ionic/react";
 import { useTranslation } from "react-i18next";
 import { LANGUAGE_KEY, LANGUAGES, Language } from "../language/Language";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
@@ -35,19 +36,19 @@ const Settings: React.FC = () => {
     const [notifications, setNotifications] = useState(true);
     const [soundEffects, setSoundEffects] = useState(isSoundEnabled);
     const [showEditAlert, setShowEditAlert] = useState(false);
-    const history = useHistory();
+    const router = useIonRouter();
 
     const activeLangCode = localStorage.getItem(LANGUAGE_KEY) ?? "en";
     const activeLang = LANGUAGES.find((l: Language) => l.code === activeLangCode) ?? LANGUAGES[0];
     const { t } = useTranslation();
 
-    useEffect(() => {
+    useIonViewWillEnter(() => {
         getCurrentUser().then(setUser).catch(console.error);
-    }, []);
+    });
 
     const handleLogOut = () => {
         clearTokens();
-        history.replace("/login");
+        router.push("/login", "root", "replace");
     };
 
     return (
@@ -76,7 +77,7 @@ const Settings: React.FC = () => {
                             <div className="settings-card">
                                 <button
                                     className="settings-row settings-row--btn"
-                                    onClick={() => history.push("/settings/language")}
+                                    onClick={() => router.push("/settings/language", "forward")}
                                 >
                                     <span className="settings-row-icon settings-row-icon--blue">
                                         <IonIcon icon={globeOutline} />
@@ -119,7 +120,7 @@ const Settings: React.FC = () => {
 
                                 <div className="settings-divider" />
 
-                                <button className="settings-row settings-row--btn" onClick={() => history.push("/settings/daily-reminder")}>
+                                <button className="settings-row settings-row--btn" onClick={() => router.push("/settings/daily-reminder", "forward")}>
                                     <span className="settings-row-icon settings-row-icon--purple">
                                         <IonIcon icon={timeOutline} />
                                     </span>
@@ -141,7 +142,7 @@ const Settings: React.FC = () => {
 
                                 <div className="settings-divider settings-desktop-only" />
 
-                                <button className="settings-row settings-row--btn" onClick={() => history.push("/settings/privacy")}>
+                                <button className="settings-row settings-row--btn" onClick={() => router.push("/settings/privacy", "forward")}>
                                     <span className="settings-row-icon settings-row-icon--blue">
                                         <IonIcon icon={shieldOutline} />
                                     </span>
@@ -151,7 +152,7 @@ const Settings: React.FC = () => {
 
                                 <div className="settings-divider" />
 
-                                <button className="settings-row settings-row--btn" onClick={() => history.push("/settings/achievements")}>
+                                <button className="settings-row settings-row--btn" onClick={() => router.push("/settings/achievements", "forward")}>
                                     <span className="settings-row-icon settings-row-icon--yellow">
                                         <IonIcon icon={trophyOutline} />
                                     </span>
@@ -161,7 +162,7 @@ const Settings: React.FC = () => {
 
                                 <div className="settings-divider" />
 
-                                <button className="settings-row settings-row--btn" onClick={() => history.push("/settings/help")}>
+                                <button className="settings-row settings-row--btn" onClick={() => router.push("/settings/help", "forward")}>
                                     <span className="settings-row-icon settings-row-icon--gray">
                                         <IonIcon icon={helpCircleOutline} />
                                     </span>

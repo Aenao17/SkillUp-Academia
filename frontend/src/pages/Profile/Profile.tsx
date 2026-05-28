@@ -6,6 +6,7 @@ import {
     IonIcon,
     IonPage,
     IonSpinner,
+    useIonViewWillEnter,
 } from "@ionic/react";
 import {
     personCircleOutline,
@@ -13,7 +14,7 @@ import {
     checkmarkCircleOutline,
     schoolOutline,
 } from "ionicons/icons";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
 import MobileTabBar from "../../components/MobileTabBar/MobileTabBar";
@@ -30,25 +31,29 @@ const Profile: React.FC = () => {
     const [progress, setProgress] = useState<UserProgressDto[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const loadProfile = async () => {
-            try {
-                const [userData, progressData] = await Promise.all([
-                    getCurrentUser(),
-                    getUserProgress(),
-                ]);
+    const loadProfile = async () => {
+        try {
+            setLoading(true);
+            setUser(null);
+            setProgress([]);
 
-                setUser(userData);
-                setProgress(progressData);
-            } catch (error) {
-                console.error("Failed to load profile", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+            const [userData, progressData] = await Promise.all([
+                getCurrentUser(),
+                getUserProgress(),
+            ]);
 
-        loadProfile();
-    }, []);
+            setUser(userData);
+            setProgress(progressData);
+        } catch (error) {
+            console.error("Failed to load profile", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useIonViewWillEnter(() => {
+        void loadProfile();
+    });
 
     const completedLessons = progress.filter((item) => item.completed).length;
 

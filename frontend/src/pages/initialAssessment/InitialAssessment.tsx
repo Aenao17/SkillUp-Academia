@@ -24,6 +24,7 @@ import MobileTabBar from "../../components/MobileTabBar/MobileTabBar";
 import lumiMascot from "../../assets/lumi_fixed.svg";
 import "./InitialAssessment.css";
 import { assessmentData, ChoiceQuestion, InputQuestion } from "./assessmentData";
+import { getCurrentUser } from "../../api/api";
 
 const InitialAssessment: React.FC = () => {
     const router = useIonRouter();
@@ -65,7 +66,7 @@ const InitialAssessment: React.FC = () => {
                 setCurrentQuestionIndex(0);
             } else {
                 contentRef.current?.scrollToTop(300);
-                completeAssessment();
+                void completeAssessment();
             }
         } else if (currentQuestionIndex < currentSection.questions.length - 1) {
             setCurrentQuestionIndex((prev) => prev + 1);
@@ -75,7 +76,7 @@ const InitialAssessment: React.FC = () => {
             setCurrentQuestionIndex(0);
         } else {
             contentRef.current?.scrollToTop(300);
-            completeAssessment();
+            void completeAssessment();
         }
     };
 
@@ -101,13 +102,19 @@ const InitialAssessment: React.FC = () => {
         }
     };
 
-    const completeAssessment = () => {
-        localStorage.setItem("hasCompletedInitialAssessment", "true");
+    const completeAssessment = async () => {
+        const currentUser = await getCurrentUser();
+
+        localStorage.setItem(
+            `hasCompletedInitialAssessment_${currentUser.userId}`,
+            "true"
+        );
+
         setIsComplete(true);
     };
 
     const handleSkip = () => {
-        completeAssessment();
+        void completeAssessment();
     };
 
     const getAnswerNum = (id: number) => {

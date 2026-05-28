@@ -2,6 +2,7 @@ import { IonAlert } from "@ionic/react";
 import { useIonRouter } from "@ionic/react";
 import { useTranslation } from "react-i18next";
 import "./InitialAssessmentAlert.css";
+import { getCurrentUser } from "../../api/api";
 
 type InitialAssessmentAlertProps = {
     isOpen: boolean;
@@ -32,19 +33,25 @@ const InitialAssessmentAlert: React.FC<InitialAssessmentAlertProps> = ({
                 { text: t("assessment.maybeLater"), role: "cancel" },
                 { text: t("assessment.startTest"), role: "confirm" },
             ]}
-            onDidDismiss={(e) => {
-                const selected = e.detail.data?.values ?? [];
+            
+            onDidDismiss={async (e) => {
+            const selected = e.detail.data?.values ?? [];
 
-                if (selected.includes("never")) {
-                    localStorage.setItem("hideInitialAssessmentPopup", "true");
-                }
+            if (selected.includes("never")) {
+                const currentUser = await getCurrentUser();
 
-                onClose();
+                localStorage.setItem(
+                    `hideInitialAssessmentPopup_${currentUser.userId}`,
+                    "true"
+                );
+            }
 
-                if (e.detail.role === "confirm") {
-                    router.push("/initial-assessment");
-                }
-            }}
+            onClose();
+
+            if (e.detail.role === "confirm") {
+                router.push("/initial-assessment");
+            }
+        }}
         />
     );
 };
