@@ -12,11 +12,13 @@
 }
 
 .layout {
+    display: flex;
     min-height: 100vh;
     background: var(--bg-soft);
 }
 
 .main-content {
+    flex: 1;
     margin-left: 310px;
     min-height: 100%;
     padding: 64px 48px 120px;
@@ -51,7 +53,25 @@
 
 @media (min-width: 1536px) {
     .modules-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1920px) {
+    .modules-list {
         grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media (min-width: 2560px) {
+    .modules-list {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media (min-width: 3400px) {
+    .modules-list {
+        grid-template-columns: repeat(8, 1fr);
     }
 }
 
@@ -139,7 +159,7 @@
 
     .modules-list {
         margin: 18px;
-        padding-bottom: 40px;
+        padding-bottom: 0px;
     }
 }
 
