@@ -160,7 +160,7 @@ export async function postJsonAuth<TResponse>(
 }
 
 export type CurrentUserDto ={
-    id:number;
+    userId:number;
     username: string;
     role: string;
 };

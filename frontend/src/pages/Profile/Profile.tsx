@@ -6,7 +6,7 @@ import {
     IonIcon,
     IonPage,
     IonSpinner,
-    useIonViewWillEnter
+    useIonViewWillEnter,
 } from "@ionic/react";
 import {
     personCircleOutline,
@@ -14,7 +14,7 @@ import {
     checkmarkCircleOutline,
     schoolOutline,
 } from "ionicons/icons";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
 import MobileTabBar from "../../components/MobileTabBar/MobileTabBar";
@@ -34,6 +34,8 @@ const Profile: React.FC = () => {
     const loadProfile = async () => {
         try {
             setLoading(true);
+            setUser(null);
+            setProgress([]);
 
             const [userData, progressData] = await Promise.all([
                 getCurrentUser(),
@@ -50,7 +52,7 @@ const Profile: React.FC = () => {
     };
 
     useIonViewWillEnter(() => {
-        loadProfile();
+        void loadProfile();
     });
 
     const completedLessons = progress.filter((item) => item.completed).length;

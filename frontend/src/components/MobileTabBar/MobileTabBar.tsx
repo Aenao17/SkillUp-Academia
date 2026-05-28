@@ -29,7 +29,14 @@ const MobileTabBar: React.FC = () => {
     const token = getAccessToken();
     const payload = token ? parseJwt(token) : null;
 
-    const isAdmin = payload?.sub === "admin";
+    const isAdmin =
+    payload?.sub === "admin" ||
+    payload?.role === "ROLE_ADMIN" ||
+    payload?.role === "ADMIN" ||
+    payload?.roles?.includes("ADMIN") ||
+    payload?.roles?.includes("ROLE_ADMIN") ||
+    payload?.authorities?.includes("ADMIN") ||
+    payload?.authorities?.includes("ROLE_ADMIN");
 
     const isActive = (path: string) =>
         location.pathname === path ||

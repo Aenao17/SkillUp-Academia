@@ -57,7 +57,7 @@ const Login: React.FC = () => {
             });
 
             setTokens(resp.accessToken, resp.refreshToken);
-            router.push("/home", "root");
+            router.push("/home", "root", "replace");
         } catch (e) {
             const msg = e instanceof Error ? e.message : "Login failed";
             setErrorMessage(msg);

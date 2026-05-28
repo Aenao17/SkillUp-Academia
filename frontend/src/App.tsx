@@ -49,42 +49,60 @@ import AchievementsPage from "./pages/achievements/Achievements";
 import HelpSupportPage from "./pages/helpSupport/HelpSupport";
 import InitialAssessment from './pages/initialAssessment/InitialAssessment';
 import "./theme/global.css";
+import { useEffect, useState } from 'react';
+import { AUTH_CHANGED_EVENT } from './auth/authStorage';
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactHashRouter>
-      <IonRouterOutlet>
-       <ProtectedRoute exact path="/home" component={Home} />
+const App: React.FC = () => {
+    const [authVersion, setAuthVersion] = useState(0);
 
-          <Route exact path="/login">
-              <Login />
-          </Route>
+    useEffect(() => {
+        const handleAuthChanged = () => {
+            setAuthVersion((version) => version + 1);
+        };
 
-          <Route exact path="/signup">
-              <Signup />
-          </Route>
+        window.addEventListener(AUTH_CHANGED_EVENT, handleAuthChanged);
 
-        <Route exact path="/">
-          <Redirect to="/login" />
-        </Route>
-          <ProtectedRoute exact path="/profile" component={Profile} />
-          <ProtectedRoute exact path="/modules/:id" component={ModuleDetails} />
-          <ProtectedRoute exact path="/lessons/:id/test" component={LessonTest} />
-          <ProtectedRoute exact path="/lessons/:id" component={Lesson} />
-          <ProtectedRoute exact path="/modules" component={Modules} />
-          <ProtectedRoute exact path="/initial-assessment" component={InitialAssessment} />
-          <AdminRoute exact path="/admin" component={Admin} />
-          <ProtectedRoute exact path="/settings" component={Settings} />
-          <ProtectedRoute exact path="/settings/language" component={LanguagePage} />
-          <ProtectedRoute exact path="/settings/daily-reminder" component={DailyReminderPage} />
-          <ProtectedRoute exact path="/settings/privacy" component={PrivacyPage} />
-          <ProtectedRoute exact path="/settings/achievements" component={AchievementsPage} />
-          <ProtectedRoute exact path="/settings/help" component={HelpSupportPage} />
+        return () => {
+            window.removeEventListener(AUTH_CHANGED_EVENT, handleAuthChanged);
+        };
+    }, []);
 
-      </IonRouterOutlet>
-    </IonReactHashRouter>
-  </IonApp>
-);
+    return (
+        <IonApp>
+            <IonReactHashRouter>
+                <IonRouterOutlet key={authVersion}>
+                    <ProtectedRoute exact path="/home" component={Home} />
+
+                    <Route exact path="/login">
+                        <Login />
+                    </Route>
+
+                    <Route exact path="/signup">
+                        <Signup />
+                    </Route>
+
+                    <Route exact path="/">
+                        <Redirect to="/login" />
+                    </Route>
+
+                    <ProtectedRoute exact path="/profile" component={Profile} />
+                    <ProtectedRoute exact path="/modules/:id" component={ModuleDetails} />
+                    <ProtectedRoute exact path="/lessons/:id/test" component={LessonTest} />
+                    <ProtectedRoute exact path="/lessons/:id" component={Lesson} />
+                    <ProtectedRoute exact path="/modules" component={Modules} />
+                    <ProtectedRoute exact path="/initial-assessment" component={InitialAssessment} />
+                    <AdminRoute exact path="/admin" component={Admin} />
+                    <ProtectedRoute exact path="/settings" component={Settings} />
+                    <ProtectedRoute exact path="/settings/language" component={LanguagePage} />
+                    <ProtectedRoute exact path="/settings/daily-reminder" component={DailyReminderPage} />
+                    <ProtectedRoute exact path="/settings/privacy" component={PrivacyPage} />
+                    <ProtectedRoute exact path="/settings/achievements" component={AchievementsPage} />
+                    <ProtectedRoute exact path="/settings/help" component={HelpSupportPage} />
+                </IonRouterOutlet>
+            </IonReactHashRouter>
+        </IonApp>
+    );
+};
 
 export default App;

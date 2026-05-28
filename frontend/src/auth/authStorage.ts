@@ -1,9 +1,16 @@
 const ACCESS_KEY = "skillup_access_token";
 const REFRESH_KEY = "skillup_refresh_token";
 
+export const AUTH_CHANGED_EVENT = "skillup-auth-changed";
+
+function notifyAuthChanged() {
+    window.dispatchEvent(new Event(AUTH_CHANGED_EVENT));
+}
+
 export function setTokens(accessToken: string, refreshToken: string) {
     localStorage.setItem(ACCESS_KEY, accessToken);
     localStorage.setItem(REFRESH_KEY, refreshToken);
+    notifyAuthChanged();
 }
 
 export function getAccessToken(): string | null {
@@ -17,6 +24,7 @@ export function getRefreshToken(): string | null {
 export function clearTokens() {
     localStorage.removeItem(ACCESS_KEY);
     localStorage.removeItem(REFRESH_KEY);
+    notifyAuthChanged();
 }
 
 export function isAuthenticated(): boolean {

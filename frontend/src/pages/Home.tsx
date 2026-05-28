@@ -1,10 +1,10 @@
 import { IonContent, IonPage, useIonViewWillEnter} from "@ionic/react";
-import React, { useEffect, useState} from "react";
+import React, { useState} from "react";
 import { useTranslation } from "react-i18next";
 import "./Home.css";
 
 import { LearningModuleDto } from "../types/module";
-import {getModules} from "../api/api";
+import { getModules, getCurrentUser } from "../api/api";
 import SidebarNav from "../components/SidebarNav/SidebarNav";
 import InitialAssessmentCard from "../components/InitialAssessmentCard/InitialAssessmentCard";
 import ModuleCard from "../components/ModuleCard/ModuleCard";
@@ -22,23 +22,27 @@ const Home: React.FC = () => {
     const [loadingModules, setLoadingModules] = useState(true);
 
     const loadHomeData = async () => {
-        const hidePopup = localStorage.getItem("hideInitialAssessmentPopup");
-        const completed = localStorage.getItem("hasCompletedInitialAssessment");
-
-        setHasCompletedInitialAssessment(completed === "true");
-
-        if (hidePopup !== "true" && completed !== "true") {
-            setShowAssessmentPopup(true);
-        } else {
-            setShowAssessmentPopup(false);
-        }
-
         try {
             setLoadingModules(true);
+
+            const currentUser = await getCurrentUser();
+
+            const hidePopup = localStorage.getItem(
+                `hideInitialAssessmentPopup_${currentUser.userId}`
+            );
+
+            const completed = localStorage.getItem(
+                `hasCompletedInitialAssessment_${currentUser.userId}`
+            );
+
+            setHasCompletedInitialAssessment(completed === "true");
+            setShowAssessmentPopup(hidePopup !== "true" && completed !== "true");
+
             const data = await getModules();
             setModules(data);
         } catch (e) {
-            console.error("Failed to fetch modules", e);
+            console.error("Failed to load home data", e);
+            setShowAssessmentPopup(false);
         } finally {
             setLoadingModules(false);
         }
@@ -47,22 +51,7 @@ const Home: React.FC = () => {
     useIonViewWillEnter(() => {
         loadHomeData();
     });
-
-    useEffect(() => {
-        const fetchModules = async () => {
-            try {
-                const data = await getModules();
-                setModules(data);
-            } catch (e) {
-                console.error("Failed to fetch modules", e);
-            } finally {
-                setLoadingModules(false);
-            }
-        };
-
-        fetchModules();
-    }, []);
-
+    
     return (
         <IonPage>
             <IonContent>
