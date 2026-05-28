@@ -12,6 +12,9 @@
 }
 
 .layout {
+    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
     display: flex;
     min-height: 100vh;
     background: var(--bg-soft);
@@ -21,6 +24,8 @@
     flex: 1;
     margin-left: 310px;
     min-height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     padding: 64px 48px 120px;
     background: var(--bg-soft);
 }
@@ -46,33 +51,14 @@
 }
 
 @media (min-width: 1280px) {
-    .modules-list {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (min-width: 1536px) {
-    .modules-list {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-@media (min-width: 1920px) {
-    .modules-list {
-        grid-template-columns: repeat(5, 1fr);
-    }
-}
-
-@media (min-width: 2560px) {
-    .modules-list {
-        grid-template-columns: repeat(6, 1fr);
-    }
-}
-
-@media (min-width: 3400px) {
-    .modules-list {
-        grid-template-columns: repeat(8, 1fr);
-    }
+      .modules-list {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
+        gap: 20px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow: visible !important;
+      }
 }
 
 .modules-list p {
